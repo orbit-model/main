@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2017",
     "module": "commonjs",
+    "target": "es2017",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "inlineSources": true,
     "inlineSourceMap": true,
     "declaration": true,
-    "strict": true,
+    "strict": false,
     "newLine": "LF",
     "outDir": "dist"
   },

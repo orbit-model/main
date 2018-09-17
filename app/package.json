@@ -1,0 +1,16 @@
+{
+  "name": "orbit-model-test-app",
+  "version": "0.1.0",
+  "description": "Test App for obit models",
+  "main": "src/index.ts",
+  "author": "Bernhard Halbartschlager <halbart.bernhard+npm@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "debug": "tsc -w"
+  },
+  "dependencies": {
+    "orbit-model": "../",
+    "typescript": "^3.0.3"
+  }
+}
