@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A models abstraction for Orbit.",
   "contributors": [
-    "Dan Gebhardt <dan@cerebris.com>",
     "Bernhard Halbartschlager <halbart.bernhard+npm@gmail.com>"
   ],
   "keywords": [
