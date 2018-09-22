@@ -26,6 +26,7 @@
   "dependencies": {
     "@orbit/core": "^0.15.21",
     "@orbit/data": "^0.15.21",
+    "@orbit/store": "^0.15.21",
     "@orbit/utils": "^0.15.21",
     "reflect-metadata": "^0.1.12"
   },
