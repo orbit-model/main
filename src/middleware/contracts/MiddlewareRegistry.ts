@@ -9,8 +9,8 @@ export default interface MiddlewareRegistry<H, M> {
   getAdapter(): Adapter<M>;
   setAdapter(adapter: Adapter<M>);
 
-  getRelationshipAdapter(): RelationshipAdapter;
-  setRelationshipAdapter(adapter: RelationshipAdapter);
+  getRelationshipAdapter(): RelationshipAdapter<M>;
+  setRelationshipAdapter(adapter: RelationshipAdapter<M>);
 
   getModelSerializer(): ModelSerializer<H, M>;
   setModelSerializer(serializer: ModelSerializer<H, M>);
@@ -20,5 +20,6 @@ export default interface MiddlewareRegistry<H, M> {
 
 
   getServices(): Array<AdapterService<M>>;
+  runHooks<O>(hookName: string, options: O);
 
 }
