@@ -1,20 +1,19 @@
-import Model from './Model';
 
-export default interface RelationshipAdapter {
+export default interface RelationshipAdapter<MODEL /* extends Model */> {
   // hasOne relationship:
-  getRelatedModel<T extends Model, R extends Model>(model: T, relationship: string): Promise<R>;
+  getRelatedModel<T extends MODEL, R extends MODEL>(model: T, relationship: string): Promise<R>;
 
-  setRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void>;
+  setRelatedModel<T extends MODEL, R extends MODEL>(model: T, value: R, relationship?: string): Promise<void>;
 
 
   // hasMany relationship:
-  getAllRelatedModels<T extends Model, R extends Model>(model: T, relationship: string): Promise<R[]>;
+  getAllRelatedModels<T extends MODEL, R extends MODEL>(model: T, relationship: string): Promise<R[]>;
 
-  addRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void>;
+  addRelatedModel<T extends MODEL, R extends MODEL>(model: T, value: R, relationship?: string): Promise<void>;
 
-  removeRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void>;
+  removeRelatedModel<T extends MODEL, R extends MODEL>(model: T, value: R, relationship?: string): Promise<void>;
 
-  replaceRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void>;
+  replaceRelatedModels<T extends MODEL, R extends MODEL>(model: T, value: R[], relationship?: string): Promise<void>;
 
-  syncRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void>;
+  syncRelatedModels<T extends MODEL, R extends MODEL>(model: T, value: R[], relationship?: string): Promise<void>;
 }
