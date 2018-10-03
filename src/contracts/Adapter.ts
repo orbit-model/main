@@ -1,17 +1,17 @@
 import Model from './Model';
 import { Record } from "@orbit/data";
 
-export default interface Adapter {
-  createFromRecord<T extends Model>(record: Record, setter?: (attr: string, value: any, model: T) => void): T;
+export default interface Adapter<M /* extends Model */> {
+  createFromRecord(record: Record, setter?: (attr: string, value: any, model: M) => void): M;
 
-  updateModel<T extends Model>(
+  updateModel(
     record: Record,
-    model: T,
-    getter?: (attr: string, model?: T) => any,    // do we need a getter?
-    setter?: (attr: string, value: any, model?: T) => void
+    model: M,
+    getter?: (attr: string, model?: M) => any,    // do we need a getter?
+    setter?: (attr: string, value: any, model?: M) => void
   ): void;
 
-  save<T extends Model>(model: T, getter?: (attr: string, model?: T) => any): Promise<void>;
+  save(model: M, getter?: (attr: string, model?: M) => any): Promise<void>;
 
-  destroy<T extends Model>(model: T, getter?: (attr: string, model?: T) => any): Promise<void>;
+  destroy(model: M, getter?: (attr: string, model?: M) => any): Promise<void>;
 }
