@@ -1,5 +1,6 @@
+import Injectable from "./Injectable";
 
-export default interface RelationshipAdapter<MODEL /* extends Model */> {
+export default interface RelationshipAdapter<MODEL /* extends Model */> extends Injectable {
   // hasOne relationship:
   getRelatedModel<T extends MODEL, R extends MODEL>(model: T, relationship: string): Promise<R>;
 
