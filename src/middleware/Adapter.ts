@@ -6,6 +6,10 @@ import HiddenOrbitProp from "../contracts/HiddenOrbitProp";
 import Container from "../contracts/Container";
 import ModelSerializer from "./contracts/ModelSerializer";
 import RecordSerializer from "./contracts/RecordSerializer";
+import OrbitReflection from "../contracts/OrbitReflection";
+import { Dict } from "@orbit/utils";
+import { AttributeInfo } from "../contracts/ModelInfo";
+import HiddenOrbit from "../contracts/HiddenOrbit";
 
 
 export default class Adapter implements AdapterContract<Model> {
@@ -33,18 +37,47 @@ export default class Adapter implements AdapterContract<Model> {
     model = argsAfter.model;
     modelSetter = argsAfter.setter;
 
+    let reflection = modelSerializer.getOrbitReflection(modelKlass);
     let attrs = recordSerializer.getAttributeValues(record);
-    for (let attr in attrs) {
-      if (attrs.hasOwnProperty(attr)) {
-        modelSetter(attr, attrs[attr], model);
-      }
-    }
+    this.initialModelFill(attrs, reflection, modelSetter, model);
 
     let argsFill = { model, setter: modelSetter };
     registry.runHooks("afterCreateFill", argsFill);
 
     return argsFill.model;
   }
+
+  private initialModelFill(attrs: Dict<any>, reflection: OrbitReflection, modelSetter, model) {
+    for (let attr in attrs) {
+      if (attrs.hasOwnProperty(attr)) {
+        let attrInfo = this.findAttrInfo(reflection, attr);
+        if (attrInfo) {
+          modelSetter(attrInfo.attributeName, attrs[attr], model);
+        } else {
+          // todo: want to store the value anywhere?
+        }
+      }
+    }
+  }
+
+  private findAttrInfo(reflection: OrbitReflection, attr: string): AttributeInfo {
+    let attrs = reflection.modelInfo.attributes;
+    // try fast track (attributeName === name)
+    if (typeof attrs[attr] === 'object' && attrs[attr].name === attr) {
+      return attrs[attr];
+    }
+
+    for(let attrName in attrs) {
+      if (attrs.hasOwnProperty(attrName)) {
+        if (attrs[attrName].name === attr) {
+          return attrs[attrName];
+        }
+      }
+    }
+
+    return null;
+  }
+
 
   destroy<M extends Model>(model: M, getter?: (attr: string, model?: M) => any): Promise<void> {
     return undefined;
