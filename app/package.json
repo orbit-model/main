@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "debug": "tsc -w"
+    "dev": "tsc -w"
   },
   "dependencies": {
     "orbit-model": "../",

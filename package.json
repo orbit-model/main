@@ -17,7 +17,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "debug": "tsc -w",
+    "dev": "tsc -w",
     "build": "rm -rf dist && BROCCOLI_ENV=dist broccoli build dist",
     "build:tests": "rm -rf tests && BROCCOLI_ENV=tests broccoli build tests",
     "prepublish": "npm run build",
