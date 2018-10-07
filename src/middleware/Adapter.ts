@@ -9,7 +9,7 @@ import RecordSerializer from "./contracts/RecordSerializer";
 import OrbitReflection from "../contracts/OrbitReflection";
 import { Dict } from "@orbit/utils";
 import { AttributeInfo } from "../contracts/ModelInfo";
-import HiddenOrbit from "../contracts/HiddenOrbit";
+import findAttributeInfoByName from "../utils/findAttributeInfoByName";
 
 
 export default class Adapter implements AdapterContract<Model> {
@@ -25,22 +25,27 @@ export default class Adapter implements AdapterContract<Model> {
     let modelKlass = this.di.getClass("models", recordType);
     let modelSetter = setter || this.defaultSetter;
 
+    // run beforeCreate hook
     let argsBefore = { modelKlass, record };
     registry.runHooks("beforeCreate", argsBefore);
     modelKlass = argsBefore.modelKlass;
     record = argsBefore.record;
 
+    // let the serializer create a new model instance
     let model = modelSerializer.createInstance(modelKlass);
 
+    // run afterCreate hook
     let argsAfter = { model, setter: modelSetter };
     registry.runHooks("afterCreate", argsAfter);
     model = argsAfter.model;
     modelSetter = argsAfter.setter;
 
+    // fill the model's attributes with values
     let reflection = modelSerializer.getOrbitReflection(modelKlass);
     let attrs = recordSerializer.getAttributeValues(record);
     this.initialModelFill(attrs, reflection, modelSetter, model);
 
+    // run afterCreateFill hook
     let argsFill = { model, setter: modelSetter };
     registry.runHooks("afterCreateFill", argsFill);
 
@@ -50,32 +55,14 @@ export default class Adapter implements AdapterContract<Model> {
   private initialModelFill(attrs: Dict<any>, reflection: OrbitReflection, modelSetter, model) {
     for (let attr in attrs) {
       if (attrs.hasOwnProperty(attr)) {
-        let attrInfo = this.findAttrInfo(reflection, attr);
+        let attrInfo: AttributeInfo = findAttributeInfoByName(reflection, attr);
         if (attrInfo) {
           modelSetter(attrInfo.attributeName, attrs[attr], model);
         } else {
-          // todo: want to store the value anywhere?
+          // todo: want to store the value anywhere else?
         }
       }
     }
-  }
-
-  private findAttrInfo(reflection: OrbitReflection, attr: string): AttributeInfo {
-    let attrs = reflection.modelInfo.attributes;
-    // try fast track (attributeName === name)
-    if (typeof attrs[attr] === 'object' && attrs[attr].name === attr) {
-      return attrs[attr];
-    }
-
-    for(let attrName in attrs) {
-      if (attrs.hasOwnProperty(attrName)) {
-        if (attrs[attrName].name === attr) {
-          return attrs[attrName];
-        }
-      }
-    }
-
-    return null;
   }
 
 
