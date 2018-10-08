@@ -16,7 +16,11 @@ export default class Adapter implements AdapterContract<Model> {
 
   private di: Container = null;
 
-  createFromRecord<M extends Model>(record: Record, setter?: (attr: string, value: any, model: M) => void): M {
+  createFromRecord<M extends Model>(
+    record: Record,
+    getter?: (attr: string, model?: M) => any,
+    setter?: (attr: string, value: any, model: M) => void
+  ): M {
     let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
