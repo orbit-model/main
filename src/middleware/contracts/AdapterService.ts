@@ -1,4 +1,6 @@
 import { Record } from "@orbit/data";
+import Setter from "../../contracts/Setter";
+import Getter from "../../contracts/Getter";
 
 export default interface AdapterService<MODEL> {
 
@@ -10,17 +12,12 @@ export default interface AdapterService<MODEL> {
    */
   beforeCreate?<M extends MODEL>(args: { modelKlass: { new(): M }, record: Record })
 
-  afterCreate?<M extends MODEL>(args: { model: M, setter: (attr: string, value: any, model: M) => void }): void;
+  afterCreate?<M extends MODEL>(args: { model: M, getter: Getter<M>, setter: Setter<M>}): void;
 
-  afterCreateFill?<M extends MODEL>(args: { model: M, setter: (attr: string, value: any, model: M) => void }): void;
+  afterCreateFill?<M extends MODEL>(args: { model: M, getter: Getter<M>, setter: Setter<M> }): void;
 
 
-  beforeUpdate?<M extends MODEL>(args: {
-    record: Record,
-    model: M,
-    getter: (attr: string, model?: M) => any,    // do we need a getter?
-    setter: (attr: string, value: any, model?: M) => void
-  })
+  beforeUpdate?<M extends MODEL>(args: { record: Record, model: M, getter: Getter<M>, setter: Setter<M> })
 
   // ...
 

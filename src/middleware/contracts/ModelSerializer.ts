@@ -5,6 +5,8 @@ import HiddenOrbitProp from "../../contracts/HiddenOrbitProp";
 import HiddenOrbit from '../../contracts/HiddenOrbit';
 import Model from "../../contracts/Model";
 import Injectable from "../../contracts/Injectable";
+import Getter from "../../contracts/Getter";
+import Setter from "../../contracts/Setter";
 
 export default interface ModelSerializer<H /* extends HiddenOrbitProp */, MODEL /* extends Model */> extends Injectable {
 
@@ -16,8 +18,8 @@ export default interface ModelSerializer<H /* extends HiddenOrbitProp */, MODEL 
   getHiddenOrbit(model: H, getter?: () => any): HiddenOrbit;
   setHiddenOrbit(model: H, value: HiddenOrbit, setter?: (value: HiddenOrbit) => void): void;
 
-  getAttributeValues(model: MODEL, getter?: (attr: string) => any): Dict<any>;
-  setAttributeValues(model: MODEL, attributes: Dict<any>, setter?: (attr: string, value: any) => void): void;
+  getAttributeValues<M extends MODEL>(model: M, getter?: Getter<M>): Dict<any>;
+  setAttributeValues<M extends MODEL>(model: M, attributes: Dict<any>, setter?: Setter<M>): void;
 
   getIdentity(model: MODEL): RecordIdentity;
 
