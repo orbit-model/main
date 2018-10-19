@@ -1,21 +1,15 @@
 import { Record } from "@orbit/data";
 import Injectable from "./Injectable";
+import Getter from "./Getter";
+import Setter from "./Setter";
+
 
 export default interface Adapter<MODEL /* extends Model */> extends Injectable {
-  createFromRecord<M extends MODEL>(
-    record: Record,
-    getter?: (attr: string, model?: M) => any,
-    setter?: (attr: string, value: any, model: M) => void
-  ): M;
+  createFromRecord<M extends MODEL>(record: Record, getter?: Getter<M>, setter?: Setter<M>): M;
 
-  updateModel<M extends MODEL>(
-    record: Record,
-    model: M,
-    getter?: (attr: string, model?: M) => any,
-    setter?: (attr: string, value: any, model: M) => void
-  ): void;
+  updateModel<M extends MODEL>(record: Record, model: M, getter?: Getter<M>, setter?: Setter<M>): void;
 
-  save<M extends MODEL>(model: M, getter?: (attr: string, model: M) => any): Promise<void>;
+  save<M extends MODEL>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void>;
 
-  destroy<M extends MODEL>(model: M, getter?: (attr: string, model: M) => any): Promise<void>;
+  destroy<M extends MODEL>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void>;
 }

@@ -10,24 +10,24 @@ import OrbitReflection from "../contracts/OrbitReflection";
 import { Dict } from "@orbit/utils";
 import { AttributeInfo } from "../contracts/ModelInfo";
 import findAttributeInfoByName from "../utils/findAttributeInfoByName";
+import Getter from "../contracts/Getter";
+import Setter from "../contracts/Setter";
 
 
 export default class Adapter implements AdapterContract<Model> {
 
   private di: Container = null;
 
-  createFromRecord<M extends Model>(
-    record: Record,
-    getter?: (attr: string, model?: M) => any,
-    setter?: (attr: string, value: any, model: M) => void
-  ): M {
+  createFromRecord<M extends Model>(record: Record, getter?: Getter<M>, setter?: Setter<M>): M {
+
     let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
 
     let recordType = recordSerializer.getType(record);
     let modelKlass = this.di.getClass("models", recordType);
-    let modelSetter = setter || this.defaultSetter;
+    let _getter = getter || this.defaultGetter;
+    let _setter = setter || this.defaultSetter;
 
     // run beforeCreate hook
     let argsBefore = { modelKlass, record };
@@ -39,29 +39,30 @@ export default class Adapter implements AdapterContract<Model> {
     let model = modelSerializer.createInstance(modelKlass);
 
     // run afterCreate hook
-    let argsAfter = { model, setter: modelSetter };
+    let argsAfter = { model, getter: _getter, setter: _setter };
     registry.runHooks("afterCreate", argsAfter);
     model = argsAfter.model;
-    modelSetter = argsAfter.setter;
+    _getter = argsAfter.getter;
+    _setter = argsAfter.setter;
 
     // fill the model's attributes with values
     let reflection = modelSerializer.getOrbitReflection(modelKlass);
     let attrs = recordSerializer.getAttributeValues(record);
-    this.initialModelFill(attrs, reflection, modelSetter, model);
+    this.initialModelFill(attrs, reflection, _setter, model);
 
     // run afterCreateFill hook
-    let argsFill = { model, setter: modelSetter };
+    let argsFill = { model, getter: _getter, setter: _setter };
     registry.runHooks("afterCreateFill", argsFill);
 
     return argsFill.model;
   }
 
-  private initialModelFill(attrs: Dict<any>, reflection: OrbitReflection, modelSetter, model) {
+  private initialModelFill<M>(attrs: Dict<any>, reflection: OrbitReflection, setter: Setter<M>, model: M) {
     for (let attr in attrs) {
       if (attrs.hasOwnProperty(attr)) {
         let attrInfo: AttributeInfo = findAttributeInfoByName(reflection, attr);
         if (attrInfo) {
-          modelSetter(attrInfo.attributeName, attrs[attr], model);
+          setter(attrInfo.attributeName, attrs[attr], model);
         } else {
           // todo: want to store the value anywhere else?
         }
@@ -69,16 +70,18 @@ export default class Adapter implements AdapterContract<Model> {
     }
   }
 
+  updateModel<M extends Model>(record: Record, model: M, getter?: Getter<M>, setter?: Setter<M>): void {
+    // todo: implement
+  }
 
-  destroy<M extends Model>(model: M, getter?: (attr: string, model?: M) => any): Promise<void> {
+  save<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
+    // todo: implement
     return undefined;
   }
 
-  save<M extends Model>(model: M, getter?: (attr: string, model?: M) => any): Promise<void> {
+  destroy<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
+    // todo: implement
     return undefined;
-  }
-
-  updateModel<M extends Model>(record: Record, model: M, getter?: (attr: string, model?: M) => any, setter?: (attr: string, value: any, model?: M) => void): void {
   }
 
   _setOrbitDi(di: Container): void {
@@ -96,6 +99,10 @@ export default class Adapter implements AdapterContract<Model> {
 
   private getRecordSerializer(): RecordSerializer {
     return this.di.get("middleware", "record-serializer");
+  }
+
+  protected defaultGetter<M extends Model>(attr: string, model: M): any {
+    return model[attr];
   }
 
   protected defaultSetter<M extends Model>(attr: string, value: any, model: M): void {
