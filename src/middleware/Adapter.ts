@@ -40,7 +40,7 @@ export default class Adapter implements AdapterContract<Model> {
 
     // run afterCreate hook
     let argsAfter = { model, getter: _getter, setter: _setter };
-    registry.runHooks("afterCreate", argsAfter);
+    registry.runHook(ServiceType.Adapter, "afterCreate", argsAfter);
     model = argsAfter.model;
     _getter = argsAfter.getter;
     _setter = argsAfter.setter;
