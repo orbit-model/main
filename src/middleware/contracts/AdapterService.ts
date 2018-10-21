@@ -12,12 +12,14 @@ export default interface AdapterService<MODEL> {
    */
   beforeCreate?<M extends MODEL>(args: { modelKlass: { new(): M }, record: Record })
 
-  afterCreate?<M extends MODEL>(args: { model: M, getter: Getter<M>, setter: Setter<M>}): void;
+  afterCreate?<M extends MODEL>(args: { model: M, getter: Getter<M>, setter: Setter<M> }): void;
 
   afterCreateFill?<M extends MODEL>(args: { model: M, getter: Getter<M>, setter: Setter<M> }): void;
 
 
-  beforeUpdate?<M extends MODEL>(args: { record: Record, model: M, getter: Getter<M>, setter: Setter<M> })
+  beforeUpdate?<M extends MODEL>(args: { record: Record, model: M, getter: Getter<M>, setter: Setter<M> }): void;
+
+  afterUpdate?<M extends MODEL>(args: { record: Record, model: M, getter: Getter<M>, setter: Setter<M> }): void;
 
   // ...
 

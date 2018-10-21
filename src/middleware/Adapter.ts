@@ -71,7 +71,27 @@ export default class Adapter implements AdapterContract<Model> {
   }
 
   updateModel<M extends Model>(record: Record, model: M, getter?: Getter<M>, setter?: Setter<M>): void {
-    // todo: implement
+
+    let registry = this.getRegistry();
+    let recordSerializer = this.getRecordSerializer();
+    let modelSerializer = this.getModelSerializer();
+
+    let _getter = getter || this.defaultGetter;
+    let _setter = setter || this.defaultSetter;
+
+    let beforeUpdate = { record, model, getter: _getter, setter: _setter };
+    registry.runHooks("beforeUpdate", beforeUpdate);
+    record = beforeUpdate.record;
+    model = beforeUpdate.model;
+    _getter = beforeUpdate.getter;
+    _setter = beforeUpdate.setter;
+
+    let attrs = recordSerializer.getAttributeValues(record);
+    modelSerializer.setAttributeValues(model, attrs, _setter);
+
+    let afterUpdate = { model, getter: _getter, setter: _setter };
+    registry.runHooks("afterUpdate", afterUpdate);
+
   }
 
   save<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
