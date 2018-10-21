@@ -1,7 +1,7 @@
 import { Record } from '@orbit/data';
 import AdapterContract from "../contracts/Adapter";
 import Model from "../contracts/Model";
-import MiddlewareRegistry from "./contracts/MiddlewareRegistry";
+import MiddlewareRegistry, { ServiceType } from "./contracts/MiddlewareRegistry";
 import HiddenOrbitProp from "../contracts/HiddenOrbitProp";
 import Container from "../contracts/Container";
 import ModelSerializer from "./contracts/ModelSerializer";
@@ -31,7 +31,7 @@ export default class Adapter implements AdapterContract<Model> {
 
     // run beforeCreate hook
     let argsBefore = { modelKlass, record };
-    registry.runHooks("beforeCreate", argsBefore);
+    registry.runHook(ServiceType.Adapter, "beforeCreate", argsBefore);
     modelKlass = argsBefore.modelKlass;
     record = argsBefore.record;
 
@@ -52,7 +52,7 @@ export default class Adapter implements AdapterContract<Model> {
 
     // run afterCreateFill hook
     let argsFill = { model, getter: _getter, setter: _setter };
-    registry.runHooks("afterCreateFill", argsFill);
+    registry.runHook(ServiceType.Adapter, "afterCreateFill", argsFill);
 
     return argsFill.model;
   }
@@ -80,7 +80,7 @@ export default class Adapter implements AdapterContract<Model> {
     let _setter = setter || this.defaultSetter;
 
     let beforeUpdate = { record, model, getter: _getter, setter: _setter };
-    registry.runHooks("beforeUpdate", beforeUpdate);
+    registry.runHook(ServiceType.Adapter, "beforeUpdate", beforeUpdate);
     record = beforeUpdate.record;
     model = beforeUpdate.model;
     _getter = beforeUpdate.getter;
@@ -90,11 +90,11 @@ export default class Adapter implements AdapterContract<Model> {
     modelSerializer.setAttributeValues(model, attrs, _setter);
 
     let afterUpdate = { model, getter: _getter, setter: _setter };
-    registry.runHooks("afterUpdate", afterUpdate);
+    registry.runHook(ServiceType.Adapter, "afterUpdate", afterUpdate);
 
   }
 
-  save<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
+  async save<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
     // todo: implement
     return undefined;
   }

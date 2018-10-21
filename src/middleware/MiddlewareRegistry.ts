@@ -1,70 +1,43 @@
-import MiddlewareRegistryContract from "./contracts/MiddlewareRegistry";
+import MiddlewareRegistryContract, { ServiceType } from "./contracts/MiddlewareRegistry";
 import Model from "../contracts/Model";
 import HiddenOrbitProp from "../contracts/HiddenOrbitProp";
-import Adapter from "../contracts/Adapter";
-import ModelSerializer from "./contracts/ModelSerializer";
-import RelationshipAdapter from "../contracts/RelationshipAdapter";
 import AdapterService from "./contracts/AdapterService";
-import RecordSerializer from "./contracts/RecordSerializer";
-import Container from "../contracts/Container";
 
 export default class MiddlewareRegistry implements MiddlewareRegistryContract<HiddenOrbitProp, Model> {
 
-  // private adapter: Adapter<Model> = null;
-  // private relationshipAdapter: RelationshipAdapter<Model> = null;
-  // private modelSerializer: ModelSerializer<HiddenOrbitProp, Model> = null;
-  // private recordSerializer: RecordSerializer = null;
-  private services: Array<AdapterService<Model>> = [];
-  private di: Container = null;
+  private services: Map<ServiceType, Array<any>> = new Map();
 
 
-  // getAdapter(): Adapter<Model> {
-  //   return this.adapter;
-  // }
-  //
-  // getModelSerializer(): ModelSerializer<HiddenOrbitProp, Model> {
-  //   return this.modelSerializer;
-  // }
-  //
-  // getRecordSerializer(): RecordSerializer {
-  //   return this.recordSerializer;
-  // }
-  //
-  // getRelationshipAdapter(): RelationshipAdapter<Model> {
-  //   return this.relationshipAdapter;
-  // }
-
-  getServices(): Array<AdapterService<Model>> {
-    return this.services;
+  getServices(type: ServiceType): Array<any> {
+    let services = this.services.get(type);
+    if (!services) {
+      services = [];
+      this.services.set(type, services);
+    }
+    return services;
   }
 
-  // setAdapter(adapter: Adapter<Model>) {
-  //   this.adapter = adapter;
-  // }
-  //
-  // setModelSerializer(serializer: ModelSerializer<HiddenOrbitProp, Model>) {
-  //   this.modelSerializer = serializer;
-  // }
-  //
-  // setRecordSerializer(serializer: RecordSerializer) {
-  //   this.recordSerializer = serializer;
-  // }
-  //
-  // setRelationshipAdapter(adapter: RelationshipAdapter<Model>) {
-  //   this.relationshipAdapter = adapter;
-  // }
+  getAdapterServices(): Array<AdapterService<Model>> {
+    return this.getServices(ServiceType.Adapter);
+  }
 
-  runHooks<O>(hookName: string, args: O) {
-    this.getServices().forEach((service) => {
+
+  runHook<O>(type: ServiceType, hookName: string, args: O) {
+    this.getServices(type).forEach((service) => {
       if (typeof service[hookName] === 'function') {
         service[hookName](args);
       }
     })
   }
 
-  _setOrbitDi(di: Container): void {
-    this.di = di;
+  runAsyncHook<O>(type: ServiceType, hookName: string, args: O): Promise<void> {
+    return this.getServices(type).reduce((promise, service) => {
+      promise.then(() => {
+        if (typeof service[hookName] === 'function') {
+          return service[hookName](args);
+        }
+        return Promise.resolve();
+      });
+    }, Promise.resolve());
   }
-
-
 }
