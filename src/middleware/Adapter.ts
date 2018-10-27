@@ -46,28 +46,14 @@ export default class Adapter implements AdapterContract<Model> {
     _setter = argsAfter.setter;
 
     // fill the model's attributes with values
-    let reflection = modelSerializer.getOrbitReflection(modelKlass);
     let attrs = recordSerializer.getAttributeValues(record);
-    this.initialModelFill(attrs, reflection, _setter, model);
+    modelSerializer.setAttributeValues(model, attrs, _setter);
 
     // run afterCreateFill hook
     let argsFill = { model, getter: _getter, setter: _setter };
     registry.runHook(ServiceType.Adapter, "afterCreateFill", argsFill);
 
     return argsFill.model;
-  }
-
-  private initialModelFill<M>(attrs: Dict<any>, reflection: OrbitReflection, setter: Setter<M>, model: M) {
-    for (let attr in attrs) {
-      if (attrs.hasOwnProperty(attr)) {
-        let attrInfo: AttributeInfo = findAttributeInfoByName(reflection, attr);
-        if (attrInfo) {
-          setter(attrInfo.attributeName, attrs[attr], model);
-        } else {
-          // todo: want to store the value anywhere else?
-        }
-      }
-    }
   }
 
   updateModel<M extends Model>(record: Record, model: M, getter?: Getter<M>, setter?: Setter<M>): void {
@@ -96,12 +82,10 @@ export default class Adapter implements AdapterContract<Model> {
 
   async save<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
     // todo: implement
-    return undefined;
   }
 
-  destroy<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
+  async destroy<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
     // todo: implement
-    return undefined;
   }
 
   _setOrbitDi(di: Container): void {
