@@ -18,10 +18,12 @@ export default interface ModelSerializer<H /* extends HiddenOrbitProp */, MODEL 
   getHiddenOrbit(model: H): HiddenOrbit;
   setHiddenOrbit(model: H, value: HiddenOrbit): void;
 
-  getAttributeValues<M extends MODEL>(model: M, getter?: Getter<M>): Dict<any>;
-  setAttributeValues<M extends MODEL>(model: M, attributes: Dict<any>, setter?: Setter<M>): void;
+  getAttributeValues<M extends MODEL>(model: M, getter: Getter<M>): Dict<any>;
+  setAttributeValues<M extends MODEL>(model: M, attributes: Dict<any>, setter: Setter<M>): void;
 
   getIdentity(model: MODEL): RecordIdentity;
 
-  // ...
+  getId<M extends MODEL>(model: M, getter: Getter<M>): string;
+  setId<M extends MODEL>(model: M, value: string, setter: Setter<M>);
+
 }

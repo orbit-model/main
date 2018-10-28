@@ -8,5 +8,6 @@ export default interface RecordSerializer extends Injectable {
   getAttributeValues(record: Record): Dict<any>;
   getIdentity(record: Record): RecordIdentity;
 
-  // ...
+  getRemoteId(record: Record): string;
+
 }

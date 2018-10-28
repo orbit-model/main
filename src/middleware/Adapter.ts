@@ -42,6 +42,8 @@ export default class Adapter implements AdapterContract<Model> {
     _setter = argsAfter.setter;
 
     // fill the model's attributes with values
+    let id = recordSerializer.getRemoteId(record);
+    modelSerializer.setId(model, id, _setter);
     let attrs = recordSerializer.getAttributeValues(record);
     modelSerializer.setAttributeValues(model, attrs, _setter);
 

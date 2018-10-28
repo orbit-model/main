@@ -30,11 +30,11 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
   }
 
 
-  getAttributeValues<M extends Model>(model: M, getter?: Getter<M>): Dict<any> {
+  getAttributeValues<M extends Model>(model: M, getter: Getter<M>): Dict<any> {
     return undefined;
   }
 
-  setAttributeValues<M extends Model>(model: M, attributes: Dict<any>, setter?: Setter<M>): void {
+  setAttributeValues<M extends Model>(model: M, attributes: Dict<any>, setter: Setter<M>): void {
     let registry = this.getRegistry();
     let reflection = this.getOrbitReflection(this.getHiddenOrbit(model).klass);
 
@@ -79,7 +79,17 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
   }
 
 
+  getId<M extends Model>(model: M, getter: Getter<M>): string {
+    return getter("id", model);
+  }
+
+  setId<M extends Model>(model: M, value: string, setter: Setter<M>) {
+    setter("id", value, model);
+  }
+
+
   private getRegistry(): MiddlewareRegistry<HiddenOrbitProp, Model> {
     return this.di.get("middleware", "registry");
   }
+
 }
