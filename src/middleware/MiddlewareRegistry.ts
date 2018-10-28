@@ -2,6 +2,7 @@ import MiddlewareRegistryContract, { ServiceType } from "./contracts/MiddlewareR
 import Model from "../contracts/Model";
 import HiddenOrbitProp from "../contracts/HiddenOrbitProp";
 import AdapterService from "./contracts/AdapterService";
+import ModelSerializerService from "./contracts/ModelSerializerService";
 
 export default class MiddlewareRegistry implements MiddlewareRegistryContract<HiddenOrbitProp, Model> {
 
@@ -19,6 +20,10 @@ export default class MiddlewareRegistry implements MiddlewareRegistryContract<Hi
 
   getAdapterServices(): Array<AdapterService<Model>> {
     return this.getServices(ServiceType.Adapter);
+  }
+
+  getModelSerializerServices(): Array<ModelSerializerService<Model>> {
+    return this.getServices(ServiceType.ModelSerializer);
   }
 
 

@@ -1,4 +1,5 @@
 import AdapterService from "./AdapterService";
+import ModelSerializerService from "./ModelSerializerService";
 
 export enum ServiceType {
   Adapter,
@@ -15,7 +16,7 @@ export default interface MiddlewareRegistry<H, M> {
 
   //getRelationshipAdapterServices(): Array<RelationshipAdapterService<M>>;
 
-  //getModelSerializerServices(): Array<ModelSerializerService<M>>;
+  getModelSerializerServices(): Array<ModelSerializerService<M>>;
 
   //getRecordSerializerServices(): Array<RecordSerializerService<M>>;
 

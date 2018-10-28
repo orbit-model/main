@@ -10,9 +10,14 @@ import OrbitReflection from "../contracts/OrbitReflection";
 import Setter from "../contracts/Setter";
 import { AttributeInfo } from "../contracts/ModelInfo";
 import findAttributeInfoByName from "../utils/findAttributeInfoByName";
+import MiddlewareRegistry, { ServiceType } from "./contracts/MiddlewareRegistry";
 
 export default class ModelSerializer implements ModelSerializerContract<HiddenOrbitProp, Model> {
+
+  private di: Container;
+
   _setOrbitDi(di: Container): void {
+    this.di = di;
   }
 
   createInstance<M extends Model>(klass: { new(): M }): M {
@@ -30,13 +35,20 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
   }
 
   setAttributeValues<M extends Model>(model: M, attributes: Dict<any>, setter?: Setter<M>): void {
+    let registry = this.getRegistry();
     let reflection = this.getOrbitReflection(this.getHiddenOrbit(model).klass);
 
-    for (let attr in attributes) {
-      if (attributes.hasOwnProperty(attr)) {
-        let attrInfo: AttributeInfo = findAttributeInfoByName(reflection, attr);
-        if (attrInfo) {
-          setter(attrInfo.attributeName, attributes[attr], model);
+    for (let name in attributes) {
+      if (attributes.hasOwnProperty(name)) {
+        let attributeInfo: AttributeInfo = findAttributeInfoByName(reflection, name);
+
+        let beforeSetAttr = {model, attributes, setter, name, attributeInfo };
+        registry.runHook(ServiceType.ModelSerializer, "beforeSetAttribute", beforeSetAttr);
+        name = beforeSetAttr.name;
+        attributeInfo = beforeSetAttr.attributeInfo;
+
+        if (attributeInfo) {
+          setter(attributeInfo.attributeName, attributes[name], model);
         } else {
           // todo: want to store the value anywhere else?
         }
@@ -60,4 +72,8 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
   setOrbitReflection(klass: { new(): any }, reflection: OrbitReflection): void {
   }
 
+
+  private getRegistry(): MiddlewareRegistry<HiddenOrbitProp, Model> {
+    return this.di.get("middleware", "registry");
+  }
 }
