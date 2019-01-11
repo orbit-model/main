@@ -24,10 +24,10 @@
     "test": "testem ci"
   },
   "dependencies": {
-    "@orbit/core": "^0.15.21",
-    "@orbit/data": "^0.15.21",
-    "@orbit/store": "^0.15.21",
-    "@orbit/utils": "^0.15.21",
+    "@orbit/core": "^0.15.23",
+    "@orbit/data": "^0.15.23",
+    "@orbit/store": "^0.15.23",
+    "@orbit/utils": "^0.15.23",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
