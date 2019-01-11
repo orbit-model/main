@@ -1,6 +1,6 @@
 import { Record } from "@orbit/data";
-import Setter from "../../contracts/Setter";
-import Getter from "../../contracts/Getter";
+import Setter from "../contracts/Setter";
+import Getter from "../contracts/Getter";
 
 export default interface AdapterService<MODEL> {
 

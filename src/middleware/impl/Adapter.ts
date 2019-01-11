@@ -1,13 +1,13 @@
 import { Record } from '@orbit/data';
-import AdapterContract from "../contracts/Adapter";
-import Model from "../contracts/Model";
-import MiddlewareRegistry, { ServiceType } from "./contracts/MiddlewareRegistry";
-import HiddenOrbitProp from "../contracts/HiddenOrbitProp";
-import Container from "../contracts/Container";
-import ModelSerializer from "./contracts/ModelSerializer";
-import RecordSerializer from "./contracts/RecordSerializer";
-import Getter from "../contracts/Getter";
-import Setter from "../contracts/Setter";
+import AdapterContract from "../../contracts/Adapter";
+import Model from "../../contracts/Model";
+import MiddlewareRegistry, { ServiceType } from "../MiddlewareRegistry";
+import HiddenOrbitProp from "../../contracts/HiddenOrbitProp";
+import Container from "../../contracts/Container";
+import ModelSerializer from "../ModelSerializer";
+import RecordSerializer from "../RecordSerializer";
+import Getter from "../../contracts/Getter";
+import Setter from "../../contracts/Setter";
 
 
 export default class Adapter implements AdapterContract<Model> {

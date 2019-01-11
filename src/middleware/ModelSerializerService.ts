@@ -1,6 +1,6 @@
-import Setter from "../../contracts/Setter";
+import Setter from "../contracts/Setter";
 import { Dict } from "@orbit/utils";
-import { AttributeInfo } from "../../contracts/ModelInfo";
+import { AttributeInfo } from "../contracts/ModelInfo";
 
 
 export default interface ModelSerializerService<MODEL> {

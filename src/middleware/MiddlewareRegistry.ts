@@ -1,48 +1,27 @@
-import MiddlewareRegistryContract, { ServiceType } from "./contracts/MiddlewareRegistry";
-import Model from "../contracts/Model";
-import HiddenOrbitProp from "../contracts/HiddenOrbitProp";
-import AdapterService from "./contracts/AdapterService";
-import ModelSerializerService from "./contracts/ModelSerializerService";
+import AdapterService from "./AdapterService";
+import ModelSerializerService from "./ModelSerializerService";
 
-export default class MiddlewareRegistry implements MiddlewareRegistryContract<HiddenOrbitProp, Model> {
+export enum ServiceType {
+  Adapter,
+  RelationshipAdapter,
+  ModelSerializer,
+  RecordSerializer
+}
 
-  private services: Map<ServiceType, Array<any>> = new Map();
+export default interface MiddlewareRegistry<H, M> {
 
+  getServices(type: ServiceType): Array<any>;
 
-  getServices(type: ServiceType): Array<any> {
-    let services = this.services.get(type);
-    if (!services) {
-      services = [];
-      this.services.set(type, services);
-    }
-    return services;
-  }
+  getAdapterServices(): Array<AdapterService<M>>;
 
-  getAdapterServices(): Array<AdapterService<Model>> {
-    return this.getServices(ServiceType.Adapter);
-  }
+  //getRelationshipAdapterServices(): Array<RelationshipAdapterService<M>>;
 
-  getModelSerializerServices(): Array<ModelSerializerService<Model>> {
-    return this.getServices(ServiceType.ModelSerializer);
-  }
+  getModelSerializerServices(): Array<ModelSerializerService<M>>;
 
+  //getRecordSerializerServices(): Array<RecordSerializerService<M>>;
 
-  runHook<O>(type: ServiceType, hookName: string, args: O) {
-    this.getServices(type).forEach((service) => {
-      if (typeof service[hookName] === 'function') {
-        service[hookName](args);
-      }
-    })
-  }
+  runHook<O>(type: ServiceType, hookName: string, args: O);
 
-  runAsyncHook<O>(type: ServiceType, hookName: string, args: O): Promise<void> {
-    return this.getServices(type).reduce((promise, service) => {
-      promise.then(() => {
-        if (typeof service[hookName] === 'function') {
-          return service[hookName](args);
-        }
-        return Promise.resolve();
-      });
-    }, Promise.resolve());
-  }
+  runAsyncHook<O>(type: ServiceType, hookName: string, args: O);
+
 }
