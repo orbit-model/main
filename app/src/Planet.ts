@@ -1,4 +1,4 @@
-import { attr } from 'orbit-model';
+import { attr } from '@orbit-model/main';
 
 
 console.log('planet');

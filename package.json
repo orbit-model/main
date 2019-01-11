@@ -1,5 +1,5 @@
 {
-  "name": "orbit-model",
+  "name": "@orbit-model/main",
   "version": "0.0.1",
   "description": "A models abstraction for Orbit.",
   "contributors": [
@@ -13,14 +13,14 @@
   ],
   "repository": "https://github.com/orbitjs/orbit",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
+  "module": "src/index.js",
+  "types": "src/index.ts",
   "scripts": {
     "dev": "tsc -w",
     "build": "rm -rf dist && BROCCOLI_ENV=dist broccoli build dist",
     "build:tests": "rm -rf tests && BROCCOLI_ENV=tests broccoli build tests",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "test": "testem ci"
   },
   "dependencies": {
