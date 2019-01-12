@@ -1,5 +1,5 @@
 export default interface Container {
-  register(namespace: string, name: string, Klass: { new(): any }, options?: { singleton?: boolean }): void;
+  register(namespace: string, name: string, klass: { new(): any }, options?: { singleton: boolean }): void;
 
   registerObject(namespace: string, name: string, value: any): void;
 
@@ -7,5 +7,5 @@ export default interface Container {
 
   getClass<T>(namespace: string, name: string): { new(): T };    // to access static methods
 
-  getNamespaceNames(namespace: string): string[];
+  getNames(namespace: string): string[];
 }
