@@ -5,7 +5,7 @@ export default interface Container {
 
   get<T>(namespace: string, name: string): T;
 
-  getClass(namespace: string, name: string): { new(): any };    // to access static methods
+  getClass<T>(namespace: string, name: string): { new(): T };    // to access static methods
 
   getNamespaceNames(namespace: string): string[];
 }

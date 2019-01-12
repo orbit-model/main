@@ -1,6 +1,6 @@
 export { default as attr } from './attr';
 
-export { default as MiddelwareAdapter } from './contracts/Adapter';
+export { default as MiddlewareAdapter } from './contracts/Adapter';
 export { default as Injectable } from './contracts/Injectable';
 
 export { default as MiddlewareRegistry } from './middleware/MiddlewareRegistry';
