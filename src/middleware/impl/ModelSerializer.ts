@@ -11,7 +11,7 @@ import Setter from "../../contracts/Setter";
 import { AttributeInfo } from "../../contracts/ModelInfo";
 import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
 import { ServiceType } from "../MiddlewareRegistry";
-import MiddlewareRegistry from "./MiddlewareRegistry";
+import MiddlewareRegistry from "../MiddlewareRegistry";
 
 export default class ModelSerializer implements ModelSerializerContract<HiddenOrbitProp, Model> {
 
@@ -87,8 +87,6 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
   setId<M extends Model>(model: M, value: string, setter: Setter<M>) {
     setter("id", value, model);
   }
-
-  getIdentity(model: MODEL): RecordIdentity;
 
   private getRegistry(): MiddlewareRegistry<HiddenOrbitProp, Model> {
     return this.di.get("middleware", "registry");
