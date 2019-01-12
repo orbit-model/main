@@ -6,11 +6,12 @@
   "author": "Bernhard Halbartschlager <halbart.bernhard+npm@gmail.com>",
   "license": "MIT",
   "private": false,
+  "repository": "https://github.com/bernhard---h/orbit-model",
   "scripts": {
     "dev": "tsc -w"
   },
   "dependencies": {
-    "@orbit-model/main": "0.0.1",
-    "typescript": "^3.0.3"
+    "@orbit-model/main": "../",
+    "typescript": "^3.2.2"
   }
 }
