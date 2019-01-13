@@ -65,14 +65,13 @@ class ContainedObject<T> implements Contained<T> {
 }
 
 
-
 export default class DefaultContainer implements Container {
 
   private container: StringMap<StringMap<Contained<any>>>;
 
 
   public constructor() {
-    this.container = new StringMap();
+    this.container = new Map<string, Map<string, Contained<any>>>();
   }
 
 
@@ -109,6 +108,18 @@ export default class DefaultContainer implements Container {
     return Array.from(this.resolveNamespace(namespace).keys());
   }
 
+  private setter<T>(namespace: string, name: string, contained: Contained<T>): void {
+    let namespaceMap: StringMap<Contained<any>>;
+    if (!this.container.has(namespace)) {
+      namespaceMap = new Map<string, Contained<any>>();
+      this.container.set(namespace, namespaceMap);
+    } else {
+      namespaceMap = this.container.get(namespace);
+    }
+
+    namespaceMap.set(name, contained);
+  }
+
   public register(namespace: string, name: string, klass: { new(): any }, options: { singleton: boolean } = { singleton: false }): void {
     let contained: Contained<any>;
     if (options.singleton) {
@@ -116,11 +127,11 @@ export default class DefaultContainer implements Container {
     } else {
       contained = new ContainedSimpleClass(klass)
     }
-    this.resolveNamespace(namespace).set(name, contained);
+    this.setter(namespace, name, contained);
   }
 
   public registerObject(namespace: string, name: string, value: any): void {
-    this.resolveNamespace(namespace).set(name, new ContainedObject(value));
+    this.setter(namespace, name, new ContainedObject(value));
   }
 
 

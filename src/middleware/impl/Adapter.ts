@@ -32,7 +32,7 @@ export default class Adapter implements AdapterContract<Model> {
     record = argsBefore.record;
 
     // let the serializer create a new model instance
-    let model = modelSerializer.createInstance(modelKlass);
+    let model: M = this.di.get<M>("models", recordType);
 
     // run afterCreate hook
     let argsAfter = { model, getter: _getter, setter: _setter };
