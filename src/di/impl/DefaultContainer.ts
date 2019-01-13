@@ -1,4 +1,5 @@
 import Container from "../../contracts/Container";
+import Injectable from "../../contracts/Injectable";
 
 
 declare class StringMap<T> extends Map<string, T> {
@@ -64,6 +65,7 @@ class ContainedObject<T> implements Contained<T> {
 }
 
 
+
 export default class DefaultContainer implements Container {
 
   private container: StringMap<StringMap<Contained<any>>>;
@@ -89,8 +91,14 @@ export default class DefaultContainer implements Container {
     return namespaceMap.get(name);
   }
 
-  public get<T>(namespace: string, name: string): T {
-    return this.resolve<T>(namespace, name).get();
+  public get<T extends Injectable>(namespace: string, name: string): T;
+  public get<T>(namespace: string, name: string): T;
+  public get<T extends Injectable = any>(namespace: string, name: string): T {
+    let instance = this.resolve<T>(namespace, name).get();
+    if (typeof instance['_setOrbitDi'] === "function") {
+      instance._setOrbitDi(this);
+    }
+    return instance;
   }
 
   public getClass<T>(namespace: string, name: string): { new(): T } {
