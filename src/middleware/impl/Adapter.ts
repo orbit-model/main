@@ -26,10 +26,10 @@ export default class Adapter implements AdapterContract<Model> {
     let _setter = setter || this.defaultSetter;
 
     // run beforeCreate hook
-    let argsBefore = { modelKlass, record };
+    let argsBefore = { modelKlass, record, recordType };
     registry.runHook(ServiceType.Adapter, "beforeCreate", argsBefore);
-    modelKlass = argsBefore.modelKlass;
     record = argsBefore.record;
+    recordType = argsBefore.recordType;
 
     // let the serializer create a new model instance
     let model: M = this.di.get<M>("models", recordType);

@@ -10,8 +10,6 @@ import Setter from "../contracts/Setter";
 
 export default interface ModelSerializer<H /* extends HiddenOrbitProp */, MODEL /* extends Model */> extends Injectable {
 
-  createInstance<M extends MODEL>(klass: { new(): M }): M;
-
   getOrbitReflection(klass: { new(): any }): OrbitReflection;
   setOrbitReflection(klass: { new(): any }, reflection: OrbitReflection): void;
 

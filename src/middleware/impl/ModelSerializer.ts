@@ -21,11 +21,6 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
     this.di = di;
   }
 
-  createInstance<M extends Model>(klass: { new(): M }): M {
-    return new klass();
-  }
-
-
   getIdentity(model: Model): RecordIdentity {
     return undefined;
   }
