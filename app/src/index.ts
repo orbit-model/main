@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+console.log('index 0');
 import Planet from './Planet';
 import {
   MiddlewareRegistry,
@@ -12,12 +13,12 @@ import {
 
 const di: Container = new DefaultContainer();
 
+di.register("middleware", "adapter", DefaultMiddlewareAdapter);
+di.register("middleware", "registry", DefaultMiddlewareRegistry);
 
 
-const middlewareRegistry: MiddlewareRegistry = new DefaultMiddlewareRegistry();
-
-let middlewareAdapter: MiddlewareAdapter = new DefaultMiddlewareAdapter();
-
-console.log('test');
+console.log('index 1');
 
 let planet = new Planet();
+
+console.log('index 2');
