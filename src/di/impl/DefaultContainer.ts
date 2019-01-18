@@ -1,9 +1,5 @@
-import Container from "../../contracts/Container";
 import Injectable from "../../contracts/Injectable";
-
-
-declare class StringMap<T> extends Map<string, T> {
-};
+import MigratableContainer from "../MigratableContainer";
 
 
 interface Contained<T> {
@@ -28,12 +24,13 @@ class ContainedSimpleClass<T> implements Contained<T> {
   }
 }
 
-class ContainedSingeltonClass<T> implements Contained<T> {
+class ContainedSingletonClass<T> implements Contained<T> {
   private klass: { new(): T };
   private instance: T;
 
-  constructor(klass: { new(): T }) {
+  constructor(klass: { new(): T }, instance: T = undefined) {
     this.klass = klass;
+    this.instance = instance;
   }
 
   get(): T {
@@ -45,6 +42,10 @@ class ContainedSingeltonClass<T> implements Contained<T> {
 
   getClass(): { new(): T } {
     return this.klass;
+  }
+
+  hasInstance(): boolean {
+    return this.instance !== undefined;
   }
 }
 
@@ -65,9 +66,9 @@ class ContainedObject<T> implements Contained<T> {
 }
 
 
-export default class DefaultContainer implements Container {
+export default class DefaultContainer implements MigratableContainer {
 
-  private container: StringMap<StringMap<Contained<any>>>;
+  private container: Map<string, Map<string, Contained<any>>>;
 
 
   public constructor() {
@@ -75,7 +76,7 @@ export default class DefaultContainer implements Container {
   }
 
 
-  private resolveNamespace<T>(namespace: string): StringMap<Contained<T>> {
+  private resolveNamespace<T>(namespace: string): Map<string, Contained<T>> {
     if (!this.container.has(namespace)) {
       throw new Error("container could not find namespace '" + namespace + "'");
     }
@@ -109,7 +110,7 @@ export default class DefaultContainer implements Container {
   }
 
   private setter<T>(namespace: string, name: string, contained: Contained<T>): void {
-    let namespaceMap: StringMap<Contained<any>>;
+    let namespaceMap: Map<string, Contained<any>>;
     if (!this.container.has(namespace)) {
       namespaceMap = new Map<string, Contained<any>>();
       this.container.set(namespace, namespaceMap);
@@ -123,7 +124,7 @@ export default class DefaultContainer implements Container {
   public register(namespace: string, name: string, klass: { new(): any }, options: { singleton: boolean } = { singleton: false }): void {
     let contained: Contained<any>;
     if (options.singleton) {
-      contained = new ContainedSingeltonClass(klass);
+      contained = new ContainedSingletonClass(klass);
     } else {
       contained = new ContainedSimpleClass(klass)
     }
@@ -134,5 +135,29 @@ export default class DefaultContainer implements Container {
     this.setter(namespace, name, new ContainedObject(value));
   }
 
+  public registerInstantiatedSingleton<T = any>(namespace: string, name: string, klass: { new(): T }, instance: T): void {
+    this.setter(namespace, name, new ContainedSingletonClass(klass, instance));
+  }
+
+
+  public migrateTo(other: MigratableContainer): void {
+    for (let namespace of this.container.keys()) {
+      for (let name of this.container.get(namespace).keys()) {
+        let entry: Contained<any> = this.container.get(namespace).get(name);
+
+        if (entry instanceof ContainedSingletonClass) {
+          if (entry.hasInstance()) {
+            other.registerInstantiatedSingleton(namespace, name, entry.getClass(), entry.get());
+          } else {
+            other.register(namespace, name, entry.getClass(), { singleton: true });
+          }
+        } else if (entry instanceof ContainedObject) {
+          other.registerObject(namespace, name, entry.get());
+        }
+
+        other.register(namespace, name, entry.getClass());
+      }
+    }
+  }
 
 }
