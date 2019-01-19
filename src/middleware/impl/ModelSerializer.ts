@@ -6,7 +6,7 @@ import Getter from "../../contracts/Getter";
 import { Dict } from "@orbit/utils";
 import HiddenOrbit from "../../contracts/HiddenOrbit";
 import { RecordIdentity } from "@orbit/data";
-import OrbitReflection from "../../contracts/OrbitReflection";
+import OrbitModelReflection from "../../contracts/OrbitModelReflection";
 import Setter from "../../contracts/Setter";
 import { AttributeInfo } from "../../contracts/ModelInfo";
 import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
@@ -62,7 +62,7 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
   }
 
 
-  getOrbitReflection(klass: { new(): any }): OrbitReflection {
+  getOrbitReflection(klass: { new(): any }): OrbitModelReflection {
     if (typeof klass["__orbitReflection"] === "object") {
       return klass["__orbitReflection"];
     } else {
@@ -70,7 +70,7 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
     }
   }
 
-  setOrbitReflection(klass: { new(): any }, reflection: OrbitReflection): void {
+  setOrbitReflection(klass: { new(): any }, reflection: OrbitModelReflection): void {
     klass["__orbitReflection"] = reflection;
   }
 

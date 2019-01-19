@@ -1,6 +1,6 @@
 import { RecordIdentity } from '@orbit/data';
 import { Dict } from '@orbit/utils';
-import OrbitReflection from '../contracts/OrbitReflection';
+import OrbitModelReflection from '../contracts/OrbitModelReflection';
 import HiddenOrbitProp from "../contracts/HiddenOrbitProp";
 import HiddenOrbit from '../contracts/HiddenOrbit';
 import Model from "../contracts/Model";
@@ -10,8 +10,8 @@ import Setter from "../contracts/Setter";
 
 export default interface ModelSerializer<H /* extends HiddenOrbitProp */, MODEL /* extends Model */> extends Injectable {
 
-  getOrbitReflection(klass: { new(): any }): OrbitReflection;
-  setOrbitReflection(klass: { new(): any }, reflection: OrbitReflection): void;
+  getOrbitReflection(klass: { new(): any }): OrbitModelReflection;
+  setOrbitReflection(klass: { new(): any }, reflection: OrbitModelReflection): void;
 
   getHiddenOrbit(model: H): HiddenOrbit;
   setHiddenOrbit(model: H, value: HiddenOrbit): void;
