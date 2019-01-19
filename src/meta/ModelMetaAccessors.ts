@@ -1,7 +1,7 @@
 import OrbitModelReflection from "../contracts/OrbitModelReflection";
 
 
-export default interface ModelMetaAccessors {
+export default class ModelMetaAccessors {
 
   /**
    * Returns the models meta data by accessing a hidden static property on a models class.
@@ -10,7 +10,9 @@ export default interface ModelMetaAccessors {
    *
    * @param klass
    */
-  getReflection(klass): OrbitModelReflection;
+  static getReflection(klass): OrbitModelReflection {
+    return klass["__orbitModelReflection"];
+  }
 
   /**
    * Sets a new meta data pojo onto a hidden static property of the given model class.
@@ -18,6 +20,8 @@ export default interface ModelMetaAccessors {
    * @param klass
    * @param meta
    */
-  setReflection(klass, meta: OrbitModelReflection): void;
+  static setReflection(klass, meta: OrbitModelReflection): void {
+    klass["__orbitModelReflection"] = meta;
+  }
 
 }
