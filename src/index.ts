@@ -1,4 +1,5 @@
-export { default as attr } from './attr';
+export { default as attr } from './decorators/attr';
+export { default as registerClass } from './decorators/registerClass';
 
 // core contracts
 export { default as MiddlewareAdapter } from './contracts/Adapter';

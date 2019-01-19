@@ -9,5 +9,8 @@ export default function attrGenerator(options?: { transform?: string, defaultVal
 
   return function attr(target: any, key: string) {
     console.log('attrGenerator-attr', target, "key", key, "options", options);
+
+    console.log('typeof', typeof target, target.constructor.name);
+
   }
 }

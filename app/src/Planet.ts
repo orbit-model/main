@@ -1,11 +1,9 @@
-console.log('planet 0');
-import { attr } from "@orbit-model/main";
+import { attr, registerClass } from "@orbit-model/main";
 
 
-console.log('planet 1');
+@registerClass('class')
 export default class Planet {
 
   @attr()
   name: string;
 }
-console.log('planet 2');
