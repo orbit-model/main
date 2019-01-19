@@ -1,6 +1,6 @@
 
 export default interface ModelInfo {
-  className: string;
+  className: string;  // todo: do we need this?
   name: string;    // effectively the JSON-API type of that model
   attributes?: {
     [attributeName: string]: AttributeInfo
@@ -15,7 +15,7 @@ export interface AttributeInfo {
   name: string;    // name for the API
   schemaType: string;
   defaultValue: number | string | boolean;
-  transform: string;    // see #530
+  transform: string;    // see https://github.com/orbitjs/orbit/issues/530
 }
 
 export interface RelationInfo {

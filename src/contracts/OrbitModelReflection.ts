@@ -1,6 +1,6 @@
 import ModelInfo from './ModelInfo';
 
 export default interface OrbitModelReflection {
-  isAbstract?: boolean;
-  modelInfo?: ModelInfo;
+  isAbstract?: boolean; // todo: do we need this???
+  modelInfo: ModelInfo;
 }
