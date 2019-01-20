@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 export { default as attr } from './decorators/attr';
 export { default as model } from './decorators/model';
 export { default as registerClass } from './decorators/registerClass';

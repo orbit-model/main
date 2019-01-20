@@ -1,16 +1,41 @@
+import { dasherize } from "@orbit/utils";
+import ModelMetaAccessors from "../meta/ModelMetaAccessors";
+import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
+import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
+import { AttributeInfo } from "../contracts/ModelInfo";
+import DefaultAttributeInfo from "../meta/pojos/DefaultAttributeInfo";
+import "reflect-metadata";
 
-console.log('attr 0');
-export default function attrGenerator(options?: { transform?: string, defaultValue?: any }) {
-  console.log('attrGenerator', options);
+interface AttrOptions {
+  name?: string;
+  transform?: string;
+  schemaType?: string;
+  defaultValue?: boolean | string | number;
+}
 
-  setTimeout(()=>{
-    console.log('setTimeout');
-  }, 1);
+function getSchemaType(target: any, key: string): string {
 
+  // console.log(Reflect.getMetadataKeys(target, key));
+  console.log(Reflect.getMetadata('design:type', target, key));
+
+  return "string";
+}
+
+export default function attrGenerator(options: AttrOptions = {}) {
   return function attr(target: any, key: string) {
-    console.log('attrGenerator-attr', target, "key", key, "options", options);
+    let diName = options.name || dasherize(key);
 
-    console.log('typeof', typeof target, target.constructor.name);
+    if (typeof ModelMetaAccessors.getReflection(target) === "undefined") {
+      ModelMetaAccessors.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
+    }
 
+    let attrInfo: AttributeInfo = new DefaultAttributeInfo();
+    attrInfo.attributeName = key;
+    attrInfo.name = diName;
+    attrInfo.defaultValue = options.defaultValue;
+    attrInfo.transform = options.transform;
+    attrInfo.schemaType = options.schemaType || getSchemaType(target, key);
+
+    ModelMetaAccessors.getReflection(target).modelInfo.attributes[key] = attrInfo;
   }
 }
