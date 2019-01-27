@@ -6,4 +6,7 @@ export default class Planet {
 
   @attr()
   name: string;
+
+  @attr()
+  test = "text";
 }

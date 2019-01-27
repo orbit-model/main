@@ -14,11 +14,21 @@ interface AttrOptions {
 }
 
 function getSchemaType(target: any, key: string): string {
+  let meta = Reflect.getMetadata('design:type', target, key);
+  if (typeof meta !== "function") {
+    throw new Error(`Was not able to get the reflection metadata of the property ${key} in class ${target.name}, please set the schema type parameter for this property`);
+  }
 
-  // console.log(Reflect.getMetadataKeys(target, key));
-  console.log(Reflect.getMetadata('design:type', target, key));
-
-  return "string";
+  switch (meta.name) {
+    case "String":
+      return "string";
+    case "Number":
+      return "number";
+    case "Boolean":
+      return "boolean";
+    default:
+      throw new Error(`You have to define the schema type parameter for the property ${key} in class ${target.name}`)
+  }
 }
 
 export default function attrGenerator(options: AttrOptions = {}) {
