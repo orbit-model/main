@@ -1,19 +1,17 @@
 import ModelSerializerContract from "../ModelSerializer";
 import Model from "../../contracts/Model";
-import HiddenOrbitProp from "../../contracts/HiddenOrbitProp";
 import Container from "../../contracts/Container";
 import Getter from "../../contracts/Getter";
 import { Dict } from "@orbit/utils";
-import HiddenOrbit from "../../contracts/HiddenOrbit";
 import { RecordIdentity } from "@orbit/data";
-import OrbitModelReflection from "../../contracts/OrbitModelReflection";
 import Setter from "../../contracts/Setter";
 import { AttributeInfo } from "../../contracts/ModelInfo";
 import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
 import { ServiceType } from "../MiddlewareRegistry";
 import MiddlewareRegistry from "../MiddlewareRegistry";
+import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 
-export default class ModelSerializer implements ModelSerializerContract<HiddenOrbitProp, Model> {
+export default class ModelSerializer implements ModelSerializerContract<Model> {
 
   private di: Container;
 
@@ -32,7 +30,7 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
 
   setAttributeValues<M extends Model>(model: M, attributes: Dict<any>, setter: Setter<M>): void {
     let registry = this.getRegistry();
-    let reflection = this.getOrbitReflection(this.getHiddenOrbit(model).klass);
+    let reflection = ModelMetaAccessors.getReflection(model.constructor);
 
     for (let name in attributes) {
       if (attributes.hasOwnProperty(name)) {
@@ -53,28 +51,6 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
   }
 
 
-  getHiddenOrbit(model: HiddenOrbitProp): HiddenOrbit {
-    return model.__orbit;
-  }
-
-  setHiddenOrbit(model: HiddenOrbitProp, value: HiddenOrbit): void {
-    model.__orbit = value;
-  }
-
-
-  getOrbitReflection(klass: { new(): any }): OrbitModelReflection {
-    if (typeof klass["__orbitReflection"] === "object") {
-      return klass["__orbitReflection"];
-    } else {
-      throw new Error('Type-Error: given class is not a model ("__orbitReflection" is not a static property)');
-    }
-  }
-
-  setOrbitReflection(klass: { new(): any }, reflection: OrbitModelReflection): void {
-    klass["__orbitReflection"] = reflection;
-  }
-
-
   getId<M extends Model>(model: M, getter: Getter<M>): string {
     return getter("id", model);
   }
@@ -83,7 +59,7 @@ export default class ModelSerializer implements ModelSerializerContract<HiddenOr
     setter("id", value, model);
   }
 
-  private getRegistry(): MiddlewareRegistry<HiddenOrbitProp, Model> {
+  private getRegistry(): MiddlewareRegistry<Model> {
     return this.di.get("middleware", "registry");
   }
 

@@ -8,7 +8,7 @@ export enum ServiceType {
   RecordSerializer
 }
 
-export default interface MiddlewareRegistry<H, M> {
+export default interface MiddlewareRegistry<M> {
 
   getServices(type: ServiceType): Array<any>;
 

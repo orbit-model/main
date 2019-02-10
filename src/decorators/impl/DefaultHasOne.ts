@@ -2,8 +2,8 @@ import HasOne from "../../contracts/HasOne";
 import Store from "@orbit/store";
 import Model from "../../contracts/Model";
 import ModelSerializer from "../../middleware/ModelSerializer";
-import HiddenOrbitProp from "../../contracts/HiddenOrbitProp";
 import Container from "../../contracts/Container";
+import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 
 export default class DefaultHasOne<Parent extends Model, Related extends Model> implements HasOne<Related> {
 
@@ -19,13 +19,13 @@ export default class DefaultHasOne<Parent extends Model, Related extends Model> 
   }
 
   get(): Promise<Related> {
-    let store: Store = this.parent.__orbit.branch.getStore();
+    let store: Store = ModelMetaAccessors.getMeta(this.parent).branch.getStore();
     return store.query(q => q.findRelatedRecord({ type: 'moon', id: 'io' }, 'planet'));
   }
 
   set(related: Related): Promise<void> {
-    let store: Store = this.parent.__orbit.branch.getStore();
-    let serializer: ModelSerializer<HiddenOrbitProp, Model> = this.di.get('system', 'modelSerializer');
+    let store: Store = ModelMetaAccessors.getMeta(this.parent).branch.getStore();
+    let serializer: ModelSerializer<Model> = this.di.get('system', 'modelSerializer');
 
     return store.update(
       t => t.replaceRelatedRecord(

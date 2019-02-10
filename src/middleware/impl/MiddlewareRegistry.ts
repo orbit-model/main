@@ -1,10 +1,9 @@
 import MiddlewareRegistryContract, { ServiceType } from "../MiddlewareRegistry";
 import Model from "../../contracts/Model";
-import HiddenOrbitProp from "../../contracts/HiddenOrbitProp";
 import AdapterService from "../AdapterService";
 import ModelSerializerService from "../ModelSerializerService";
 
-export default class MiddlewareRegistry implements MiddlewareRegistryContract<HiddenOrbitProp, Model> {
+export default class MiddlewareRegistry implements MiddlewareRegistryContract<Model> {
 
   private services: Map<ServiceType, Array<any>> = new Map();
 

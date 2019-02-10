@@ -2,7 +2,6 @@ import { Record } from '@orbit/data';
 import AdapterContract from "../../contracts/Adapter";
 import Model from "../../contracts/Model";
 import MiddlewareRegistry, { ServiceType } from "../MiddlewareRegistry";
-import HiddenOrbitProp from "../../contracts/HiddenOrbitProp";
 import Container from "../../contracts/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
@@ -91,11 +90,11 @@ export default class Adapter implements AdapterContract<Model> {
   }
 
 
-  private getRegistry(): MiddlewareRegistry<HiddenOrbitProp, Model> {
+  private getRegistry(): MiddlewareRegistry<Model> {
     return this.di.get("middleware", "registry");
   }
 
-  private getModelSerializer(): ModelSerializer<HiddenOrbitProp, Model> {
+  private getModelSerializer(): ModelSerializer<Model> {
     return this.di.get("middleware", "model-serializer");
   }
 
