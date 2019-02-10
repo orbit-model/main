@@ -15,7 +15,6 @@ export interface AttributeInfo {
   name: string;    // name for the API
   schemaType: string;
   defaultValue: number | string | boolean;
-  transform: string;    // see https://github.com/orbitjs/orbit/issues/530
 }
 
 export interface RelationInfo {

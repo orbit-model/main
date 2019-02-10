@@ -5,6 +5,7 @@ import Store from "@orbit/store";
 import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 import ModelSerializer from "../ModelSerializer";
 import { RecordIdentity } from "@orbit/data";
+import { dasherize } from "@orbit/utils";
 
 export default class RelationshipAdapter implements RelationshipAdapterContract<Model> {
   private di: Container = null;
@@ -18,7 +19,7 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
   }
 
   private static getNameFromType<M>(model: M): string {
-    return model.constructor.name
+    return dasherize(model.constructor.name)
   }
 
   private static getStore(model: Model): Store {

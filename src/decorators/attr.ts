@@ -8,7 +8,6 @@ import "reflect-metadata";
 
 interface AttrOptions {
   name?: string;
-  transform?: string;
   schemaType?: string;
   defaultValue?: boolean | string | number;
 }
@@ -43,7 +42,6 @@ export default function attrGenerator(options: AttrOptions = {}) {
     attrInfo.attributeName = key;
     attrInfo.name = diName;
     attrInfo.defaultValue = options.defaultValue;
-    attrInfo.transform = options.transform;
     attrInfo.schemaType = options.schemaType || getSchemaType(target, key);
 
     ModelMetaAccessors.getReflection(target).modelInfo.attributes[key] = attrInfo;

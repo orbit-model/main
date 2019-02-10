@@ -5,5 +5,4 @@ export default class DefaultAttributeInfo implements AttributeInfo {
   defaultValue: number | string | boolean;
   name: string;
   schemaType: string;
-  transform: string;
 }

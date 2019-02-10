@@ -1,4 +1,4 @@
-import { attr, registerClass } from "@orbit-model/main";
+import { attr, registerClass, hasOne, HasOne } from "@orbit-model/main";
 
 
 @registerClass('class')
@@ -7,6 +7,14 @@ export default class Planet {
   @attr()
   name: string;
 
-  @attr()
-  test = "text";
+  @hasOne()
+  solarSystem: () => HasOne<SolarSystem>;
 }
+
+class SolarSystem {
+
+}
+
+let planet = new Planet();
+planet.name = "myPlanet";
+planet.solarSystem();
