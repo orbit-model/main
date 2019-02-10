@@ -1,38 +1,36 @@
 import HasOne from "../../contracts/HasOne";
-import Store from "@orbit/store";
 import Model from "../../contracts/Model";
-import ModelSerializer from "../../middleware/ModelSerializer";
 import Container from "../../contracts/Container";
-import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
+import RelationshipAdapter from "../../contracts/RelationshipAdapter";
 
-export default class DefaultHasOne<Parent extends Model, Related extends Model> implements HasOne<Related> {
+export default class DefaultHasOne<Own extends Model, Related extends Model> implements HasOne<Related> {
 
-  private relationShip: String;
-  private parent: Parent;
+  private relationship: string;
+  private ownModel: Own;
   private di: Container;
 
-
-  constructor(relationShip: String, parent: Parent, di: Container) {
-    this.relationShip = relationShip;
-    this.parent = parent;
+  /**
+   * @private
+   * @param relationship
+   * @param ownModel
+   * @param di
+   */
+  constructor(relationship: string, ownModel: Own, di: Container) {
+    this.relationship = relationship;
+    this.ownModel = ownModel;
     this.di = di;
   }
 
   get(): Promise<Related> {
-    let store: Store = ModelMetaAccessors.getMeta(this.parent).branch.getStore();
-    return store.query(q => q.findRelatedRecord({ type: 'moon', id: 'io' }, 'planet'));
+    return this.getRelationshipAdapter().getRelatedModel(this.ownModel, this.relationship);
   }
 
   set(related: Related): Promise<void> {
-    let store: Store = ModelMetaAccessors.getMeta(this.parent).branch.getStore();
-    let serializer: ModelSerializer<Model> = this.di.get('system', 'modelSerializer');
+    return this.getRelationshipAdapter().setRelatedModel(this.ownModel, related, this.relationship);
+  }
 
-    return store.update(
-      t => t.replaceRelatedRecord(
-        serializer.getIdentity(this.parent),
-        this.relationShip,
-        serializer.getIdentity(related)
-      )
-    );
+
+  private getRelationshipAdapter(): RelationshipAdapter<Model> {
+    return this.di.get('middleware', 'relationshipAdapter');
   }
 }
