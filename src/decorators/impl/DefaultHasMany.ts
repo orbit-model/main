@@ -1,24 +1,21 @@
 import Model from "../../contracts/Model";
 import HasMany from "../../contracts/HasMany";
-import Container from "../../contracts/Container";
 import RelationshipAdapter from "../../contracts/RelationshipAdapter";
+import ApplicationDI from "../../di/ApplicationDI";
 
 export default class DefaultHasMany<Own extends Model, Related extends Model> implements HasMany<Model> {
 
   private relationship: string;
   private ownModel: Own;
-  private di: Container;
 
   /**
    * @private
    * @param relationship
    * @param ownModel
-   * @param di
    */
-  constructor(relationship: string, ownModel: Own, di: Container) {
+  constructor(relationship: string, ownModel: Own) {
     this.relationship = relationship;
     this.ownModel = ownModel;
-    this.di = di;
   }
 
 
@@ -44,6 +41,6 @@ export default class DefaultHasMany<Own extends Model, Related extends Model> im
 
 
   private getRelationshipAdapter(): RelationshipAdapter<Model> {
-    return this.di.get('middleware', 'relationshipAdapter');
+    return ApplicationDI.getDI().get('middleware', 'relationshipAdapter');
   }
 }
