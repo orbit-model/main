@@ -11,10 +11,15 @@ export default interface LiteBranch {
   fork(): LiteBranch;
   /**
    * merges the parent branch into this branch to get any updates made since the `fork()`
+   * @deprecated
    */
   updateFromParent(): Promise<void>;
   /**
    * persist all the changes made since this `Branch` has been created
    */
   mergeAndDestroy(): Promise<void>;
+  /**
+   * clean up event handlers in order to allow garbage collection
+   */
+  abandon(): void;
 }

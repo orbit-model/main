@@ -28,7 +28,7 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
 
 
 //## to one #########################################################
-  getRelatedModel<T extends Model, R extends Model>(model: T, relationship: String): Promise<R> {
+  getRelatedModel<T extends Model, R extends Model>(model: T, relationship: string): Promise<R> {
     // todo: add events
     let store: Store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();

@@ -17,7 +17,7 @@ export default class DefaultRootBranch implements RootBranchContract {
   }
 
   fork(): LiteBranch {
-    return new DefaultLiteBranch(this.store.fork(), this.store);
+    return new DefaultLiteBranch(this.store);
   }
 
 }
