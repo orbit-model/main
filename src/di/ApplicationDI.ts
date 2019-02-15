@@ -1,13 +1,18 @@
 import Container from "../contracts/Container";
 import DefaultContainer from "./impl/DefaultContainer";
 import MigratableContainer from "./MigratableContainer";
+import DefaultRootBranch from "../branching/impl/DefaultRootBranch";
 
 export default class ApplicationDI {
 
-  private static di: MigratableContainer = new DefaultContainer();
+  private static di: MigratableContainer = null;
 
   public static getDI(): Container {
-    return this.di;
+    if (ApplicationDI.di === null) {
+      ApplicationDI.di = new DefaultContainer();
+      ApplicationDI.initWithDefaults();
+    }
+    return ApplicationDI.di;
   }
 
   /**
@@ -18,8 +23,15 @@ export default class ApplicationDI {
    * @param di
    */
   public static replaceDI(di: MigratableContainer): void {
-    this.di.migrateTo(di);
-    this.di = di;
+    ApplicationDI.di.migrateTo(di);
+    ApplicationDI.di = di;
+  }
+
+  /**
+   * initializes the registry with the default implementations
+   */
+  private static initWithDefaults(): void {
+    let di = ApplicationDI.di;
   }
 
 }

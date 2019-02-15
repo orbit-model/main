@@ -121,8 +121,8 @@ export default class DefaultContainer implements MigratableContainer {
     namespaceMap.set(name, contained);
   }
 
-  public register(namespace: string, name: string, klass: { new(): any }, options: { singleton: boolean } = { singleton: false }): void {
-    let contained: Contained<any>;
+  public register<K = any>(namespace: string, name: string, klass: { new(): K }, options: { singleton: boolean } = { singleton: false }): void {
+    let contained: Contained<K>;
     if (options.singleton) {
       contained = new ContainedSingletonClass(klass);
     } else {

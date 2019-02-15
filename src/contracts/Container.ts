@@ -8,7 +8,7 @@ export default interface Container {
    * @param klass
    * @param options
    */
-  register(namespace: string, name: string, klass: { new(): any }, options?: { singleton: boolean }): void;
+  register<K = any>(namespace: string, name: string, klass: { new(): K }, options?: { singleton: boolean }): void;
 
   /**
    * This method allows you to register an instance (or rather any value) instead of a class.
