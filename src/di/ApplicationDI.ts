@@ -1,7 +1,6 @@
 import Container from "../contracts/Container";
 import DefaultContainer from "./impl/DefaultContainer";
 import MigratableContainer from "./MigratableContainer";
-import DefaultRootBranch from "../branching/impl/DefaultRootBranch";
 
 export default class ApplicationDI {
 
