@@ -1,6 +1,7 @@
 import Store from '@orbit/store';
+import QueryBuilderZero from "./QueryBuilderZero";
 
-export default interface LiteBranch {
+export default interface LiteBranch<MODEL> {
   /**
    * get the current fork of the store
    */
@@ -8,7 +9,7 @@ export default interface LiteBranch {
   /**
    * create a sub branch of the current branch by forking the store
    */
-  fork(): LiteBranch;
+  fork(): LiteBranch<MODEL>;
   /**
    * persist all the changes made since this `Branch` has been created
    */
@@ -17,4 +18,9 @@ export default interface LiteBranch {
    * clean up event handlers to allow garbage collection to work
    */
   abandon(): void;
+  /**
+   *
+   * @param queryBuilder = "query-builder"
+   */
+  query(queryBuilder: string): QueryBuilderZero<MODEL>;
 }

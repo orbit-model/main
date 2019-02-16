@@ -2,8 +2,11 @@ import LiteBranch from "../../contracts/LiteBranch";
 import Store from "@orbit/store";
 import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coordinator';
 import uuid from 'uuid/v4';
+import Model from "../../contracts/Model";
+import QueryBuilderZero from "../../contracts/QueryBuilderZero";
+import ApplicationDI from "../../di/ApplicationDI";
 
-export default class DefaultLiteBranch implements LiteBranch {
+export default class DefaultLiteBranch implements LiteBranch<Model> {
 
   private readonly store: Store;
   private readonly parent: Store;
@@ -33,7 +36,7 @@ export default class DefaultLiteBranch implements LiteBranch {
     return this.store;
   }
 
-  fork(): LiteBranch {
+  fork(): LiteBranch<Model> {
     return new DefaultLiteBranch(this.store);
   }
 
@@ -44,5 +47,9 @@ export default class DefaultLiteBranch implements LiteBranch {
 
   abandon(): void {
     this.coordinator.deactivate();
+  }
+
+  query(queryBuilder: string = "query-builder"): QueryBuilderZero<Model> {
+    return ApplicationDI.getDI().get("system", queryBuilder);
   }
 }

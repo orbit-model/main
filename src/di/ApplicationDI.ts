@@ -1,6 +1,7 @@
 import Container from "../contracts/Container";
 import DefaultContainer from "./impl/DefaultContainer";
 import MigratableContainer from "./MigratableContainer";
+import DefaultQueryBuilderZero from "../query/impl/DefaultQueryBuilderZero";
 
 export default class ApplicationDI {
 
@@ -31,6 +32,8 @@ export default class ApplicationDI {
    */
   private static initWithDefaults(): void {
     let di = ApplicationDI.di;
+
+    di.register('system', 'query-builder', DefaultQueryBuilderZero);
   }
 
 }
