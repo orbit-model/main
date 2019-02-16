@@ -1,4 +1,4 @@
-import HasOne from "../../contracts/HasOne";
+import HasOne from "../contracts/HasOne";
 import Model from "../../model/Model";
 import RelationshipAdapter from "../../middleware/RelationshipAdapter";
 import ApplicationDI from "../../di/ApplicationDI";
