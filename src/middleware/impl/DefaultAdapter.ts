@@ -1,5 +1,5 @@
 import { Record } from '@orbit/data';
-import AdapterContract from "../../contracts/Adapter";
+import Adapter from "../../contracts/Adapter";
 import Model from "../../contracts/Model";
 import Container from "../../contracts/Container";
 import ModelSerializer from "../ModelSerializer";
@@ -9,7 +9,7 @@ import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
 
 
-export default class Adapter implements AdapterContract<Model> {
+export default class DefaultAdapter implements Adapter<Model> {
 
   private di: Container = null;
 
@@ -74,13 +74,5 @@ export default class Adapter implements AdapterContract<Model> {
 
   private getRecordSerializer(): RecordSerializer {
     return this.di.get("middleware", "record-serializer");
-  }
-
-  protected defaultGetter<M extends Model>(attr: string, model: M): any {
-    return model[attr];
-  }
-
-  protected defaultSetter<M extends Model>(attr: string, value: any, model: M): void {
-    model[attr] = value;
   }
 }

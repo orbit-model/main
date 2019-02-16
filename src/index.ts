@@ -20,4 +20,4 @@ export { default as DefaultContainer } from './di/impl/DefaultContainer';
 export { default as ModelMetaAccessors } from './meta/ModelMetaAccessors';
 
 // middleware implementaions
-export { default as DefaultMiddelwareAdapter } from './middleware/impl/Adapter';
+export { default as DefaultMiddelwareAdapter } from './middleware/impl/DefaultAdapter';
