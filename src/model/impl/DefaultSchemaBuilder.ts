@@ -1,9 +1,8 @@
-import SchemaBuilder from "../../contracts/SchemaBuilder";
+import SchemaBuilder from "../SchemaBuilder";
 import Container from "../../di/Container";
 import { ModelDefinition, Schema } from "@orbit/data";
 import { Dict } from "@orbit/utils";
 import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
-import ApplicationDI from "../../di/ApplicationDI";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
   private di: Container;
