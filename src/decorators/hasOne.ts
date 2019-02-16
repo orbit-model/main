@@ -1,4 +1,4 @@
-import { dasherize } from "@orbit/utils";
+import { camelize } from "@orbit/utils";
 import ModelMetaAccessors from "../meta/ModelMetaAccessors";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
 import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
@@ -15,7 +15,7 @@ interface RelationOptions {
 export default function hasOneGenerator(options: RelationOptions = {}) {
   return function hasOne(target: any, key: string) {
     // 1. gather meta data
-    let diName = options.name || dasherize(key);
+    let diName = options.name || camelize(key);
 
     if (typeof ModelMetaAccessors.getReflection(target) === "undefined") {
       ModelMetaAccessors.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));

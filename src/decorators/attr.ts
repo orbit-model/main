@@ -1,4 +1,4 @@
-import { dasherize } from "@orbit/utils";
+import { camelize } from "@orbit/utils";
 import ModelMetaAccessors from "../meta/ModelMetaAccessors";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
 import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
@@ -8,6 +8,7 @@ import "reflect-metadata";
 import Model from "../contracts/Model";
 import ApplicationDI from "../di/ApplicationDI";
 import Adapter from "../contracts/Adapter";
+import { Record } from '@orbit/data';
 
 interface AttrOptions {
   name?: string;
@@ -35,7 +36,7 @@ function getSchemaType(target: any, key: string): string {
 
 export default function attrGenerator(options: AttrOptions = {}) {
   return function attr<M extends Model>(target: { new(): M }, key: string) {
-    let diName = options.name || dasherize(key);
+    let diName = options.name || camelize(key);
 
     if (typeof ModelMetaAccessors.getReflection(target) === "undefined") {
       ModelMetaAccessors.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
@@ -54,7 +55,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
         return ModelMetaAccessors.getMeta(this).values[attrInfo.name];
       },
       set(v: any): void {
-        let adapter : Adapter<Model> = ApplicationDI.getDI().get('middleware', 'adapter');
+        let adapter: Adapter<Record, Model> = ApplicationDI.getDI().get('middleware', 'adapter');
         adapter.setAttrValue(this, key, v);
       }
     })

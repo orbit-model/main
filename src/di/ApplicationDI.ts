@@ -2,6 +2,7 @@ import Container from "../contracts/Container";
 import DefaultContainer from "./impl/DefaultContainer";
 import MigratableContainer from "./MigratableContainer";
 import DefaultQueryBuilderZero from "../query/impl/DefaultQueryBuilderZero";
+import DefaultSchemaBuilder from "../model/impl/DefaultSchemaBuilder";
 
 export default class ApplicationDI {
 
@@ -34,6 +35,7 @@ export default class ApplicationDI {
     let di = ApplicationDI.di;
 
     di.register('system', 'query-builder', DefaultQueryBuilderZero);
+    di.register('system', 'schema-builder', DefaultSchemaBuilder, {singleton: true});
   }
 
 }

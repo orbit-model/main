@@ -1,4 +1,4 @@
-import { dasherize } from "@orbit/utils";
+import { camelize } from "@orbit/utils";
 import ApplicationDI from "../di/ApplicationDI";
 import ModelMetaAccessors from "../meta/ModelMetaAccessors";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
@@ -8,7 +8,7 @@ import ModelInfo from "../contracts/ModelInfo";
 
 export default function registerClassGenerator(options: { name?: string } = {}) {
   return function registerClass(target: any) {
-    let diName = options.name || dasherize(target.name);
+    let diName = options.name || camelize(target.name);
     ApplicationDI.getDI().register("models", diName, target);
 
     if (typeof ModelMetaAccessors.getReflection(target) === "undefined") {
