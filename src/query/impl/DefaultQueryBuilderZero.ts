@@ -1,5 +1,5 @@
 import QueryBuilderZero from "../../contracts/QueryBuilderZero";
-import Model from "../../contracts/Model";
+import Model from "../../model/Model";
 import QueryBuilder from "../../contracts/QueryBuilder";
 import classToDiName from "../../utils/classToDiName";
 import DefaultQueryBuilder from "./DefaultQueryBuilder";

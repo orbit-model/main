@@ -1,4 +1,4 @@
-import Model from "../../contracts/Model";
+import Model from "../../model/Model";
 import HasMany from "../../contracts/HasMany";
 import RelationshipAdapter from "../../middleware/RelationshipAdapter";
 import ApplicationDI from "../../di/ApplicationDI";

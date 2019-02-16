@@ -1,5 +1,5 @@
 import OrbitModelReflection from "../../contracts/OrbitModelReflection";
-import Model from "../../contracts/Model";
+import Model from "../../model/Model";
 import OrbitModelMeta from "../../contracts/OrbitModelMeta";
 import ModelMetaAccessor from "../ModelMetaAccessor";
 

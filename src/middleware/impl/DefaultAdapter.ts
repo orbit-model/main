@@ -1,6 +1,6 @@
 import { Record } from '@orbit/data';
 import Adapter from "../Adapter";
-import Model from "../../contracts/Model";
+import Model from "../../model/Model";
 import Container from "../../di/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";

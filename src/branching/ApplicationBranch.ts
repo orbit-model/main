@@ -1,5 +1,5 @@
 import Store from "@orbit/store";
-import Model from "../contracts/Model";
+import Model from "../model/Model";
 import Branch from "./Branch";
 import DefaultBranch from "./impl/DefaultBranch";
 

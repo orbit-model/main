@@ -1,7 +1,7 @@
 import Branch from "../Branch";
 import Store from "@orbit/store";
 import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coordinator';
-import Model from "../../contracts/Model";
+import Model from "../../model/Model";
 import QueryBuilderZero from "../../contracts/QueryBuilderZero";
 import ApplicationDI from "../../di/ApplicationDI";
 import { uuid } from "@orbit/utils";

@@ -1,5 +1,5 @@
 import RelationshipAdapterContract from "../RelationshipAdapter";
-import Model from "../../contracts/Model";
+import Model from "../../model/Model";
 import Container from "../../di/Container";
 import Store from "@orbit/store";
 import ModelSerializer from "../ModelSerializer";

@@ -1,4 +1,4 @@
-import Model from "../../contracts/Model";
+import Model from "../Model";
 import ApplicationDI from "../../di/ApplicationDI";
 import Adapter from "../../middleware/Adapter";
 import { Record } from '@orbit/data';

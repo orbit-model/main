@@ -1,5 +1,5 @@
 import ModelSerializerContract from "../ModelSerializer";
-import Model from "../../contracts/Model";
+import Model from "../../model/Model";
 import Container from "../../di/Container";
 import { Dict } from "@orbit/utils";
 import { RecordIdentity } from "@orbit/data";
