@@ -4,14 +4,14 @@ import Store from "@orbit/store";
 import DefaultRootBranch from "./impl/DefaultRootBranch";
 import Model from "../contracts/Model";
 
-export default class Branch {
+export default class ApplicationBranch {
 
   public static setup(store: Store): void {
-    ApplicationDI.getDI().registerObject('system', 'root-branch', new DefaultRootBranch(store));
+    ApplicationDI.getDI().registerObject('system', 'rootBranch', new DefaultRootBranch(store));
   }
 
 
   public static getRoot(): RootBranch<Model> {
-    return ApplicationDI.getDI().get('system', 'root-branch');
+    return ApplicationDI.getDI().get('system', 'rootBranch');
   }
 }
