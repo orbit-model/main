@@ -1,10 +1,10 @@
 import LiteBranch from "../../contracts/LiteBranch";
 import Store from "@orbit/store";
 import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coordinator';
-import uuid from 'uuid/v4';
 import Model from "../../contracts/Model";
 import QueryBuilderZero from "../../contracts/QueryBuilderZero";
 import ApplicationDI from "../../di/ApplicationDI";
+import { uuid } from "@orbit/utils";
 
 export default class DefaultLiteBranch implements LiteBranch<Model> {
 
