@@ -9,6 +9,8 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
   private pluralize: (word: string) => string;
   private singularize: (word: string) => string;
 
+  private static version = 1;
+
   _setOrbitDi(di: Container): void {
     this.di = di;
 
@@ -69,7 +71,8 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
     return new Schema({
       models,
       singularize: this.singularize,
-      pluralize: this.pluralize
+      pluralize: this.pluralize,
+      version: DefaultSchemaBuilder.version++
     });
   }
 
