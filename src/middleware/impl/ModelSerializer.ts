@@ -1,10 +1,8 @@
 import ModelSerializerContract from "../ModelSerializer";
 import Model from "../../contracts/Model";
 import Container from "../../contracts/Container";
-import Getter from "../../contracts/Getter";
 import { Dict } from "@orbit/utils";
 import { RecordIdentity } from "@orbit/data";
-import Setter from "../../contracts/Setter";
 import { AttributeInfo } from "../../contracts/ModelInfo";
 import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
 import { ServiceType } from "../MiddlewareRegistry";
@@ -20,43 +18,38 @@ export default class ModelSerializer implements ModelSerializerContract<Model> {
   }
 
   getIdentity(model: Model): RecordIdentity {
+    return {
+      id: ModelMetaAccessors.getMeta(model).orbitUUID,
+      type: ModelMetaAccessors.getReflection(model.constructor).modelInfo.name,
+    };
+  }
+
+  getAttributeValues<M extends Model>(model: M): Dict<any> {
+    // todo: implement
     return undefined;
   }
 
-
-  getAttributeValues<M extends Model>(model: M, getter: Getter<M>): Dict<any> {
-    return undefined;
-  }
-
-  setAttributeValues<M extends Model>(model: M, attributes: Dict<any>, setter: Setter<M>): void {
-    let registry = this.getRegistry();
+  setAttributeValues<M extends Model>(model: M, attributes: Dict<any>): void {
+    // let registry = this.getRegistry();
     let reflection = ModelMetaAccessors.getReflection(model.constructor);
+    let meta = ModelMetaAccessors.getMeta(model);
 
     for (let name in attributes) {
       if (attributes.hasOwnProperty(name)) {
         let attributeInfo: AttributeInfo = findAttributeInfoByName(reflection, name);
 
-        let beforeSetAttr = { model, attributes, setter, name, attributeInfo };
-        registry.runHook(ServiceType.ModelSerializer, "beforeSetAttribute", beforeSetAttr);
-        name = beforeSetAttr.name;
-        attributeInfo = beforeSetAttr.attributeInfo;
+        // let beforeSetAttr = { model, attributes, name, attributeInfo };
+        // registry.runHook(ServiceType.ModelSerializer, "beforeSetAttribute", beforeSetAttr);
+        // name = beforeSetAttr.name;
+        // attributeInfo = beforeSetAttr.attributeInfo;
 
         if (attributeInfo) {
-          setter(attributeInfo.attributeName, attributes[name], model);
+          meta.values[attributeInfo.name] = attributes[name];
         } else {
           // todo: want to store the value anywhere else?
         }
       }
     }
-  }
-
-
-  getId<M extends Model>(model: M, getter: Getter<M>): string {
-    return getter("id", model);
-  }
-
-  setId<M extends Model>(model: M, value: string, setter: Setter<M>) {
-    setter("id", value, model);
   }
 
   private getRegistry(): MiddlewareRegistry<Model> {

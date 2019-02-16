@@ -5,6 +5,9 @@ import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
 import { AttributeInfo } from "../contracts/ModelInfo";
 import DefaultAttributeInfo from "../meta/pojos/DefaultAttributeInfo";
 import "reflect-metadata";
+import Model from "../contracts/Model";
+import ApplicationDI from "../di/ApplicationDI";
+import Adapter from "../contracts/Adapter";
 
 interface AttrOptions {
   name?: string;
@@ -31,7 +34,7 @@ function getSchemaType(target: any, key: string): string {
 }
 
 export default function attrGenerator(options: AttrOptions = {}) {
-  return function attr(target: any, key: string) {
+  return function attr<M extends Model>(target: { new(): M }, key: string) {
     let diName = options.name || dasherize(key);
 
     if (typeof ModelMetaAccessors.getReflection(target) === "undefined") {
@@ -45,5 +48,15 @@ export default function attrGenerator(options: AttrOptions = {}) {
     attrInfo.schemaType = options.schemaType || getSchemaType(target, key);
 
     ModelMetaAccessors.getReflection(target).modelInfo.attributes[key] = attrInfo;
+
+    Object.defineProperty(target, key, {
+      get(): any {
+        return ModelMetaAccessors.getMeta(this).values[attrInfo.name];
+      },
+      set(v: any): void {
+        let adapter : Adapter<Model> = ApplicationDI.getDI().get('middleware', 'adapter');
+        adapter.setAttrValue(this, key, v);
+      }
+    })
   }
 }

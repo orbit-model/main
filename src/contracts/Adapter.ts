@@ -1,16 +1,35 @@
 import { Record } from "@orbit/data";
 import Injectable from "./Injectable";
-import Getter from "./Getter";
-import Setter from "./Setter";
 import LiteBranch from "./LiteBranch";
 
 
 export default interface Adapter<MODEL /* extends Model */> extends Injectable {
-  createFromRecord<M extends MODEL>(record: Record, branch: LiteBranch<MODEL>, getter?: Getter<M>, setter?: Setter<M>): M;
 
-  updateModel<M extends MODEL>(record: Record, model: M, getter?: Getter<M>, setter?: Setter<M>): void;
+  /**
+   * create a new model instance on the given branch
+   *
+   * @param record
+   * @param branch
+   */
+  createFromRecord<M extends MODEL>(record: Record, branch: LiteBranch<MODEL>): M;
 
-  save<M extends MODEL>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void>;
+  /**
+   * update the (cached) data of a model
+   */
+  updateModel<M extends MODEL>(record: Record, model: M): void;
 
-  destroy<M extends MODEL>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void>;
+  /**
+   * sets an individual value on a model and propagates it to the store
+   */
+  setAttrValue<M extends MODEL>(model: M, attribute: string, value: any): Promise<void>;
+
+  /**
+   * saves all values on a model to the store
+   */
+  save<M extends MODEL>(model: M): Promise<void>;
+
+  /**
+   * marks a given model as ready for deletion from the server (if the branch is ever merged)
+   */
+  destroy<M extends MODEL>(model: M): Promise<void>;
 }

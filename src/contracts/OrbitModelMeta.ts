@@ -8,4 +8,7 @@ export default interface OrbitModelMeta<MODEL> {
     remoteId?: string;
     // [key: string]: any;
   };
+  values: {
+    [key: string]: any;
+  }
 }

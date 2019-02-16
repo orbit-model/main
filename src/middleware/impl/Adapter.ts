@@ -5,11 +5,8 @@ import MiddlewareRegistry, { ServiceType } from "../MiddlewareRegistry";
 import Container from "../../contracts/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
-import Getter from "../../contracts/Getter";
-import Setter from "../../contracts/Setter";
 import LiteBranch from "../../contracts/LiteBranch";
 import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
-import DefaultModelInfo from "../../meta/pojos/DefaultModelInfo";
 import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
 
 
@@ -17,15 +14,13 @@ export default class Adapter implements AdapterContract<Model> {
 
   private di: Container = null;
 
-  createFromRecord<M extends Model>(record: Record, branch: LiteBranch<Model>, getter?: Getter<M>, setter?: Setter<M>): M {
+  createFromRecord<M extends Model>(record: Record, branch: LiteBranch<Model>): M {
 
     //let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
 
     let recordType = recordSerializer.getType(record);
-    let _getter = getter || this.defaultGetter;
-    let _setter = setter || this.defaultSetter;
 
     // run beforeCreate hook
     // let argsBefore = { record, recordType };
@@ -48,10 +43,9 @@ export default class Adapter implements AdapterContract<Model> {
     // _setter = argsAfter.setter;
 
     // fill the model's attributes with values
-    let id = recordSerializer.getRemoteId(record);
-    modelSerializer.setId(model, id, _setter);
     let attrs = recordSerializer.getAttributeValues(record);
-    modelSerializer.setAttributeValues(model, attrs, _setter);
+
+    modelSerializer.setAttributeValues(model, attrs);
 
     // run afterCreateFill hook
     // let argsFill = { model, getter: _getter, setter: _setter };
@@ -60,36 +54,43 @@ export default class Adapter implements AdapterContract<Model> {
     return model;
   }
 
-  updateModel<M extends Model>(record: Record, model: M, getter?: Getter<M>, setter?: Setter<M>): void {
-    throw new Error("not implemented");
-
-    let registry = this.getRegistry();
+  updateModel<M extends Model>(record: Record, model: M): void {
+    // let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
 
-    let _getter = getter || this.defaultGetter;
-    let _setter = setter || this.defaultSetter;
-
-    let beforeUpdate = { record, model, getter: _getter, setter: _setter };
-    registry.runHook(ServiceType.Adapter, "beforeUpdate", beforeUpdate);
-    record = beforeUpdate.record;
-    model = beforeUpdate.model;
-    _getter = beforeUpdate.getter;
-    _setter = beforeUpdate.setter;
+    // let beforeUpdate = { record, model, getter: _getter, setter: _setter };
+    // registry.runHook(ServiceType.Adapter, "beforeUpdate", beforeUpdate);
+    // record = beforeUpdate.record;
+    // model = beforeUpdate.model;
+    // _getter = beforeUpdate.getter;
+    // _setter = beforeUpdate.setter;
 
     let attrs = recordSerializer.getAttributeValues(record);
-    modelSerializer.setAttributeValues(model, attrs, _setter);
+    modelSerializer.setAttributeValues(model, attrs);
 
-    let afterUpdate = { model, getter: _getter, setter: _setter };
-    registry.runHook(ServiceType.Adapter, "afterUpdate", afterUpdate);
+    // let afterUpdate = { model, getter: _getter, setter: _setter };
+    // registry.runHook(ServiceType.Adapter, "afterUpdate", afterUpdate);
 
   }
 
-  async save<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
-    throw new Error("not implemented")
+  async setAttrValue<M extends Model>(model: M, attribute: string, value: any): Promise<void> {
+    let modelSerializer = this.getModelSerializer();
+
+    let meta = ModelMetaAccessors.getMeta(model);
+    meta.values[attribute] = value;
+
+    let recordId = modelSerializer.getIdentity(model);
+    let attrOrbitName = ModelMetaAccessors.getReflection(model.constructor).modelInfo.attributes[attribute].name;
+    await meta.branch.getStore().update(t => t.replaceKey(recordId, attrOrbitName, value))
   }
 
-  async destroy<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
+
+  async save<M extends Model>(model: M): Promise<void> {
+    // todo: implement
+  }
+
+  async destroy<M extends Model>(model: M): Promise<void> {
     // todo: implement
   }
 
