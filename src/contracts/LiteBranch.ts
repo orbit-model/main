@@ -14,7 +14,7 @@ export default interface LiteBranch {
    */
   mergeAndDestroy(): Promise<void>;
   /**
-   * clean up event handlers in order to allow garbage collection
+   * clean up event handlers to allow garbage collection to work
    */
   abandon(): void;
 }
