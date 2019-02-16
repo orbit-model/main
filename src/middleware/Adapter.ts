@@ -1,5 +1,5 @@
 import Injectable from "../contracts/Injectable";
-import LiteBranch from "../contracts/LiteBranch";
+import Branch from "../contracts/Branch";
 
 
 export default interface Adapter<RECORD, MODEL> extends Injectable {
@@ -10,7 +10,7 @@ export default interface Adapter<RECORD, MODEL> extends Injectable {
    * @param record
    * @param branch
    */
-  createFromRecord<M extends MODEL>(record: RECORD, branch: LiteBranch<MODEL>): M;
+  createFromRecord<M extends MODEL>(record: RECORD, branch: Branch<MODEL>): M;
 
   /**
    * update the (cached) data of a model

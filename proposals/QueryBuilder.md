@@ -35,7 +35,7 @@ export default async function() {
 
 
 ```typescript
-import LiteBranch from '/src/contracts/LiteBranch';
+import LiteBranch from '/src/contracts/Branch';
 import Model from '/src/contracts/Model';
 
 export interface QueryableBranch extends LiteBranch {

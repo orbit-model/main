@@ -1,6 +1,6 @@
 import RootBranchContract from "../../contracts/RootBranch";
 import Store from "@orbit/store";
-import LiteBranch from "../../contracts/LiteBranch";
+import Branch from "../../contracts/Branch";
 import DefaultLiteBranch from "./DefaultLiteBranch";
 import Model from "../../contracts/Model";
 
@@ -17,7 +17,7 @@ export default class DefaultRootBranch implements RootBranchContract<Model> {
     return this.store;
   }
 
-  fork(): LiteBranch<Model> {
+  fork(): Branch<Model> {
     return new DefaultLiteBranch(this.store);
   }
 

@@ -1,4 +1,4 @@
-import LiteBranch from "../../contracts/LiteBranch";
+import Branch from "../../contracts/Branch";
 import Store from "@orbit/store";
 import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coordinator';
 import Model from "../../contracts/Model";
@@ -6,7 +6,7 @@ import QueryBuilderZero from "../../contracts/QueryBuilderZero";
 import ApplicationDI from "../../di/ApplicationDI";
 import { uuid } from "@orbit/utils";
 
-export default class DefaultLiteBranch implements LiteBranch<Model> {
+export default class DefaultLiteBranch implements Branch<Model> {
 
   private readonly store: Store;
   private readonly parent: Store;
@@ -36,7 +36,7 @@ export default class DefaultLiteBranch implements LiteBranch<Model> {
     return this.store;
   }
 
-  fork(): LiteBranch<Model> {
+  fork(): Branch<Model> {
     return new DefaultLiteBranch(this.store);
   }
 

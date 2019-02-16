@@ -4,7 +4,7 @@ import Model from "../../contracts/Model";
 import Container from "../../contracts/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
-import LiteBranch from "../../contracts/LiteBranch";
+import Branch from "../../contracts/Branch";
 import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
 import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 
@@ -13,7 +13,7 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
   private di: Container = null;
 
-  createFromRecord<M extends Model>(record: Record, branch: LiteBranch<Model>): M {
+  createFromRecord<M extends Model>(record: Record, branch: Branch<Model>): M {
 
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
