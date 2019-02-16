@@ -1,6 +1,6 @@
 import OrbitModelReflection from "../contracts/OrbitModelReflection";
-import HiddenOrbit from "../contracts/HiddenOrbit";
 import Model from "../contracts/Model";
+import OrbitModelMeta from "../contracts/OrbitModelMeta";
 
 
 export default class ModelMetaAccessors {
@@ -33,8 +33,8 @@ export default class ModelMetaAccessors {
    *
    * @param model
    */
-  static getMeta<M extends Model>(model: M): HiddenOrbit {
-    return model["__orbitModel"];
+  static getMeta<M extends Model>(model: M): OrbitModelMeta<Model> {
+    return model["__orbitModelMeta"];
   }
 
   /**
@@ -43,8 +43,8 @@ export default class ModelMetaAccessors {
    * @param model
    * @param meta
    */
-  static setMeta<M extends Model>(model: M, meta: HiddenOrbit): void {
-    model["__orbitModel"] = meta;
+  static setMeta<M extends Model>(model: M, meta: OrbitModelMeta<Model>): void {
+    model["__orbitModelMeta"] = meta;
   }
 
 }

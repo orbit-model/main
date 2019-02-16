@@ -7,38 +7,45 @@ import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
 import Getter from "../../contracts/Getter";
 import Setter from "../../contracts/Setter";
+import LiteBranch from "../../contracts/LiteBranch";
+import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
+import DefaultModelInfo from "../../meta/pojos/DefaultModelInfo";
+import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
 
 
 export default class Adapter implements AdapterContract<Model> {
 
   private di: Container = null;
 
-  createFromRecord<M extends Model>(record: Record, getter?: Getter<M>, setter?: Setter<M>): M {
+  createFromRecord<M extends Model>(record: Record, branch: LiteBranch<Model>, getter?: Getter<M>, setter?: Setter<M>): M {
 
-    let registry = this.getRegistry();
+    //let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
 
     let recordType = recordSerializer.getType(record);
-    let modelKlass = this.di.getClass("models", recordType);
     let _getter = getter || this.defaultGetter;
     let _setter = setter || this.defaultSetter;
 
     // run beforeCreate hook
-    let argsBefore = { modelKlass, record, recordType };
-    registry.runHook(ServiceType.Adapter, "beforeCreate", argsBefore);
-    record = argsBefore.record;
-    recordType = argsBefore.recordType;
+    // let argsBefore = { record, recordType };
+    // registry.runHook(ServiceType.Adapter, "beforeCreate", argsBefore);
+    // record = argsBefore.record;
+    // recordType = argsBefore.recordType;
 
     // let the serializer create a new model instance
     let model: M = this.di.get<M>("models", recordType);
 
+    let meta = new DefaultOrbitModelMeta(branch, recordType, record.id);
+    meta.id.remoteId = recordSerializer.getRemoteId(record);
+    ModelMetaAccessors.setMeta(model, meta);
+
     // run afterCreate hook
-    let argsAfter = { model, getter: _getter, setter: _setter };
-    registry.runHook(ServiceType.Adapter, "afterCreate", argsAfter);
-    model = argsAfter.model;
-    _getter = argsAfter.getter;
-    _setter = argsAfter.setter;
+    // let argsAfter = { model, getter: _getter, setter: _setter };
+    // registry.runHook(ServiceType.Adapter, "afterCreate", argsAfter);
+    // model = argsAfter.model;
+    // _getter = argsAfter.getter;
+    // _setter = argsAfter.setter;
 
     // fill the model's attributes with values
     let id = recordSerializer.getRemoteId(record);
@@ -47,13 +54,14 @@ export default class Adapter implements AdapterContract<Model> {
     modelSerializer.setAttributeValues(model, attrs, _setter);
 
     // run afterCreateFill hook
-    let argsFill = { model, getter: _getter, setter: _setter };
-    registry.runHook(ServiceType.Adapter, "afterCreateFill", argsFill);
-
-    return argsFill.model;
+    // let argsFill = { model, getter: _getter, setter: _setter };
+    // registry.runHook(ServiceType.Adapter, "afterCreateFill", argsFill);
+    // return argsFill.model;
+    return model;
   }
 
   updateModel<M extends Model>(record: Record, model: M, getter?: Getter<M>, setter?: Setter<M>): void {
+    throw new Error("not implemented");
 
     let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
@@ -78,7 +86,7 @@ export default class Adapter implements AdapterContract<Model> {
   }
 
   async save<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
-    // todo: implement
+    throw new Error("not implemented")
   }
 
   async destroy<M extends Model>(model: M, getter?: Getter<M>, setter?: Setter<M>): Promise<void> {
