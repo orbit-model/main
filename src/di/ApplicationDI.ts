@@ -1,4 +1,4 @@
-import Container from "../contracts/Container";
+import Container from "./Container";
 import DefaultContainer from "./impl/DefaultContainer";
 import MigratableContainer from "./MigratableContainer";
 import DefaultQueryBuilderZero from "../query/impl/DefaultQueryBuilderZero";

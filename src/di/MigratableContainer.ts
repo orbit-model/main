@@ -1,4 +1,4 @@
-import Container from "../contracts/Container";
+import Container from "./Container";
 
 export default interface MigratableContainer extends Container {
 

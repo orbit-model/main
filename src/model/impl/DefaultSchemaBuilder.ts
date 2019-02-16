@@ -1,5 +1,5 @@
 import SchemaBuilder from "../../contracts/SchemaBuilder";
-import Container from "../../contracts/Container";
+import Container from "../../di/Container";
 import { ModelDefinition, Schema } from "@orbit/data";
 import { Dict } from "@orbit/utils";
 import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
