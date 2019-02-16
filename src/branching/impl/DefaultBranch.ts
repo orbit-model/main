@@ -6,7 +6,7 @@ import QueryBuilderZero from "../../contracts/QueryBuilderZero";
 import ApplicationDI from "../../di/ApplicationDI";
 import { uuid } from "@orbit/utils";
 
-export default class DefaultLiteBranch implements Branch<Model> {
+export default class DefaultBranch implements Branch<Model> {
 
   private readonly store: Store;
   private readonly parent: Store;
@@ -37,7 +37,7 @@ export default class DefaultLiteBranch implements Branch<Model> {
   }
 
   fork(): Branch<Model> {
-    return new DefaultLiteBranch(this.store);
+    return new DefaultBranch(this.store);
   }
 
   mergeAndDestroy(): Promise<void> {
