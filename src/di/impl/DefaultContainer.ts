@@ -1,4 +1,4 @@
-import Injectable from "../../contracts/Injectable";
+import Injectable from "../Injectable";
 import MigratableContainer from "../MigratableContainer";
 
 

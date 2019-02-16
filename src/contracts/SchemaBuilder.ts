@@ -1,4 +1,4 @@
-import Injectable from './Injectable';
+import Injectable from '../di/Injectable';
 import { Schema } from '@orbit/data';
 
 export default interface SchemaBuilder extends Injectable {

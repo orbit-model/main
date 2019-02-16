@@ -1,4 +1,4 @@
-import Injectable from "../contracts/Injectable";
+import Injectable from "../di/Injectable";
 
 export default interface RelationshipAdapter<MODEL /* extends Model */> extends Injectable {
   // hasOne relationship:

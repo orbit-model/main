@@ -1,4 +1,4 @@
-import Injectable from "../contracts/Injectable";
+import Injectable from "../di/Injectable";
 import Branch from "../branching/Branch";
 
 
