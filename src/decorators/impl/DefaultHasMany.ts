@@ -1,6 +1,6 @@
 import Model from "../../contracts/Model";
 import HasMany from "../../contracts/HasMany";
-import RelationshipAdapter from "../../contracts/RelationshipAdapter";
+import RelationshipAdapter from "../../middleware/RelationshipAdapter";
 import ApplicationDI from "../../di/ApplicationDI";
 
 export default class DefaultHasMany<Own extends Model, Related extends Model> implements HasMany<Model> {

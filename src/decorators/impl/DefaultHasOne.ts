@@ -1,6 +1,6 @@
 import HasOne from "../../contracts/HasOne";
 import Model from "../../contracts/Model";
-import RelationshipAdapter from "../../contracts/RelationshipAdapter";
+import RelationshipAdapter from "../../middleware/RelationshipAdapter";
 import ApplicationDI from "../../di/ApplicationDI";
 
 export default class DefaultHasOne<Own extends Model, Related extends Model> implements HasOne<Related> {

@@ -1,4 +1,4 @@
-import RelationshipAdapterContract from "../../contracts/RelationshipAdapter";
+import RelationshipAdapterContract from "../RelationshipAdapter";
 import Model from "../../contracts/Model";
 import Container from "../../contracts/Container";
 import Store from "@orbit/store";
