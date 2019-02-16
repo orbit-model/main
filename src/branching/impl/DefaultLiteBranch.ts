@@ -42,10 +42,6 @@ export default class DefaultLiteBranch implements LiteBranch {
     return this.parent.merge(this.store);
   }
 
-  updateFromParent(): Promise<void> {
-    return this.store.merge(this.parent);
-  }
-
   abandon(): void {
     this.coordinator.deactivate();
   }
