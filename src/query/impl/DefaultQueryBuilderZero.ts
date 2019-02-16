@@ -1,6 +1,6 @@
-import QueryBuilderZero from "../../contracts/QueryBuilderZero";
+import QueryBuilderZero from "../QueryBuilderZero";
 import Model from "../../model/Model";
-import QueryBuilder from "../../contracts/QueryBuilder";
+import QueryBuilder from "..//QueryBuilder";
 import classToDiName from "../../utils/classToDiName";
 import DefaultQueryBuilder from "./DefaultQueryBuilder";
 

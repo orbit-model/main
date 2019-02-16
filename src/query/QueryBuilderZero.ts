@@ -1,4 +1,4 @@
-import QueryBuilder from "./QueryBuilder";
+import QueryBuilder from "../../dist/contracts/QueryBuilder";
 
 export default interface QueryBuilderZero<MODEL> {
 

@@ -1,4 +1,4 @@
-import QueryBuilder from "../../contracts/QueryBuilder";
+import QueryBuilder from "../QueryBuilder";
 
 export default class DefaultQueryBuilder<M> implements QueryBuilder<M> {
 
