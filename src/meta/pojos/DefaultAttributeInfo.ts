@@ -1,4 +1,4 @@
-import { AttributeInfo } from "../../contracts/ModelInfo";
+import { AttributeInfo } from "../ModelInfo";
 
 export default class DefaultAttributeInfo implements AttributeInfo {
   attributeName: string;

@@ -1,4 +1,4 @@
-import { RelationInfo } from "../../contracts/ModelInfo";
+import { RelationInfo } from "../ModelInfo";
 
 export default class DefaultRelationInfo implements RelationInfo {
   attributeName: string;

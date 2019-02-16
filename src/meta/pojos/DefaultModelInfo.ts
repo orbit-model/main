@@ -1,4 +1,4 @@
-import ModelInfo, { AttributeInfo, RelationInfo } from "../../contracts/ModelInfo";
+import ModelInfo, { AttributeInfo, RelationInfo } from "../ModelInfo";
 
 export default class DefaultModelInfo implements ModelInfo {
   attributes: { [p: string]: AttributeInfo } = {};

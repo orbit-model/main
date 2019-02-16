@@ -1,5 +1,5 @@
-import OrbitModelReflection from "../contracts/OrbitModelReflection";
-import { AttributeInfo } from "../contracts/ModelInfo";
+import OrbitModelReflection from "../meta/OrbitModelReflection";
+import { AttributeInfo } from "../meta/ModelInfo";
 
 /**
  * find the `AttributeInfo` within reflection data by it's internal name (server name)

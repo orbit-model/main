@@ -1,5 +1,5 @@
-import OrbitModelReflection from "../../contracts/OrbitModelReflection";
-import ModelInfo from "../../contracts/ModelInfo";
+import OrbitModelReflection from "../OrbitModelReflection";
+import ModelInfo from "../ModelInfo";
 
 export default class DefaultOrbitModelReflection implements OrbitModelReflection {
   isAbstract?: boolean;

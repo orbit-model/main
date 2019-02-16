@@ -3,7 +3,7 @@ import Model from "../../model/Model";
 import Container from "../../di/Container";
 import { Dict } from "@orbit/utils";
 import { RecordIdentity } from "@orbit/data";
-import { AttributeInfo } from "../../contracts/ModelInfo";
+import { AttributeInfo } from "../../meta/ModelInfo";
 import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
 import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 

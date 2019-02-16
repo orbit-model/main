@@ -1,6 +1,6 @@
-import OrbitModelReflection from "../../contracts/OrbitModelReflection";
+import OrbitModelReflection from "../OrbitModelReflection";
 import Model from "../../model/Model";
-import OrbitModelMeta from "../../contracts/OrbitModelMeta";
+import OrbitModelMeta from "../OrbitModelMeta";
 import ModelMetaAccessor from "../ModelMetaAccessor";
 
 

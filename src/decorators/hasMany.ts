@@ -1,7 +1,7 @@
 import { camelize } from "@orbit/utils";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
 import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
-import { RelationInfo } from "../contracts/ModelInfo";
+import { RelationInfo } from "../meta/ModelInfo";
 import DefaultRelationInfo from "../meta/pojos/DefaultRelationInfo";
 import DefaultHasMany from "./impl/DefaultHasMany";
 import ModelMetaAccessor from "../meta/ModelMetaAccessor";

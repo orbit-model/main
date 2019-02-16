@@ -2,7 +2,7 @@ import { camelize } from "@orbit/utils";
 import ApplicationDI from "../di/ApplicationDI";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
 import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
-import ModelInfo from "../contracts/ModelInfo";
+import ModelInfo from "../meta/ModelInfo";
 import ModelMetaAccessor from "../meta/ModelMetaAccessor";
 
 

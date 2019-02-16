@@ -1,6 +1,6 @@
-import OrbitModelReflection from "../contracts/OrbitModelReflection";
+import OrbitModelReflection from "../meta/OrbitModelReflection";
 import Model from "../model/Model";
-import OrbitModelMeta from "../contracts/OrbitModelMeta";
+import OrbitModelMeta from "../meta/OrbitModelMeta";
 
 
 export default interface ModelMetaAccessor {

@@ -1,4 +1,4 @@
-import OrbitModelMeta from "../../contracts/OrbitModelMeta";
+import OrbitModelMeta from "../OrbitModelMeta";
 import Model from "../../model/Model";
 import Branch from "../../branching/Branch";
 
