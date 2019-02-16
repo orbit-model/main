@@ -1,7 +1,6 @@
 import { Record } from '@orbit/data';
 import AdapterContract from "../../contracts/Adapter";
 import Model from "../../contracts/Model";
-import MiddlewareRegistry, { ServiceType } from "../MiddlewareRegistry";
 import Container from "../../contracts/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
@@ -16,17 +15,10 @@ export default class Adapter implements AdapterContract<Model> {
 
   createFromRecord<M extends Model>(record: Record, branch: LiteBranch<Model>): M {
 
-    //let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
 
     let recordType = recordSerializer.getType(record);
-
-    // run beforeCreate hook
-    // let argsBefore = { record, recordType };
-    // registry.runHook(ServiceType.Adapter, "beforeCreate", argsBefore);
-    // record = argsBefore.record;
-    // recordType = argsBefore.recordType;
 
     // let the serializer create a new model instance
     let model: M = this.di.get<M>("models", recordType);
@@ -35,43 +27,20 @@ export default class Adapter implements AdapterContract<Model> {
     meta.id.remoteId = recordSerializer.getRemoteId(record);
     ModelMetaAccessors.setMeta(model, meta);
 
-    // run afterCreate hook
-    // let argsAfter = { model, getter: _getter, setter: _setter };
-    // registry.runHook(ServiceType.Adapter, "afterCreate", argsAfter);
-    // model = argsAfter.model;
-    // _getter = argsAfter.getter;
-    // _setter = argsAfter.setter;
-
     // fill the model's attributes with values
     let attrs = recordSerializer.getAttributeValues(record);
 
     modelSerializer.setAttributeValues(model, attrs);
 
-    // run afterCreateFill hook
-    // let argsFill = { model, getter: _getter, setter: _setter };
-    // registry.runHook(ServiceType.Adapter, "afterCreateFill", argsFill);
-    // return argsFill.model;
     return model;
   }
 
   updateModel<M extends Model>(record: Record, model: M): void {
-    // let registry = this.getRegistry();
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
 
-    // let beforeUpdate = { record, model, getter: _getter, setter: _setter };
-    // registry.runHook(ServiceType.Adapter, "beforeUpdate", beforeUpdate);
-    // record = beforeUpdate.record;
-    // model = beforeUpdate.model;
-    // _getter = beforeUpdate.getter;
-    // _setter = beforeUpdate.setter;
-
     let attrs = recordSerializer.getAttributeValues(record);
     modelSerializer.setAttributeValues(model, attrs);
-
-    // let afterUpdate = { model, getter: _getter, setter: _setter };
-    // registry.runHook(ServiceType.Adapter, "afterUpdate", afterUpdate);
-
   }
 
   async setAttrValue<M extends Model>(model: M, attribute: string, value: any): Promise<void> {
@@ -98,10 +67,6 @@ export default class Adapter implements AdapterContract<Model> {
     this.di = di;
   }
 
-
-  private getRegistry(): MiddlewareRegistry<Model> {
-    return this.di.get("middleware", "registry");
-  }
 
   private getModelSerializer(): ModelSerializer<Model> {
     return this.di.get("middleware", "model-serializer");

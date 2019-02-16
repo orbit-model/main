@@ -19,9 +19,5 @@ export { default as DefaultContainer } from './di/impl/DefaultContainer';
 // meta / reflection
 export { default as ModelMetaAccessors } from './meta/ModelMetaAccessors';
 
-// middleware contracts
-export { default as MiddlewareRegistry } from './middleware/MiddlewareRegistry';
-
 // middleware implementaions
 export { default as DefaultMiddelwareAdapter } from './middleware/impl/Adapter';
-export { default as DefaultMiddleWareRegistry } from './middleware/impl/MiddlewareRegistry';

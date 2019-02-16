@@ -29,7 +29,6 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
 
 //## to one #########################################################
   getRelatedModel<T extends Model, R extends Model>(model: T, relationship: string): Promise<R> {
-    // todo: add events
     let store: Store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
@@ -37,7 +36,6 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
   }
 
   setRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
-    // todo: add events
     let store: Store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || RelationshipAdapter.getNameFromType(value);
@@ -53,7 +51,6 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
 
 //## to many ########################################################
   getAllRelatedModels<T extends Model, R extends Model>(model: T, relationship: string): Promise<R[]> {
-    // todo: add events
     let store: Store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
@@ -61,7 +58,6 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
   }
 
   addRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
-    // todo: add events
     let store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || RelationshipAdapter.getNameFromType(value);
@@ -76,7 +72,6 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
   }
 
   removeRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
-    // todo: add events
     let store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || RelationshipAdapter.getNameFromType(value);
@@ -91,7 +86,6 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
   }
 
   replaceRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void> {
-    // todo: add events
     let store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || RelationshipAdapter.getNameFromType(value);
@@ -106,7 +100,6 @@ export default class RelationshipAdapter implements RelationshipAdapterContract<
   }
 
   async syncRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void> {
-    // todo: add events
     // todo: look at method performance
     let store: Store = RelationshipAdapter.getStore(model);
     let modelSerializer = this.getModelSerializer();
