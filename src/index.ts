@@ -6,7 +6,7 @@ export { default as model } from './decorators/model';
 export { default as registerClass } from './decorators/registerClass';
 
 // core contracts
-export { default as MiddlewareAdapter } from './contracts/Adapter';
+export { default as MiddlewareAdapter } from './middleware/Adapter';
 export { default as Container } from './contracts/Container';
 export { default as Injectable } from './contracts/Injectable';
 export { default as HasOne } from './contracts/HasOne';

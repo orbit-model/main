@@ -1,5 +1,5 @@
-import Injectable from "./Injectable";
-import LiteBranch from "./LiteBranch";
+import Injectable from "../contracts/Injectable";
+import LiteBranch from "../contracts/LiteBranch";
 
 
 export default interface Adapter<RECORD, MODEL> extends Injectable {

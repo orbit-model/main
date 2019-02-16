@@ -6,7 +6,7 @@ import DefaultAttributeInfo from "../meta/pojos/DefaultAttributeInfo";
 import "reflect-metadata";
 import Model from "../contracts/Model";
 import ApplicationDI from "../di/ApplicationDI";
-import Adapter from "../contracts/Adapter";
+import Adapter from "../middleware/Adapter";
 import { Record } from '@orbit/data';
 import ModelMetaAccessor from "../meta/ModelMetaAccessor";
 
