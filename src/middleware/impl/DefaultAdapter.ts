@@ -56,11 +56,29 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
 
   async save<M extends Model>(model: M): Promise<void> {
-    // todo: implement
+    let modelSerializer = this.getModelSerializer();
+
+    let meta = ModelMetaAccessors.getMeta(model);
+    let store = meta.branch.getStore();
+
+    let attributeInfos = ModelMetaAccessors.getReflection(model.constructor).modelInfo.attributes;
+    let promises: Promise<any>[] = [];
+    for(let attribute in attributeInfos){
+      let value = meta.values[attribute];
+      let recordId = modelSerializer.getIdentity(model);
+      let attrOrbitName = attributeInfos[attribute].name;
+      promises.push(store.update(t => t.replaceKey(recordId, attrOrbitName, value)));
+    }
+    await Promise.all(promises);
   }
 
   async destroy<M extends Model>(model: M): Promise<void> {
-    // todo: implement
+    let modelSerializer = this.getModelSerializer();
+    let meta = ModelMetaAccessors.getMeta(model);
+    let store = meta.branch.getStore();
+
+    let recordId = modelSerializer.getIdentity(model);
+    await store.update(t => t.removeRecord(recordId));
   }
 
   _setOrbitDi(di: Container): void {
