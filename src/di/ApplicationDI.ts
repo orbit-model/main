@@ -3,6 +3,9 @@ import DefaultContainer from "./impl/DefaultContainer";
 import MigratableContainer from "./MigratableContainer";
 import DefaultQueryBuilderZero from "../query/impl/DefaultQueryBuilderZero";
 import DefaultSchemaBuilder from "../model/impl/DefaultSchemaBuilder";
+import DefaultAdapter from "../middleware/impl/DefaultAdapter";
+import DefaultModelSerializer from "../middleware/impl/DefaultModelSerializer";
+import DefaultRelationshipAdapter from "../middleware/impl/DefaultRelationshipAdapter";
 
 export default class ApplicationDI {
 
@@ -34,8 +37,13 @@ export default class ApplicationDI {
   private static initWithDefaults(): void {
     let di = ApplicationDI.di;
 
-    di.register('system', 'query-builder', DefaultQueryBuilderZero);
-    di.register('system', 'schema-builder', DefaultSchemaBuilder, {singleton: true});
+    di.register('system', 'queryBuilder', DefaultQueryBuilderZero);
+    di.register('system', 'schemaBuilder', DefaultSchemaBuilder, { singleton: true });
+
+    di.register('middleware', 'adapter', DefaultAdapter, { singleton: true });
+    di.register('middleware', 'recordSerializer', DefaultAdapter, { singleton: true });
+    di.register('middleware', 'modelSerializer', DefaultModelSerializer, { singleton: true });
+    di.register('middleware', 'relationshipAdapter', DefaultRelationshipAdapter, { singleton: true });
   }
 
 }

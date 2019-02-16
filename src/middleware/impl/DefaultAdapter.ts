@@ -87,10 +87,10 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
 
   private getModelSerializer(): ModelSerializer<Model> {
-    return this.di.get("middleware", "model-serializer");
+    return this.di.get("middleware", "modelSerializer");
   }
 
   private getRecordSerializer(): RecordSerializer<Record> {
-    return this.di.get("middleware", "record-serializer");
+    return this.di.get("middleware", "recordSerializer");
   }
 }

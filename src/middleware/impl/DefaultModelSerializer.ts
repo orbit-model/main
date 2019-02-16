@@ -7,7 +7,7 @@ import { AttributeInfo } from "../../contracts/ModelInfo";
 import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
 import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 
-export default class ModelSerializer implements ModelSerializerContract<Model> {
+export default class DefaultModelSerializer implements ModelSerializerContract<Model> {
 
   private di: Container;
 

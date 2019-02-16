@@ -49,7 +49,7 @@ export default class DefaultLiteBranch implements LiteBranch<Model> {
     this.coordinator.deactivate();
   }
 
-  query(queryBuilder: string = "query-builder"): QueryBuilderZero<Model> {
+  query(queryBuilder: string = "queryBuilder"): QueryBuilderZero<Model> {
     return ApplicationDI.getDI().get("system", queryBuilder);
   }
 }
