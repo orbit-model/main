@@ -5,7 +5,7 @@ import { Dict } from "@orbit/utils";
 import { RecordIdentity } from "@orbit/data";
 import { AttributeInfo } from "../../contracts/ModelInfo";
 import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
-import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
+import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 
 export default class DefaultModelSerializer implements ModelSerializerContract<Model> {
 
@@ -16,9 +16,10 @@ export default class DefaultModelSerializer implements ModelSerializerContract<M
   }
 
   getIdentity(model: Model): RecordIdentity {
+    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
     return {
-      id: ModelMetaAccessors.getMeta(model).orbitUUID,
-      type: ModelMetaAccessors.getReflection(model.constructor).modelInfo.name,
+      id: mma.getMeta(model).orbitUUID,
+      type: mma.getReflection(model.constructor).modelInfo.name,
     };
   }
 
@@ -28,8 +29,9 @@ export default class DefaultModelSerializer implements ModelSerializerContract<M
   }
 
   setAttributeValues<M extends Model>(model: M, attributes: Dict<any>): void {
-    let reflection = ModelMetaAccessors.getReflection(model.constructor);
-    let meta = ModelMetaAccessors.getMeta(model);
+    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
+    let reflection = mma.getReflection(model.constructor);
+    let meta = mma.getMeta(model);
 
     for (let name in attributes) {
       if (attributes.hasOwnProperty(name)) {

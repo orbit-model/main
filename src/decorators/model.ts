@@ -1,9 +1,9 @@
 import { camelize } from "@orbit/utils";
 import ApplicationDI from "../di/ApplicationDI";
-import ModelMetaAccessors from "../meta/ModelMetaAccessors";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
 import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
 import ModelInfo from "../contracts/ModelInfo";
+import ModelMetaAccessor from "../meta/ModelMetaAccessor";
 
 
 export default function registerClassGenerator(options: { name?: string } = {}) {
@@ -11,11 +11,12 @@ export default function registerClassGenerator(options: { name?: string } = {}) 
     let diName = options.name || camelize(target.name);
     ApplicationDI.getDI().register("models", diName, target);
 
-    if (typeof ModelMetaAccessors.getReflection(target) === "undefined") {
-      ModelMetaAccessors.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
+    let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
+    if (typeof mma.getReflection(target) === "undefined") {
+      mma.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
     }
 
-    let modelInfo: ModelInfo = ModelMetaAccessors.getReflection(target).modelInfo;
+    let modelInfo: ModelInfo = mma.getReflection(target).modelInfo;
     modelInfo.className = target.name;
     modelInfo.name = diName;
   }

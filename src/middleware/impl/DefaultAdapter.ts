@@ -5,8 +5,8 @@ import Container from "../../contracts/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
 import LiteBranch from "../../contracts/LiteBranch";
-import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
+import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 
 
 export default class DefaultAdapter implements Adapter<Record, Model> {
@@ -17,6 +17,7 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
+    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
 
     let recordType = recordSerializer.getType(record);
 
@@ -25,7 +26,7 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
     let meta = new DefaultOrbitModelMeta(branch, recordType, recordSerializer.getID(record));
     meta.id.remoteId = recordSerializer.getRemoteId(record);
-    ModelMetaAccessors.setMeta(model, meta);
+    mma.setMeta(model, meta);
 
     // fill the model's attributes with values
     let attrs = recordSerializer.getAttributeValues(record);
@@ -45,23 +46,25 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
   async setAttrValue<M extends Model>(model: M, attribute: string, value: any): Promise<void> {
     let modelSerializer = this.getModelSerializer();
+    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
 
-    let meta = ModelMetaAccessors.getMeta(model);
+    let meta = mma.getMeta(model);
     meta.values[attribute] = value;
 
     let recordId = modelSerializer.getIdentity(model);
-    let attrOrbitName = ModelMetaAccessors.getReflection(model.constructor).modelInfo.attributes[attribute].name;
+    let attrOrbitName = mma.getReflection(model.constructor).modelInfo.attributes[attribute].name;
     await meta.branch.getStore().update(t => t.replaceKey(recordId, attrOrbitName, value))
   }
 
 
   async save<M extends Model>(model: M): Promise<void> {
     let modelSerializer = this.getModelSerializer();
+    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
 
-    let meta = ModelMetaAccessors.getMeta(model);
+    let meta = mma.getMeta(model);
     let store = meta.branch.getStore();
 
-    let attributeInfos = ModelMetaAccessors.getReflection(model.constructor).modelInfo.attributes;
+    let attributeInfos = mma.getReflection(model.constructor).modelInfo.attributes;
     let promises: Promise<any>[] = [];
     for(let attribute in attributeInfos){
       let value = meta.values[attribute];
@@ -74,7 +77,8 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
   async destroy<M extends Model>(model: M): Promise<void> {
     let modelSerializer = this.getModelSerializer();
-    let meta = ModelMetaAccessors.getMeta(model);
+    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
+    let meta = mma.getMeta(model);
     let store = meta.branch.getStore();
 
     let recordId = modelSerializer.getIdentity(model);

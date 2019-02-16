@@ -1,9 +1,10 @@
-import OrbitModelReflection from "../contracts/OrbitModelReflection";
-import Model from "../contracts/Model";
-import OrbitModelMeta from "../contracts/OrbitModelMeta";
+import OrbitModelReflection from "../../contracts/OrbitModelReflection";
+import Model from "../../contracts/Model";
+import OrbitModelMeta from "../../contracts/OrbitModelMeta";
+import ModelMetaAccessor from "../ModelMetaAccessor";
 
 
-export default class ModelMetaAccessors {
+export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
 
   /**
    * Returns the models meta data by accessing a hidden static property on a models class.
@@ -12,7 +13,7 @@ export default class ModelMetaAccessors {
    *
    * @param klass
    */
-  static getReflection(klass): OrbitModelReflection {
+  getReflection(klass): OrbitModelReflection {
     return klass["__orbitModelReflection"];
   }
 
@@ -22,7 +23,7 @@ export default class ModelMetaAccessors {
    * @param klass
    * @param meta
    */
-  static setReflection(klass, meta: OrbitModelReflection): void {
+  setReflection(klass, meta: OrbitModelReflection): void {
     klass["__orbitModelReflection"] = meta;
   }
 
@@ -33,7 +34,7 @@ export default class ModelMetaAccessors {
    *
    * @param model
    */
-  static getMeta<M extends Model>(model: M): OrbitModelMeta<Model> {
+  getMeta<M extends Model>(model: M): OrbitModelMeta<Model> {
     return model["__orbitModelMeta"];
   }
 
@@ -43,7 +44,7 @@ export default class ModelMetaAccessors {
    * @param model
    * @param meta
    */
-  static setMeta<M extends Model>(model: M, meta: OrbitModelMeta<Model>): void {
+  setMeta<M extends Model>(model: M, meta: OrbitModelMeta<Model>): void {
     model["__orbitModelMeta"] = meta;
   }
 

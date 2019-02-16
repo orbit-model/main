@@ -6,6 +6,7 @@ import DefaultSchemaBuilder from "../model/impl/DefaultSchemaBuilder";
 import DefaultAdapter from "../middleware/impl/DefaultAdapter";
 import DefaultModelSerializer from "../middleware/impl/DefaultModelSerializer";
 import DefaultRelationshipAdapter from "../middleware/impl/DefaultRelationshipAdapter";
+import DefaultModelMetaAccessor from "../meta/impl/DefaultModelMetaAccessor";
 
 export default class ApplicationDI {
 
@@ -39,6 +40,7 @@ export default class ApplicationDI {
 
     di.register('system', 'queryBuilder', DefaultQueryBuilderZero);
     di.register('system', 'schemaBuilder', DefaultSchemaBuilder, { singleton: true });
+    di.register('system', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });
 
     di.register('middleware', 'adapter', DefaultAdapter, { singleton: true });
     di.register('middleware', 'recordSerializer', DefaultAdapter, { singleton: true });

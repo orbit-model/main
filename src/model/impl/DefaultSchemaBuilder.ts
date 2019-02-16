@@ -1,8 +1,9 @@
 import SchemaBuilder from "../../contracts/SchemaBuilder";
 import Container from "../../contracts/Container";
 import { ModelDefinition, Schema } from "@orbit/data";
-import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 import { Dict } from "@orbit/utils";
+import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
+import ApplicationDI from "../../di/ApplicationDI";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
   private di: Container;
@@ -27,11 +28,12 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
   }
 
   createSchema(): Schema {
+    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
     let models: Dict<ModelDefinition> = {};
 
     for (let diName of this.di.getNames('models')) {
       let klass = this.di.getClass('models', diName);
-      let reflection = ModelMetaAccessors.getReflection(klass);
+      let reflection = mma.getReflection(klass);
 
       let attributes = {};
       for (let attr in reflection.modelInfo.attributes) {

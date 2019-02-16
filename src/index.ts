@@ -17,7 +17,7 @@ export { default as ApplicationDI } from './di/ApplicationDI';
 export { default as DefaultContainer } from './di/impl/DefaultContainer';
 
 // meta / reflection
-export { default as ModelMetaAccessors } from './meta/ModelMetaAccessors';
+export { default as ModelMetaAccessor } from './meta/ModelMetaAccessor';
 
 // middleware implementaions
 export { default as DefaultMiddelwareAdapter } from './middleware/impl/DefaultAdapter';

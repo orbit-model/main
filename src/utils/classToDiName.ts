@@ -1,8 +1,10 @@
 import { dasherize } from "@orbit/utils";
-import ModelMetaAccessors from "../meta/ModelMetaAccessors";
+import ModelMetaAccessor from "../meta/ModelMetaAccessor";
+import ApplicationDI from "../di/ApplicationDI";
 
 export default function classToDiName<C = any>(klass: { new(...args): C }) {
-  let meta = ModelMetaAccessors.getReflection(klass);
+  let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
+  let meta = mma.getReflection(klass);
   if (meta) {
     return meta.modelInfo.name;
   }

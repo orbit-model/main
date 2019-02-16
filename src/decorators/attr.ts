@@ -1,5 +1,4 @@
 import { camelize } from "@orbit/utils";
-import ModelMetaAccessors from "../meta/ModelMetaAccessors";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
 import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
 import { AttributeInfo } from "../contracts/ModelInfo";
@@ -9,6 +8,7 @@ import Model from "../contracts/Model";
 import ApplicationDI from "../di/ApplicationDI";
 import Adapter from "../contracts/Adapter";
 import { Record } from '@orbit/data';
+import ModelMetaAccessor from "../meta/ModelMetaAccessor";
 
 interface AttrOptions {
   name?: string;
@@ -38,8 +38,9 @@ export default function attrGenerator(options: AttrOptions = {}) {
   return function attr<M extends Model>(target: { new(): M }, key: string) {
     let diName = options.name || camelize(key);
 
-    if (typeof ModelMetaAccessors.getReflection(target) === "undefined") {
-      ModelMetaAccessors.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
+    let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
+    if (typeof mma.getReflection(target) === "undefined") {
+      mma.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
     }
 
     let attrInfo: AttributeInfo = new DefaultAttributeInfo();
@@ -48,11 +49,11 @@ export default function attrGenerator(options: AttrOptions = {}) {
     attrInfo.defaultValue = options.defaultValue;
     attrInfo.schemaType = options.schemaType || getSchemaType(target, key);
 
-    ModelMetaAccessors.getReflection(target).modelInfo.attributes[key] = attrInfo;
+    mma.getReflection(target).modelInfo.attributes[key] = attrInfo;
 
     Object.defineProperty(target, key, {
       get(): any {
-        return ModelMetaAccessors.getMeta(this).values[attrInfo.name];
+        return mma.getMeta(this).values[attrInfo.name];
       },
       set(v: any): void {
         let adapter: Adapter<Record, Model> = ApplicationDI.getDI().get('middleware', 'adapter');
