@@ -1,5 +1,5 @@
 import Store from '@orbit/store';
-import QueryBuilderZero from "./QueryBuilderZero";
+import QueryBuilderZero from "../contracts/QueryBuilderZero";
 
 export default interface Branch<MODEL> {
   /**

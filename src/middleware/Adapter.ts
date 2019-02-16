@@ -1,5 +1,5 @@
 import Injectable from "../contracts/Injectable";
-import Branch from "../contracts/Branch";
+import Branch from "../branching/Branch";
 
 
 export default interface Adapter<RECORD, MODEL> extends Injectable {

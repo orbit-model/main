@@ -1,4 +1,4 @@
-import Branch from "../../contracts/Branch";
+import Branch from "../Branch";
 import Store from "@orbit/store";
 import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coordinator';
 import Model from "../../contracts/Model";

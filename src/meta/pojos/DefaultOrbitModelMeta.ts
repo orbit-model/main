@@ -1,6 +1,6 @@
 import OrbitModelMeta from "../../contracts/OrbitModelMeta";
 import Model from "../../contracts/Model";
-import Branch from "../../contracts/Branch";
+import Branch from "../../branching/Branch";
 
 export default class DefaultOrbitModelMeta implements OrbitModelMeta<Model> {
   branch: Branch<Model>;

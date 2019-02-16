@@ -1,6 +1,6 @@
 import RootBranchContract from "../../contracts/RootBranch";
 import Store from "@orbit/store";
-import Branch from "../../contracts/Branch";
+import Branch from "../Branch";
 import DefaultBranch from "./DefaultBranch";
 import Model from "../../contracts/Model";
 

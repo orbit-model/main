@@ -4,7 +4,7 @@ import Model from "../../contracts/Model";
 import Container from "../../contracts/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
-import Branch from "../../contracts/Branch";
+import Branch from "../../branching/Branch";
 import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
 import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 
