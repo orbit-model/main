@@ -1,13 +1,13 @@
-import { Record, RecordIdentity } from '@orbit/data';
 import { Dict } from '@orbit/utils';
-import Injectable from "../contracts/Injectable";
 
-export default interface RecordSerializer extends Injectable {
-  getType(record: Record): string;
+export default interface RecordSerializer<RECORD> {
 
-  getAttributeValues(record: Record): Dict<any>;
-  getIdentity(record: Record): RecordIdentity;
+  getType(record: RECORD): string;
 
-  getRemoteId(record: Record): string;
+  getID(record: RECORD): string;
+
+  getRemoteId(record: RECORD): string;
+
+  getAttributeValues(record: RECORD): Dict<any>;
 
 }

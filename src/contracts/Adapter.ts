@@ -1,9 +1,8 @@
-import { Record } from "@orbit/data";
 import Injectable from "./Injectable";
 import LiteBranch from "./LiteBranch";
 
 
-export default interface Adapter<MODEL /* extends Model */> extends Injectable {
+export default interface Adapter<RECORD, MODEL> extends Injectable {
 
   /**
    * create a new model instance on the given branch
@@ -11,12 +10,12 @@ export default interface Adapter<MODEL /* extends Model */> extends Injectable {
    * @param record
    * @param branch
    */
-  createFromRecord<M extends MODEL>(record: Record, branch: LiteBranch<MODEL>): M;
+  createFromRecord<M extends MODEL>(record: RECORD, branch: LiteBranch<MODEL>): M;
 
   /**
    * update the (cached) data of a model
    */
-  updateModel<M extends MODEL>(record: Record, model: M): void;
+  updateModel<M extends MODEL>(record: RECORD, model: M): void;
 
   /**
    * sets an individual value on a model and propagates it to the store

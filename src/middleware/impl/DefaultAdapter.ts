@@ -9,7 +9,7 @@ import ModelMetaAccessors from "../../meta/ModelMetaAccessors";
 import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
 
 
-export default class DefaultAdapter implements Adapter<Model> {
+export default class DefaultAdapter implements Adapter<Record, Model> {
 
   private di: Container = null;
 
@@ -23,7 +23,7 @@ export default class DefaultAdapter implements Adapter<Model> {
     // let the serializer create a new model instance
     let model: M = this.di.get<M>("models", recordType);
 
-    let meta = new DefaultOrbitModelMeta(branch, recordType, record.id);
+    let meta = new DefaultOrbitModelMeta(branch, recordType, recordSerializer.getID(record));
     meta.id.remoteId = recordSerializer.getRemoteId(record);
     ModelMetaAccessors.setMeta(model, meta);
 
@@ -72,7 +72,7 @@ export default class DefaultAdapter implements Adapter<Model> {
     return this.di.get("middleware", "model-serializer");
   }
 
-  private getRecordSerializer(): RecordSerializer {
+  private getRecordSerializer(): RecordSerializer<Record> {
     return this.di.get("middleware", "record-serializer");
   }
 }
