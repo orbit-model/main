@@ -1,17 +1,17 @@
-import RootBranch from "../contracts/RootBranch";
-import ApplicationDI from "../di/ApplicationDI";
 import Store from "@orbit/store";
-import DefaultRootBranch from "./impl/DefaultRootBranch";
 import Model from "../contracts/Model";
+import Branch from "./Branch";
+import DefaultBranch from "./impl/DefaultBranch";
 
 export default class ApplicationBranch {
 
+  private static store: Store;
+
   public static setup(store: Store): void {
-    ApplicationDI.getDI().registerObject('system', 'rootBranch', new DefaultRootBranch(store));
+    ApplicationBranch.store = store;
   }
 
-
-  public static getRoot(): RootBranch<Model> {
-    return ApplicationDI.getDI().get('system', 'rootBranch');
+  public static fork(): Branch<Model> {
+    return new DefaultBranch(ApplicationBranch.store);
   }
 }
