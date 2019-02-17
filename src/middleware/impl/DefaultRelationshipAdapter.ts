@@ -8,13 +8,16 @@ import { dasherize } from "@orbit/utils";
 import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 
 export default class DefaultRelationshipAdapter implements RelationshipAdapterContract<Model> {
-  private di: Container = null;
+  private di: Container | null = null;
 
   _setOrbitDi(di: Container): void {
     this.di = di;
   }
 
   private getModelSerializer(): ModelSerializer<Model> {
+    if (this.di === null) {
+      throw new Error("the DefaultRelationshipAdapter has to be instantiated through a DI container");
+    }
     return this.di.get("middleware", "modelSerializer");
   }
 
@@ -23,6 +26,9 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapterCo
   }
 
   private getStore(model: Model): Store {
+    if (this.di === null) {
+      throw new Error("the DefaultAdapter has to be instantiated through a DI container");
+    }
     let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
     return mma.getMeta(model).branch.getStore();
   }

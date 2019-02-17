@@ -30,12 +30,12 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     return adapter.createFromRecord<M>(record, this.branch);
   }
 
-  first(): Promise<M> {
-    return undefined;
+  async first(): Promise<M> {
+    throw new Error("not implemented");
   }
 
   get(): Promise<M[]> {
-    return undefined;
+    throw new Error("not implemented");
   }
 
   private getKeyMap(): KeyMap {
@@ -45,15 +45,15 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   //## builder methods ####################################
 
   filter(attr: string, op: string, value: any): QueryBuilder<M> {
-    return undefined;
+    return this;
   }
 
   filterEq(attr: string, value: any): QueryBuilder<M> {
-    return undefined;
+    return this;
   }
 
   sortBy(...attr: string[]): QueryBuilder<M> {
-    return undefined;
+    return this;
   }
 
 }

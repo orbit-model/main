@@ -1,7 +1,6 @@
 import { camelize } from "@orbit/utils";
 import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
 import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
-import { RelationInfo } from "../meta/ModelInfo";
 import DefaultRelationInfo from "../meta/pojos/DefaultRelationInfo";
 import DefaultHasOne from "./impl/DefaultHasOne";
 import ModelMetaAccessor from "../meta/ModelMetaAccessor";
@@ -34,4 +33,4 @@ export default function hasOneGenerator(options: RelationOptions = {}) {
       return new DefaultHasOne(relationInfo.relatedName, this)
     }
   }
-}
+};

@@ -5,7 +5,7 @@ import { Dict } from "@orbit/utils";
 export default class DefaultRecordSerializer implements RecordSerializer<Record> {
 
   getAttributeValues(record: Record): Dict<any> {
-    return record.attributes;
+    return record.attributes || {};
   }
 
   getID(record: Record): string {
@@ -13,6 +13,10 @@ export default class DefaultRecordSerializer implements RecordSerializer<Record>
   }
 
   getRemoteId(record: Record): string {
+    if (record.keys === undefined) {
+      throw new Error("Your store is probably setup with the wrong schema: " +
+        "the given record must contain a keys object with a remoteId property");
+    }
     return record.keys.remoteId;
   }
 

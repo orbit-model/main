@@ -9,35 +9,49 @@ import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 
 export default class DefaultModelSerializer implements ModelSerializerContract<Model> {
 
-  private di: Container;
+  private di: Container | null = null;
 
   _setOrbitDi(di: Container): void {
     this.di = di;
   }
 
   getIdentity(model: Model): RecordIdentity {
+    if (this.di === null) {
+      throw new Error("the DefaultModelSerializer has to be instantiated through a DI container");
+    }
+
     let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
+    let reflection = mma.getReflection(model.constructor);
+    if (reflection === undefined) {
+      throw new Error("The object handed to the DefaultModelSerializer is not a valid model: no reflection info found");
+    }
+    let type = reflection.modelInfo.name;
+    if (type === undefined) {
+      throw new Error("The object handed to the DefaultModelSerializer is not a valid model: reflection info not complete");
+    }
     return {
       id: mma.getMeta(model).orbitUUID,
-      type: mma.getReflection(model.constructor).modelInfo.name,
+      type
     };
   }
 
-  getAttributeValues<M extends Model>(model: M): Dict<any> {
-    // todo: implement
-    return undefined;
-  }
-
   setAttributeValues<M extends Model>(model: M, attributes: Dict<any>): void {
+    if (this.di === null) {
+      throw new Error("the DefaultModelSerializer has to be instantiated through a DI container");
+    }
+
     let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
     let reflection = mma.getReflection(model.constructor);
+    if (reflection === undefined) {
+      throw new Error("The object handed to the DefaultModelSerializer is not a valid model: no reflection info found");
+    }
     let meta = mma.getMeta(model);
 
     for (let name in attributes) {
       if (attributes.hasOwnProperty(name)) {
-        let attributeInfo: AttributeInfo = findAttributeInfoByName(reflection, name);
+        let attributeInfo = findAttributeInfoByName(reflection, name);
 
-        if (attributeInfo) {
+        if (attributeInfo !== undefined) {
           meta.values[attributeInfo.name] = attributes[name];
         } else {
           // todo: want to store the value anywhere else?

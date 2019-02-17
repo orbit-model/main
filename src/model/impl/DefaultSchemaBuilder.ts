@@ -1,21 +1,23 @@
 import SchemaBuilder from "../SchemaBuilder";
 import Container from "../../di/Container";
-import { ModelDefinition, Schema } from "@orbit/data";
+import { AttributeDefinition, ModelDefinition, RelationshipDefinition, Schema } from "@orbit/data";
 import { Dict } from "@orbit/utils";
 import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
-  private di: Container;
+  private di: Container | null = null;
   private pluralize: (word: string) => string;
   private singularize: (word: string) => string;
 
   private static version = 1;
 
-  _setOrbitDi(di: Container): void {
-    this.di = di;
-
+  constructor() {
     this.pluralize = Schema.prototype.pluralize;
     this.singularize = Schema.prototype.singularize;
+  }
+
+  _setOrbitDi(di: Container): void {
+    this.di = di;
   }
 
   setPluralizer(f: (word: string) => string): void {
@@ -27,14 +29,22 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
   }
 
   createSchema(): Schema {
+    if (this.di === null) {
+      throw new Error("the DefaultSchemaBuilder has to be instantiated through a DI container");
+    }
+
     let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
     let models: Dict<ModelDefinition> = {};
 
     for (let diName of this.di.getNames('models')) {
       let klass = this.di.getClass('models', diName);
       let reflection = mma.getReflection(klass);
+      if (reflection === undefined) {
+        throw new Error("Model '"+diName+"' with class name '"+klass.name+"' has not been initialized correctly: " +
+          "no reflection information found");
+      }
 
-      let attributes = {};
+      let attributes: Dict<AttributeDefinition> = {};
       for (let attr in reflection.modelInfo.attributes) {
         let attrInfo = reflection.modelInfo.attributes[attr];
         attributes[attrInfo.name] = {
@@ -42,7 +52,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
         };
       }
 
-      let relationships = {};
+      let relationships: Dict<RelationshipDefinition> = {};
       for (let rel in reflection.modelInfo.relationships) {
         let relInfo = reflection.modelInfo.relationships[rel];
         let inverse = relInfo.inverse;
