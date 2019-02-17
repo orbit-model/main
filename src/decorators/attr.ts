@@ -45,12 +45,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
       mma.setReflection(target, reflection);
     }
 
-    let attrInfo: AttributeInfo = new DefaultAttributeInfo();
-    attrInfo.attributeName = key;
-    attrInfo.name = diName;
-    attrInfo.defaultValue = options.defaultValue;
-    attrInfo.schemaType = options.schemaType || getSchemaType(target, key);
-
+    let attrInfo = new DefaultAttributeInfo(key, diName, options.defaultValue, options.schemaType || getSchemaType(target, key));
     reflection.modelInfo.attributes[key] = attrInfo;
 
     Object.defineProperty(target, key, {

@@ -14,9 +14,9 @@ interface RelationOptions {
 }
 
 export default function hasOneGenerator(options: RelationOptions = {}) {
-  return function hasOne(target: any, key: string) {
+  return function hasOne(target: any, attributeName: string) {
     // 1. gather meta data
-    let diName = options.name || camelize(key);
+    let diName = options.name || camelize(attributeName);
 
     let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
     let reflection = mma.getReflection(target);
@@ -25,16 +25,12 @@ export default function hasOneGenerator(options: RelationOptions = {}) {
       mma.setReflection(target, reflection);
     }
 
-    let relationInfo: RelationInfo = new DefaultRelationInfo();
-    relationInfo.attributeName = key;
-    relationInfo.name = diName;
-    relationInfo.type = "hasOne";
-    relationInfo.relatedName = options.relatedName || diName;
-
-    reflection.modelInfo.relationships[key] = relationInfo;
+    let relationInfo = new DefaultRelationInfo(attributeName, diName, options.relatedName||diName, "hasOne");
+    relationInfo.inverse = options.inverse;
+    reflection.modelInfo.relationships[attributeName] = relationInfo;
 
     // 2. create function
-    target[key] = function hasOneRelationship() {
+    target[attributeName] = function hasOneRelationship() {
       return new DefaultHasOne(relationInfo.relatedName, this)
     }
   }
