@@ -1,23 +1,45 @@
 import QueryBuilder from "../QueryBuilder";
+import Branch from "../../branching/Branch";
+import Model from "../../model/Model";
+import { KeyMap, RecordIdentity, Record } from "@orbit/data";
+import Container from "../../di/Container";
+import Adapter from "../../middleware/Adapter";
 
-export default class DefaultQueryBuilder<M> implements QueryBuilder<M> {
+export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
 
+  private branch: Branch<Model>;
   private modelDiName: string;
+  private  di: Container;
 
-  constructor(modelDiName: string){
+
+  constructor(branch: Branch<Model>, modelDiName: string, di: Container) {
+    this.branch = branch;
     this.modelDiName = modelDiName;
+    this.di = di;
   }
 
-  find(id: string): Promise<M> {
-    return undefined;
+
+  async find(id: string): Promise<M> {
+    let rId : RecordIdentity = {
+      type: this.modelDiName,
+      id: this.getKeyMap().keyToId(this.modelDiName, "remoteId", id)
+    };
+    let record = await this.branch.getStore().query(q => q.findRecord(rId));
+
+    let adapter: Adapter<Record, Model> = this.di.get('middleware', 'adapter');
+    return adapter.createFromRecord<M>(record, this.branch);
   }
 
   first(): Promise<M> {
-    return this.get().then(models => models[0]);
+    return undefined;
   }
 
   get(): Promise<M[]> {
     return undefined;
+  }
+
+  private getKeyMap(): KeyMap {
+    return this.branch.getStore().cache.keyMap;
   }
 
   //## builder methods ####################################
