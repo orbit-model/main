@@ -26,9 +26,9 @@ class ContainedSimpleClass<T> implements Contained<T> {
 
 class ContainedSingletonClass<T> implements Contained<T> {
   private klass: { new(): T };
-  private instance: T;
+  private instance: T | undefined;
 
-  constructor(klass: { new(): T }, instance: T = undefined) {
+  constructor(klass: { new(): T }, instance: T | undefined = undefined) {
     this.klass = klass;
     this.instance = instance;
   }
@@ -77,18 +77,20 @@ export default class DefaultContainer implements MigratableContainer {
 
 
   private resolveNamespace<T>(namespace: string): Map<string, Contained<T>> {
-    if (!this.container.has(namespace)) {
+    let ns = this.container.get(namespace);
+    if (ns === undefined) {
       throw new Error("container could not find namespace '" + namespace + "'");
     }
-    return this.container.get(namespace);
+    return ns;
   }
 
   private resolve<T>(namespace: string, name: string): Contained<T> {
     let namespaceMap = this.resolveNamespace<T>(namespace);
-    if (!namespaceMap.has(name)) {
+    let c = namespaceMap.get(name);
+    if (c === undefined) {
       throw new Error("container could not find name '" + name + "'");
     }
-    return namespaceMap.get(name);
+    return c;
   }
 
   public get<T extends Injectable>(namespace: string, name: string): T;
@@ -110,14 +112,11 @@ export default class DefaultContainer implements MigratableContainer {
   }
 
   private setter<T>(namespace: string, name: string, contained: Contained<T>): void {
-    let namespaceMap: Map<string, Contained<any>>;
-    if (!this.container.has(namespace)) {
+    let namespaceMap = this.container.get(namespace);
+    if (namespaceMap === undefined) {
       namespaceMap = new Map<string, Contained<any>>();
       this.container.set(namespace, namespaceMap);
-    } else {
-      namespaceMap = this.container.get(namespace);
     }
-
     namespaceMap.set(name, contained);
   }
 
@@ -142,8 +141,15 @@ export default class DefaultContainer implements MigratableContainer {
 
   public migrateTo(other: MigratableContainer): void {
     for (let namespace of this.container.keys()) {
-      for (let name of this.container.get(namespace).keys()) {
-        let entry: Contained<any> = this.container.get(namespace).get(name);
+      let nsMap = this.container.get(namespace);
+      if (nsMap === undefined){
+        throw new Error("not happening!")
+      }
+      for (let name of nsMap.keys()) {
+        let entry = nsMap.get(name);
+        if (entry === undefined){
+          throw new Error("not happening!")
+        }
 
         if (entry instanceof ContainedSingletonClass) {
           if (entry.hasInstance()) {

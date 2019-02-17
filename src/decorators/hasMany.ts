@@ -31,7 +31,7 @@ export default function hasManyGenerator(options: RelationOptions = {}) {
     relationInfo.type = "hasMany";
     relationInfo.relatedName = options.relatedName || diName;
 
-   reflection.modelInfo.relationships[key] = relationInfo;
+    reflection.modelInfo.relationships[key] = relationInfo;
 
     // 2. create function
     target[key] = function hasManyRelationship() {
