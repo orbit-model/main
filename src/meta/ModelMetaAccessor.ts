@@ -10,12 +10,12 @@ export default interface ModelMetaAccessor {
    *
    * This method may return undefined, in case no meta data could be found
    */
-  getReflection(klass): OrbitModelReflection;
+  getReflection(klass: { new(...args: any): any }): OrbitModelReflection | undefined;
 
   /**
    * Sets a new meta data pojo onto a hidden static property of the given model class.
    */
-  setReflection(klass, meta: OrbitModelReflection): void;
+  setReflection(klass: { new(...args: any): any }, meta: OrbitModelReflection): void;
 
   /**
    * Returns the model class instance meta data by accessing a hidden static property on a models class.

@@ -38,9 +38,11 @@ export default function attrGenerator(options: AttrOptions = {}) {
   return function attr<M extends Model>(target: { new(): M }, key: string) {
     let diName = options.name || camelize(key);
 
-    let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
-    if (typeof mma.getReflection(target) === "undefined") {
-      mma.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
+    let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+    let reflection = mma.getReflection(target);
+    if (reflection === undefined) {
+      reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());
+      mma.setReflection(target, reflection);
     }
 
     let attrInfo: AttributeInfo = new DefaultAttributeInfo();
@@ -49,7 +51,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
     attrInfo.defaultValue = options.defaultValue;
     attrInfo.schemaType = options.schemaType || getSchemaType(target, key);
 
-    mma.getReflection(target).modelInfo.attributes[key] = attrInfo;
+    reflection.modelInfo.attributes[key] = attrInfo;
 
     Object.defineProperty(target, key, {
       get(): any {

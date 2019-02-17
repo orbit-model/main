@@ -2,10 +2,10 @@
 export default interface ModelInfo {
   className: string;  // todo: do we need this?
   name: string;    // effectively the JSON-API type of that model
-  attributes?: {
+  attributes: {
     [attributeName: string]: AttributeInfo
   },
-  relationships?: {
+  relationships: {
     [relationshipName: string]: RelationInfo
   }
 }
@@ -14,7 +14,7 @@ export interface AttributeInfo {
   attributeName: string;    // actual name of the attribute on the model
   name: string;    // name for the API
   schemaType: string;
-  defaultValue: number | string | boolean;
+  defaultValue: number | string | boolean | undefined;
 }
 
 export interface RelationInfo {

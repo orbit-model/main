@@ -10,12 +10,12 @@ import DefaultModelMetaAccessor from "../meta/impl/DefaultModelMetaAccessor";
 
 export default class ApplicationDI {
 
-  private static di: MigratableContainer = null;
+  private static di: MigratableContainer | null = null;
 
   public static getDI(): Container {
     if (ApplicationDI.di === null) {
       ApplicationDI.di = new DefaultContainer();
-      ApplicationDI.initWithDefaults();
+      ApplicationDI.initWithDefaults(ApplicationDI.di);
     }
     return ApplicationDI.di;
   }
@@ -28,16 +28,16 @@ export default class ApplicationDI {
    * @param di
    */
   public static replaceDI(di: MigratableContainer): void {
-    ApplicationDI.di.migrateTo(di);
+    if (ApplicationDI.di !== null) {
+      ApplicationDI.di.migrateTo(di);
+    }
     ApplicationDI.di = di;
   }
 
   /**
    * initializes the registry with the default implementations
    */
-  private static initWithDefaults(): void {
-    let di = ApplicationDI.di;
-
+  private static initWithDefaults(di: Container): void {
     di.register('system', 'queryBuilder', DefaultQueryBuilderZero);
     di.register('system', 'schemaBuilder', DefaultSchemaBuilder, { singleton: true });
     di.register('system', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });

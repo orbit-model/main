@@ -13,8 +13,8 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    *
    * @param klass
    */
-  getReflection(klass): OrbitModelReflection {
-    return klass["__orbitModelReflection"];
+  getReflection(klass: any): OrbitModelReflection | undefined {
+    return klass["__orbitModelReflection"] as OrbitModelReflection || undefined;
   }
 
   /**
@@ -23,7 +23,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    * @param klass
    * @param meta
    */
-  setReflection(klass, meta: OrbitModelReflection): void {
+  setReflection(klass: any, meta: OrbitModelReflection): void {
     klass["__orbitModelReflection"] = meta;
   }
 

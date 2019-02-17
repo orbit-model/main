@@ -18,9 +18,11 @@ export default function hasOneGenerator(options: RelationOptions = {}) {
     // 1. gather meta data
     let diName = options.name || camelize(key);
 
-    let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
-    if (typeof mma.getReflection(target) === "undefined") {
-      mma.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
+    let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+    let reflection = mma.getReflection(target);
+    if (reflection === undefined) {
+      reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());
+      mma.setReflection(target, reflection);
     }
 
     let relationInfo: RelationInfo = new DefaultRelationInfo();
@@ -29,7 +31,7 @@ export default function hasOneGenerator(options: RelationOptions = {}) {
     relationInfo.type = "hasOne";
     relationInfo.relatedName = options.relatedName || diName;
 
-    mma.getReflection(target).modelInfo.relationships[key] = relationInfo;
+    reflection.modelInfo.relationships[key] = relationInfo;
 
     // 2. create function
     target[key] = function hasOneRelationship() {

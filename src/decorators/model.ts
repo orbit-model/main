@@ -11,12 +11,14 @@ export default function registerClassGenerator(options: { name?: string } = {}) 
     let diName = options.name || camelize(target.name);
     ApplicationDI.getDI().register("models", diName, target);
 
-    let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
-    if (typeof mma.getReflection(target) === "undefined") {
-      mma.setReflection(target, new DefaultOrbitModelReflection(new DefaultModelInfo()));
+    let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+    let reflection = mma.getReflection(target);
+    if (reflection === undefined) {
+      reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());
+      mma.setReflection(target, reflection);
     }
 
-    let modelInfo: ModelInfo = mma.getReflection(target).modelInfo;
+    let modelInfo: ModelInfo = reflection.modelInfo;
     modelInfo.className = target.name;
     modelInfo.name = diName;
   }
