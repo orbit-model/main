@@ -13,6 +13,28 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
   private di: Container | null = null;
 
+
+  create<M extends Model>(modelName: string | Function | { new(): M }, branch: Branch<Model>): M {
+    if (this.di === null) {
+      throw new Error("the DefaultAdapter has to be instantiated through a DI container");
+    }
+
+    let type: string;
+    if (typeof modelName === "string") {
+      type = modelName;
+    } else {
+      type = modelName.name;
+    }
+
+    let model: M = this.di.get<M>("models", type);
+    let orbitUUID = branch.getStore().schema.generateId(type);
+    let meta = new DefaultOrbitModelMeta(branch, type, orbitUUID);
+
+    let mma = this.di.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+    mma.setMeta(model, meta);
+    return model;
+  }
+
   createFromRecord<M extends Model>(record: Record, branch: Branch<Model>): M {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");

@@ -6,9 +6,11 @@ export default interface Adapter<RECORD, MODEL> extends Injectable {
 
   /**
    * create a new model instance on the given branch
-   *
-   * @param record
-   * @param branch
+   */
+  create<M extends MODEL>(modelName: string | Function | { new(): M }, branch: Branch<MODEL>): M;
+
+  /**
+   * create a new model instance on the given branch and set the data form the record
    */
   createFromRecord<M extends MODEL>(record: RECORD, branch: Branch<MODEL>): M;
 
