@@ -11,7 +11,7 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero<Model> 
   private branch: Branch<Model>;
   private di: Container;
 
-  constructor(branch: Branch<Model>) {
+  setBranch(branch: Branch<Model>) {
     this.branch = branch;
   }
 

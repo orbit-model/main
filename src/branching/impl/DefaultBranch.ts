@@ -5,6 +5,7 @@ import Model from "../../model/Model";
 import QueryBuilderZero from "../../query/QueryBuilderZero";
 import ApplicationDI from "../../di/ApplicationDI";
 import { uuid } from "@orbit/utils";
+import BranchQuery from "../../query/BranchQuery";
 
 export default class DefaultBranch implements Branch<Model> {
 
@@ -49,7 +50,11 @@ export default class DefaultBranch implements Branch<Model> {
     this.coordinator.deactivate();
   }
 
-  query(queryBuilder: string = "queryBuilder"): QueryBuilderZero<Model> {
-    return ApplicationDI.getDI().get("system", queryBuilder);
+  query<Q extends BranchQuery<Model> = QueryBuilderZero<Model>>(queryBuilder: string = "queryBuilder"): Q {
+    let qb = ApplicationDI.getDI().get<Q>("system", queryBuilder);
+    if (typeof qb["setBranch"] === "function") {
+      qb["setBranch"](this);
+    }
+    return qb;
   }
 }

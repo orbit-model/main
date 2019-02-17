@@ -1,5 +1,6 @@
 import Store from '@orbit/store';
 import QueryBuilderZero from "../query/QueryBuilderZero";
+import BranchQuery from "../query/BranchQuery";
 
 export default interface Branch<MODEL> {
   /**
@@ -22,5 +23,5 @@ export default interface Branch<MODEL> {
    *
    * @param queryBuilder = "query-builder"
    */
-  query(queryBuilder: string): QueryBuilderZero<MODEL>;
+  query<Q extends BranchQuery<MODEL> = QueryBuilderZero<MODEL>>(queryBuilder: string): Q;
 }

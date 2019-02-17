@@ -1,7 +1,7 @@
 import QueryBuilder from "./QueryBuilder";
-import Injectable from "../di/Injectable";
+import BranchQuery from "./BranchQuery";
 
-export default interface QueryBuilderZero<MODEL> extends Injectable {
+export default interface QueryBuilderZero<MODEL> extends BranchQuery<MODEL> {
 
-  select<M extends MODEL>(klass: { new(): M } | string): QueryBuilder<M>
+  select<M extends MODEL>(klass: { new(): M } | string): QueryBuilder<M>;
 }
