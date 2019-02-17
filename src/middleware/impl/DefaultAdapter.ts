@@ -24,7 +24,6 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
 
     let recordType = recordSerializer.getType(record);
 
-    // let the serializer create a new model instance
     let model: M = this.di.get<M>("models", recordType);
 
     let meta = new DefaultOrbitModelMeta(branch, recordType, recordSerializer.getID(record));
@@ -60,6 +59,9 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
     let mma = this.di.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
 
     let meta = mma.getMeta(model);
+    if (meta === undefined) {
+      throw new Error('Model has not been initialized yet!');
+    }
     meta.values[attribute] = value;
 
     let recordId = modelSerializer.getIdentity(model);
@@ -81,6 +83,9 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
     let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
 
     let meta = mma.getMeta(model);
+    if (meta === undefined) {
+      throw new Error('Model has not been initialized yet!');
+    }
     let store = meta.branch.getStore();
 
     let reflection = mma.getReflection(model.constructor);
@@ -106,6 +111,9 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
     let modelSerializer = this.getModelSerializer();
     let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
     let meta = mma.getMeta(model);
+    if (meta === undefined) {
+      throw new Error('Model has not been initialized yet!');
+    }
     let store = meta.branch.getStore();
 
     let recordId = modelSerializer.getIdentity(model);

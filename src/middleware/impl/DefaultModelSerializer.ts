@@ -29,8 +29,12 @@ export default class DefaultModelSerializer implements ModelSerializerContract<M
     if (type === undefined) {
       throw new Error("The object handed to the DefaultModelSerializer is not a valid model: reflection info not complete");
     }
+    let meta = mma.getMeta(model);
+    if (meta === undefined) {
+      throw new Error('Model has not been initialized yet!');
+    }
     return {
-      id: mma.getMeta(model).orbitUUID,
+      id: meta.orbitUUID,
       type
     };
   }
@@ -46,6 +50,9 @@ export default class DefaultModelSerializer implements ModelSerializerContract<M
       throw new Error("The object handed to the DefaultModelSerializer is not a valid model: no reflection info found");
     }
     let meta = mma.getMeta(model);
+    if (meta === undefined) {
+      throw new Error('Model has not been initialized yet!');
+    }
 
     for (let name in attributes) {
       if (attributes.hasOwnProperty(name)) {

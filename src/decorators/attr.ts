@@ -50,7 +50,12 @@ export default function attrGenerator(options: AttrOptions = {}) {
 
     Object.defineProperty(target, key, {
       get(): any {
-        return mma.getMeta(this).values[attrInfo.name];
+        let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+        let meta = mma.getMeta(this);
+        if (meta === undefined) {
+          throw new Error('Model has not been initialized yet!');
+        }
+        return meta.values[attrInfo.name];
       },
       set(v: any): void {
         let adapter: Adapter<Record, Model> = ApplicationDI.getDI().get('middleware', 'adapter');

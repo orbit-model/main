@@ -30,7 +30,11 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapterCo
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
     let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
-    return mma.getMeta(model).branch.getStore();
+    let meta = mma.getMeta(model);
+    if (meta === undefined) {
+      throw new Error("Model meta data has not been initialized yet!");
+    }
+    return meta.branch.getStore();
   }
 
 

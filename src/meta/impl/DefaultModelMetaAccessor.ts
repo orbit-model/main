@@ -34,7 +34,8 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    *
    * @param model
    */
-  getMeta<M extends Model>(model: M): OrbitModelMeta<Model> {
+  getMeta<M extends Model>(model: M): OrbitModelMeta<Model> | undefined {
+    // @ts-ignore
     return model["__orbitModelMeta"];
   }
 
@@ -45,6 +46,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    * @param meta
    */
   setMeta<M extends Model>(model: M, meta: OrbitModelMeta<Model>): void {
+    // @ts-ignore
     model["__orbitModelMeta"] = meta;
   }
 
