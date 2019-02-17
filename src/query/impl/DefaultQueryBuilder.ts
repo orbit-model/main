@@ -22,7 +22,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   async find(id: string): Promise<M> {
     let rId : RecordIdentity = {
       type: this.modelDiName,
-      id: this.getKeyMap().keyToId(this.modelDiName, "remoteId", id)
+      id: this.getIdForKey(this.modelDiName, id)
     };
     let record = await this.branch.getStore().query(q => q.findRecord(rId));
 
@@ -39,7 +39,28 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   private getKeyMap(): KeyMap {
-    return this.branch.getStore().cache.keyMap;
+    let keyMap = this.branch.getStore().cache.keyMap;
+    if (keyMap === undefined) {
+      throw new Error("You have to add a KeyMap to your StoreSettings!");
+    }
+    return keyMap;
+  }
+
+  private getIdForKey(type: string, remoteId: string): string {
+    let keyMap = this.getKeyMap();
+    let id = keyMap.keyToId(type, "remoteId", remoteId);
+    if (id === undefined) {
+      // remoteId value is not known by keyMap -> push new mapping
+      id = this.branch.getStore().schema.generateId(type);
+      keyMap.pushRecord({
+        type,
+        id,
+        keys: {
+          remoteId
+        }
+      });
+    }
+    return id;
   }
 
   //## builder methods ####################################
