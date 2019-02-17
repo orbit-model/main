@@ -21,3 +21,6 @@ export { default as ModelMetaAccessor } from './meta/ModelMetaAccessor';
 
 // middleware implementaions
 export { default as DefaultMiddelwareAdapter } from './middleware/impl/DefaultAdapter';
+
+// model
+export { default as ModelMixin } from './model/ModelMixin';

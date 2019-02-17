@@ -5,7 +5,7 @@ import { Record } from '@orbit/data';
 import ModelMetaAccessor from "../meta/ModelMetaAccessor";
 import OrbitModelMeta from "../meta/OrbitModelMeta";
 
-export default function ModelMixin(Base: { new(...args: any): any }): any {
+export default function ModelMixin(Base: { new(...args: any[]): any }): any {
   return class ModelMixin extends Base implements Model {
     __orbitModelMeta: OrbitModelMeta<Model> | undefined;
 
