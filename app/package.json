@@ -11,7 +11,12 @@
     "dev": "tsc -w"
   },
   "dependencies": {
-    "@orbit-model/main": "../@orbit-model/main",
+    "@orbit-model/branching": "../@orbit-model/branching",
+    "@orbit-model/decorators": "../@orbit-model/decorators",
+    "@orbit-model/di": "../@orbit-model/di",
+    "@orbit-model/model": "../@orbit-model/model",
+    "@orbit/store": "^0.16.0-beta.1",
+    "@orbit/data": "^0.16.0-beta.1",
     "typescript": "^3.2.2"
   }
 }

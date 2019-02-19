@@ -1,8 +1,10 @@
 //import 'reflect-metadata';
-import {ApplicationBranch, ApplicationDI, Branch, Container, SchemaBuilder} from '@orbit-model/main';
 import Store from '@orbit/store';
 import Planet from "./Planet";
-import {KeyMap} from "@orbit/data";
+import { KeyMap } from "@orbit/data";
+import ApplicationBranch, { Branch } from "@orbit-model/branching";
+import ApplicationDI, { Container } from "@orbit-model/di";
+import { Model, SchemaBuilder } from "@orbit-model/model";
 
 (async function main() {
   const di: Container = ApplicationDI.getDI();
@@ -14,7 +16,7 @@ import {KeyMap} from "@orbit/data";
 
   ApplicationBranch.setup(store);
 
-  let workBranch0: Branch = ApplicationBranch.fork();
+  let workBranch0: Branch<Model> = ApplicationBranch.fork();
 
   try {
     let model = await workBranch0.query().select(Planet).find("1");
