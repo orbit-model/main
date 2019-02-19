@@ -4,7 +4,7 @@ import { Dict } from "@orbit/utils";
 import ApplicationDI from "@orbit-model/di";
 
 
-export default class DefaultRecordSerializer implements RecordSerializer<Record> {
+export default class DefaultRecordSerializer implements RecordSerializer {
 
   getAttributeValues(record: Record): Dict<any> {
     return record.attributes || {};

@@ -1,7 +1,7 @@
 import Store from '@orbit/store';
 import { BranchQuery, QueryBuilderZero } from "@orbit-model/query";
 
-export default interface Branch<MODEL> {
+export default interface Branch {
   /**
    * get the current fork of the store
    */
@@ -10,7 +10,7 @@ export default interface Branch<MODEL> {
   /**
    * create a sub branch of the current branch by forking the store
    */
-  fork(): Branch<MODEL>;
+  fork(): Branch;
 
   /**
    * persist all the changes made since this `Branch` has been created
@@ -25,5 +25,5 @@ export default interface Branch<MODEL> {
   /**
    * @param queryBuilder = "query-builder"
    */
-  query<Q extends BranchQuery<MODEL> = QueryBuilderZero<MODEL>>(queryBuilder?: string): Q;
+  query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder?: string): Q;
 }

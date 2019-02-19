@@ -27,7 +27,7 @@ export default class DefaultHasOne<Own extends Model, Related extends Model> imp
   }
 
 
-  private getRelationshipAdapter(): RelationshipAdapter<Model> {
+  private getRelationshipAdapter(): RelationshipAdapter {
     return ApplicationDI.getDI().get('middleware', 'relationshipAdapter');
   }
 }

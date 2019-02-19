@@ -1,11 +1,12 @@
 import { RecordIdentity } from '@orbit/data';
 import { Dict } from '@orbit/utils';
-import Injectable from "../di/Injectable";
+import {Injectable} from "@orbit-model/di";
+import { Model } from "@orbit-model/model";
 
-export default interface ModelSerializer<MODEL /* extends Model */> extends Injectable {
+export default interface ModelSerializer extends Injectable {
 
-  setAttributeValues<M extends MODEL>(model: M, attributes: Dict<any>): void;
+  setAttributeValues<M extends Model>(model: M, attributes: Dict<any>): void;
 
-  getIdentity(model: MODEL): RecordIdentity;
+  getIdentity(model: Model): RecordIdentity;
 
 }

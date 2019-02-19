@@ -1,20 +1,20 @@
-import RelationshipAdapterContract from "../RelationshipAdapter";
+import RelationshipAdapter from "../RelationshipAdapter";
 import ModelSerializer from "../ModelSerializer";
 import { RecordIdentity } from "@orbit/data";
 import Store from "@orbit/store";
 import { dasherize } from "@orbit/utils";
 import ApplicationDI, { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
-import Model from "@orbit-model/model";
+import { Model } from "@orbit-model/model";
 
-export default class DefaultRelationshipAdapter implements RelationshipAdapterContract<Model> {
+export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   private di: Container | null = null;
 
   _setOrbitDi(di: Container): void {
     this.di = di;
   }
 
-  private getModelSerializer(): ModelSerializer<Model> {
+  private getModelSerializer(): ModelSerializer {
     if (this.di === null) {
       throw new Error("the DefaultRelationshipAdapter has to be instantiated through a DI container");
     }

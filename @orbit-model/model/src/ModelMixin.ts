@@ -1,12 +1,11 @@
 import Model from "./Model";
-import { Record } from '@orbit/data';
 import ApplicationDI from "@orbit-model/di";
-import { Adapter } from "@orbit-model/middleware";
+import { MiddlewareAdapter } from "@orbit-model/core";
 import { ModelMetaAccessor, OrbitModelMeta } from "@orbit-model/meta";
 
 export default function ModelMixin(Base: { new(...args: any[]): any } | null = null): any {
   return class ModelMixin extends Base implements Model {
-    __orbitModelMeta: OrbitModelMeta<Model> | undefined;
+    __orbitModelMeta: OrbitModelMeta | null = null;
 
     get id(): string | undefined {
       if (!this.__orbitModelMeta) {
@@ -37,7 +36,7 @@ export default function ModelMixin(Base: { new(...args: any[]): any } | null = n
 
 
     destroy(): Promise<void> {
-      let adapter: Adapter<Record, Model> = ApplicationDI.getDI().get("middleware", "adapter");
+      let adapter = ApplicationDI.getDI().get<MiddlewareAdapter>("middleware", "adapter");
       return adapter.destroy(this);
     }
   };

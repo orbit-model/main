@@ -1,7 +1,6 @@
 import Branch from "./Branch";
 import DefaultBranch from "./impl/DefaultBranch";
 import Store from "@orbit/store";
-import { Model } from "@orbit-model/model";
 
 export default class ApplicationBranch {
 
@@ -11,7 +10,7 @@ export default class ApplicationBranch {
     ApplicationBranch.store = store;
   }
 
-  public static fork(): Branch<Model> {
+  public static fork(): Branch {
     return new DefaultBranch(ApplicationBranch.store);
   }
 }

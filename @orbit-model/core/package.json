@@ -1,17 +1,16 @@
 {
-  "name": "@orbit-model/model",
+  "name": "@orbit-model/core",
   "version": "0.0.1-alpha.1",
-  "description": "The model of orbit-model",
+  "description": "Mostly TypeScript types and contracts",
   "keywords": [
     "orbit",
     "orbit.js",
-    "orbit-model",
-    "model"
+    "orbit-model"
   ],
   "author": "Bernhard Halbartschlager <halbart.bernhard+git@gmail.com>",
   "homepage": "https://github.com/orbit-model/main",
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "directories": {
     "lib": "src",
     "test": "__tests__"
@@ -33,9 +32,6 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit/data": "^0.16.0-beta.1",
-    "@orbit-model/core": "0.0.1-alpha.1",
-    "@orbit-model/di": "0.0.1-alpha.1",
-    "@orbit-model/meta": "0.0.1-alpha.1"
+    "@orbit/data": "^0.16.0-beta.1"
   }
 }

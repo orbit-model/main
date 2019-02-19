@@ -1,19 +1,19 @@
-import Adapter from "../Adapter";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
 import { Record } from '@orbit/data';
-import Branch from "@orbit-model/branching";
+import { Branch } from "@orbit-model/branching";
+import { MiddlewareAdapter } from "@orbit-model/core";
 import ApplicationDI, { Container } from "@orbit-model/di";
 import { ModelMetaAccessor, DefaultOrbitModelMeta } from "@orbit-model/meta";
-import Model from "@orbit-model/model";
+import { Model } from "@orbit-model/model";
 
 
-export default class DefaultAdapter implements Adapter<Record, Model> {
+export default class DefaultAdapter implements MiddlewareAdapter {
 
   private di: Container | null = null;
 
 
-  create<M extends Model>(modelName: string | Function | { new(): M }, branch: Branch<Model>): M {
+  create<M extends Model>(modelName: string | Function | { new(): M }, branch: Branch): M {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
@@ -34,7 +34,7 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
     return model;
   }
 
-  createFromRecord<M extends Model>(record: Record, branch: Branch<Model>): M {
+  createFromRecord<M extends Model>(record: Record, branch: Branch): M {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
@@ -146,14 +146,14 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
   }
 
 
-  private getModelSerializer(): ModelSerializer<Model> {
+  private getModelSerializer(): ModelSerializer {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
     return this.di.get("middleware", "modelSerializer");
   }
 
-  private getRecordSerializer(): RecordSerializer<Record> {
+  private getRecordSerializer(): RecordSerializer {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }

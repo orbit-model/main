@@ -3,10 +3,9 @@ import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coor
 import Store from "@orbit/store";
 import { uuid } from "@orbit/utils";
 import ApplicationDI from "@orbit-model/di";
-import {Model} from "@orbit-model/model";
-import {BranchQuery, QueryBuilderZero} from "@orbit-model/query";
+import { BranchQuery, QueryBuilderZero } from "@orbit-model/query";
 
-export default class DefaultBranch implements Branch<Model> {
+export default class DefaultBranch implements Branch {
 
   private readonly store: Store;
   private readonly parent: Store;
@@ -36,7 +35,7 @@ export default class DefaultBranch implements Branch<Model> {
     return this.store;
   }
 
-  fork(): Branch<Model> {
+  fork(): Branch {
     return new DefaultBranch(this.store);
   }
 
@@ -49,7 +48,7 @@ export default class DefaultBranch implements Branch<Model> {
     this.coordinator.deactivate();
   }
 
-  query<Q extends BranchQuery<Model> = QueryBuilderZero<Model>>(queryBuilder: string = "queryBuilder"): Q {
+  query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder: string = "queryBuilder"): Q {
     let qb = ApplicationDI.getDI().get<Q>("system", queryBuilder);
     if (typeof qb["setBranch"] === "function") {
       qb["setBranch"](this);

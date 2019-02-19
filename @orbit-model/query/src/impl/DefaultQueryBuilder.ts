@@ -1,18 +1,18 @@
 import QueryBuilder from "../QueryBuilder";
-import { KeyMap, RecordIdentity, Record } from "@orbit/data";
+import { KeyMap, RecordIdentity } from "@orbit/data";
 import { Branch } from "@orbit-model/branching";
 import { Container } from "@orbit-model/di";
-import { Adapter } from "@orbit-model/middleware";
+import { MiddlewareAdapter } from "@orbit-model/core";
 import { Model } from "@orbit-model/model";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
 
-  private branch: Branch<Model>;
+  private branch: Branch;
   private modelDiName: string;
   private di: Container;
 
 
-  constructor(branch: Branch<Model>, modelDiName: string, di: Container) {
+  constructor(branch: Branch, modelDiName: string, di: Container) {
     this.branch = branch;
     this.modelDiName = modelDiName;
     this.di = di;
@@ -26,7 +26,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     };
     let record = await this.branch.getStore().query(q => q.findRecord(rId));
 
-    let adapter: Adapter<Record, Model> = this.di.get('middleware', 'adapter');
+    let adapter = this.di.get<MiddlewareAdapter>('middleware', 'adapter');
     return adapter.createFromRecord<M>(record, this.branch);
   }
 

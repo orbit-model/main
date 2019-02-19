@@ -6,12 +6,12 @@ import { Branch } from "@orbit-model/branching";
 import ApplicationDI, { Container } from "@orbit-model/di";
 import { Model } from "@orbit-model/model";
 
-export default class DefaultQueryBuilderZero implements QueryBuilderZero<Model> {
+export default class DefaultQueryBuilderZero implements QueryBuilderZero {
 
-  private branch: Branch<Model> | null = null;
+  private branch: Branch | null = null;
   private di: Container | null = null;
 
-  setBranch(branch: Branch<Model>) {
+  setBranch(branch: Branch) {
     this.branch = branch;
   }
 

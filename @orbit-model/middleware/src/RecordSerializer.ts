@@ -1,13 +1,15 @@
+import { Record } from "@orbit/data";
 import { Dict } from '@orbit/utils';
 
-export default interface RecordSerializer<RECORD> {
 
-  getType(record: RECORD): string;
+export default interface RecordSerializer {
 
-  getID(record: RECORD): string;
+  getType(record: Record): string;
 
-  getRemoteId(record: RECORD): string;
+  getID(record: Record): string;
 
-  getAttributeValues(record: RECORD): Dict<any>;
+  getRemoteId(record: Record): string;
+
+  getAttributeValues(record: Record): Dict<any>;
 
 }

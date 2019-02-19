@@ -1,5 +1,4 @@
 import { camelize } from "@orbit/utils";
-import { Record } from '@orbit/data';
 import ApplicationDI from "@orbit-model/di";
 import {
   ModelMetaAccessor,
@@ -59,7 +58,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
         return meta.values[attrInfo.name];
       },
       set(v: any): void {
-        let adapter: Adapter<Record, Model> = ApplicationDI.getDI().get('middleware', 'adapter');
+        let adapter: Adapter = ApplicationDI.getDI().get('middleware', 'adapter');
         adapter.setAttrValue(this, key, v);
       }
     })

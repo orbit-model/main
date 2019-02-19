@@ -1,6 +1,6 @@
 import OrbitModelReflection from "./OrbitModelReflection";
-import Model from "../model/Model";
 import OrbitModelMeta from "./OrbitModelMeta";
+import MetaDataModel from "./MetaDataModel";
 
 
 export default interface ModelMetaAccessor {
@@ -22,11 +22,11 @@ export default interface ModelMetaAccessor {
    *
    * This method may return undefined, in case no meta data could be found
    */
-  getMeta<M extends Model>(model: M): OrbitModelMeta<Model> | undefined;
+  getMeta<M extends MetaDataModel>(model: M): OrbitModelMeta | undefined;
 
   /**
    * Sets a new meta data pojo onto a hidden static property of the given model class.
    */
-  setMeta<M extends Model>(model: M, meta: OrbitModelMeta<Model>): void;
+  setMeta<M extends MetaDataModel>(model: M, meta: OrbitModelMeta): void;
 
 }

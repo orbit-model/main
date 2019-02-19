@@ -2,7 +2,7 @@ import OrbitModelReflection from "../OrbitModelReflection";
 import OrbitModelMeta from "../OrbitModelMeta";
 import ModelMetaAccessor from "../ModelMetaAccessor";
 import ApplicationDI from "@orbit-model/di";
-import {Model} from "@orbit-model/model";
+import MetaDataModel from "../MetaDataModel";
 
 
 export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
@@ -35,7 +35,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    *
    * @param model
    */
-  getMeta<M extends Model>(model: M): OrbitModelMeta<Model> | undefined {
+  getMeta<M extends MetaDataModel>(model: M): OrbitModelMeta | undefined {
     // @ts-ignore
     return model["__orbitModelMeta"];
   }
@@ -46,11 +46,12 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    * @param model
    * @param meta
    */
-  setMeta<M extends Model>(model: M, meta: OrbitModelMeta<Model>): void {
+  setMeta<M extends MetaDataModel>(model: M, meta: OrbitModelMeta): void {
     // @ts-ignore
     model["__orbitModelMeta"] = meta;
   }
 
 }
+
 
 ApplicationDI.getDI().register('system', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });
