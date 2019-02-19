@@ -1,11 +1,10 @@
 import Branch from "../Branch";
-import Store from "@orbit/store";
 import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coordinator';
-import Model from "../../model/Model";
-import QueryBuilderZero from "../../query/QueryBuilderZero";
-import ApplicationDI from "../../di/ApplicationDI";
+import Store from "@orbit/store";
 import { uuid } from "@orbit/utils";
-import BranchQuery from "../../query/BranchQuery";
+import ApplicationDI from "@orbit-model/di";
+import {Model} from "@orbit-model/model";
+import {BranchQuery, QueryBuilderZero} from "@orbit-model/query";
 
 export default class DefaultBranch implements Branch<Model> {
 
