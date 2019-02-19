@@ -1,9 +1,8 @@
 import Model from "./Model";
-import ApplicationDI from "../di/ApplicationDI";
-import Adapter from "../middleware/Adapter";
 import { Record } from '@orbit/data';
-import ModelMetaAccessor from "../meta/ModelMetaAccessor";
-import OrbitModelMeta from "../meta/OrbitModelMeta";
+import ApplicationDI from "@orbit-model/di";
+import { Adapter } from "@orbit-model/middleware";
+import { ModelMetaAccessor, OrbitModelMeta } from "@orbit-model/meta";
 
 export default function ModelMixin(Base: { new(...args: any[]): any } | null = null): any {
   return class ModelMixin extends Base implements Model {

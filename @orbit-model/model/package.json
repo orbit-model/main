@@ -1,0 +1,41 @@
+{
+  "name": "@orbit-model/model",
+  "version": "0.0.1-alpha.1",
+  "description": "The model of orbit-model",
+  "keywords": [
+    "orbit",
+    "orbit.js",
+    "orbit-model",
+    "model"
+  ],
+  "author": "Bernhard Halbartschlager <halbart.bernhard+git@gmail.com>",
+  "homepage": "https://github.com/orbit-model/main",
+  "license": "MIT",
+  "main": "src/index.js",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orbit-model/main.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/orbit-model/main/issues"
+  },
+  "dependencies": {
+    "@orbit/data": "^0.16.0-beta.1",
+    "@orbit-model/di": "0.0.1-alpha.1",
+    "@orbit-model/meta": "0.0.1-alpha.1",
+    "@orbit-model/middleware": "0.0.1-alpha.1"
+  }
+}

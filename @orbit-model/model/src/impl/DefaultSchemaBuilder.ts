@@ -1,8 +1,8 @@
 import SchemaBuilder from "../SchemaBuilder";
-import Container from "../../di/Container";
 import { AttributeDefinition, ModelDefinition, RelationshipDefinition, Schema } from "@orbit/data";
 import { Dict } from "@orbit/utils";
-import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
+import { Container } from "@orbit-model/di";
+import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
   private di: Container | null = null;
@@ -40,7 +40,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       let klass = this.di.getClass('models', diName);
       let reflection = mma.getReflection(klass);
       if (reflection === undefined) {
-        throw new Error("Model '"+diName+"' with class name '"+klass.name+"' has not been initialized correctly: " +
+        throw new Error("Model '" + diName + "' with class name '" + klass.name + "' has not been initialized correctly: " +
           "no reflection information found");
       }
 
