@@ -23,5 +23,5 @@ export default interface Branch<MODEL> {
    *
    * @param queryBuilder = "query-builder"
    */
-  query<Q extends BranchQuery<MODEL> = QueryBuilderZero<MODEL>>(queryBuilder: string): Q;
+  query<Q extends BranchQuery<MODEL> = QueryBuilderZero<MODEL>>(queryBuilder?: string): Q;
 }
