@@ -1,12 +1,16 @@
 import Container from "./Container";
 import DefaultContainer from "./impl/DefaultContainer";
 import MigratableContainer from "./MigratableContainer";
-import DefaultQueryBuilderZero from "../query/impl/DefaultQueryBuilderZero";
-import DefaultSchemaBuilder from "../model/impl/DefaultSchemaBuilder";
-import DefaultAdapter from "../middleware/impl/DefaultAdapter";
-import DefaultModelSerializer from "../middleware/impl/DefaultModelSerializer";
-import DefaultRelationshipAdapter from "../middleware/impl/DefaultRelationshipAdapter";
-import DefaultModelMetaAccessor from "../meta/impl/DefaultModelMetaAccessor";
+import { DefaultModelMetaAccessor } from "@orbit-model/meta";
+import {
+  DefaultAdapter,
+  DefaultRecordSerializer,
+  DefaultModelSerializer,
+  DefaultRelationshipAdapter
+} from "@orbit-model/middleware";
+import { DefaultSchemaBuilder } from "@orbit-model/model";
+import { DefaultQueryBuilderZero } from "@orbit-model/query";
+
 
 export default class ApplicationDI {
 
@@ -43,7 +47,7 @@ export default class ApplicationDI {
     di.register('system', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });
 
     di.register('middleware', 'adapter', DefaultAdapter, { singleton: true });
-    di.register('middleware', 'recordSerializer', DefaultAdapter, { singleton: true });
+    di.register('middleware', 'recordSerializer', DefaultRecordSerializer, { singleton: true });
     di.register('middleware', 'modelSerializer', DefaultModelSerializer, { singleton: true });
     di.register('middleware', 'relationshipAdapter', DefaultRelationshipAdapter, { singleton: true });
   }

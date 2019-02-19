@@ -1,5 +1,5 @@
 import { camelize } from "@orbit/utils";
-import ApplicationDI from "../di/ApplicationDI";
+import ApplicationDI from "@orbit-model/di";
 
 
 export default function registerClassGenerator(namespace: string, options: { name?: string } = {}) {

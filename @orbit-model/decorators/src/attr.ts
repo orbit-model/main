@@ -1,14 +1,15 @@
 import { camelize } from "@orbit/utils";
-import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
-import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
-import { AttributeInfo } from "../meta/ModelInfo";
-import DefaultAttributeInfo from "../meta/pojos/DefaultAttributeInfo";
-import "reflect-metadata";
-import Model from "../model/Model";
-import ApplicationDI from "../di/ApplicationDI";
-import Adapter from "../middleware/Adapter";
 import { Record } from '@orbit/data';
-import ModelMetaAccessor from "../meta/ModelMetaAccessor";
+import ApplicationDI from "@orbit-model/di";
+import {
+  ModelMetaAccessor,
+  DefaultOrbitModelReflection,
+  DefaultModelInfo,
+  DefaultAttributeInfo
+} from "@orbit-model/meta";
+import { Adapter } from "@orbit-model/middleware";
+import { Model } from "@orbit-model/model";
+import "reflect-metadata";
 
 interface AttrOptions {
   name?: string;

@@ -1,9 +1,13 @@
 import { camelize } from "@orbit/utils";
-import ApplicationDI from "../di/ApplicationDI";
-import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
-import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
-import ModelInfo from "../meta/ModelInfo";
-import ModelMetaAccessor from "../meta/ModelMetaAccessor";
+import ApplicationDI from "@orbit-model/di";
+import {
+  ModelMetaAccessor,
+  DefaultOrbitModelReflection,
+  ModelInfo,
+  DefaultModelInfo
+} from "@orbit-model/meta";
+import { Adapter } from "@orbit-model/middleware";
+import { Model } from "@orbit-model/model";
 
 
 export default function registerClassGenerator(options: { name?: string } = {}) {

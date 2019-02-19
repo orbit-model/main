@@ -1,7 +1,7 @@
-import Model from "../../model/Model";
 import HasMany from "../contracts/HasMany";
-import RelationshipAdapter from "../../middleware/RelationshipAdapter";
-import ApplicationDI from "../../di/ApplicationDI";
+import ApplicationDI from "@orbit-model/di";
+import { RelationshipAdapter } from "@orbit-model/middleware";
+import { Model } from "@orbit-model/model";
 
 export default class DefaultHasMany<Own extends Model, Related extends Model> implements HasMany<Model> {
 

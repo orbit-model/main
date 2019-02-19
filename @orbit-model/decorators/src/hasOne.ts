@@ -1,10 +1,14 @@
 import { camelize } from "@orbit/utils";
-import DefaultOrbitModelReflection from "../meta/pojos/DefaultOrbitModelReflection";
-import DefaultModelInfo from "../meta/pojos/DefaultModelInfo";
-import DefaultRelationInfo from "../meta/pojos/DefaultRelationInfo";
 import DefaultHasOne from "./impl/DefaultHasOne";
-import ModelMetaAccessor from "../meta/ModelMetaAccessor";
-import ApplicationDI from "../di/ApplicationDI";
+import ApplicationDI from "@orbit-model/di";
+import {
+  ModelMetaAccessor,
+  DefaultOrbitModelReflection,
+  DefaultModelInfo,
+  DefaultRelationInfo
+} from "@orbit-model/meta";
+import { Adapter } from "@orbit-model/middleware";
+import { Model } from "@orbit-model/model";
 
 interface RelationOptions {
   name?: string;
