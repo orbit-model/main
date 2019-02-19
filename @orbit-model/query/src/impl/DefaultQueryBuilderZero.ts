@@ -3,7 +3,7 @@ import QueryBuilder from "..//QueryBuilder";
 import classToDiName from "./utils/classToDiName";
 import DefaultQueryBuilder from "./DefaultQueryBuilder";
 import { Branch } from "@orbit-model/branching";
-import { Container } from "@orbit-model/di";
+import ApplicationDI, { Container } from "@orbit-model/di";
 import { Model } from "@orbit-model/model";
 
 export default class DefaultQueryBuilderZero implements QueryBuilderZero<Model> {
@@ -36,3 +36,5 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero<Model> 
   }
 
 }
+
+ApplicationDI.getDI().register("system", "queryBuilder", DefaultQueryBuilderZero);

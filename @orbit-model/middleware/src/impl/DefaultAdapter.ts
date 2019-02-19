@@ -1,11 +1,11 @@
-import { Record } from '@orbit/data';
 import Adapter from "../Adapter";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
-import Model from "../model/Model";
-import { Container } from "@orbit-model/di";
+import { Record } from '@orbit/data';
 import Branch from "@orbit-model/branching";
+import ApplicationDI, { Container } from "@orbit-model/di";
 import { ModelMetaAccessor, DefaultOrbitModelMeta } from "@orbit-model/meta";
+import Model from "@orbit-model/model";
 
 
 export default class DefaultAdapter implements Adapter<Record, Model> {
@@ -160,3 +160,5 @@ export default class DefaultAdapter implements Adapter<Record, Model> {
     return this.di.get("middleware", "recordSerializer");
   }
 }
+
+ApplicationDI.getDI().register('middleware', 'adapter', DefaultAdapter, { singleton: true });

@@ -1,10 +1,10 @@
 import ModelSerializerContract from "../ModelSerializer";
-import Model from "../model/Model";
-import {Container} from "@orbit-model/di";
-import { Dict } from "@orbit/utils";
-import { RecordIdentity } from "@orbit/data";
-import { AttributeInfo, ModelMetaAccessor } from "@orbit-model/meta";
 import findAttributeInfoByName from "./utils/findAttributeInfoByName";
+import { RecordIdentity } from "@orbit/data";
+import { Dict } from "@orbit/utils";
+import ApplicationDI, { Container } from "@orbit-model/di";
+import { AttributeInfo, ModelMetaAccessor } from "@orbit-model/meta";
+import Model from "@orbit-model/model";
 
 export default class DefaultModelSerializer implements ModelSerializerContract<Model> {
 
@@ -68,3 +68,4 @@ export default class DefaultModelSerializer implements ModelSerializerContract<M
 
 }
 
+ApplicationDI.getDI().register('middleware', 'modelSerializer', DefaultModelSerializer, { singleton: true });

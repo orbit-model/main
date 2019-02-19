@@ -38,6 +38,7 @@
     "@orbit/utils": "^0.16.0-beta.1",
     "@orbit-model/branching": "0.0.1-alpha.1",
     "@orbit-model/di": "0.0.1-alpha.1",
-    "@orbit-model/meta": "0.0.1-alpha.1"
+    "@orbit-model/meta": "0.0.1-alpha.1",
+    "@orbit-model/model": "0.0.1-alpha.1"
   }
 }
