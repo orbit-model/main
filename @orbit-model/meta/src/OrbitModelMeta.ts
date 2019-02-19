@@ -1,4 +1,4 @@
-import Branch from "../branching/Branch";
+import Branch from "@orbit-model/branching";
 
 export default interface OrbitModelMeta<MODEL> {
   className: string,

@@ -1,0 +1,38 @@
+{
+  "name": "@orbit-model/meta",
+  "version": "0.0.1-alpha.1",
+  "description": "The orbit-model approach to relfection",
+  "keywords": [
+    "orbit",
+    "orbit.js",
+    "orbit-model",
+    "reflection"
+  ],
+  "author": "Bernhard Halbartschlager <halbart.bernhard+git@gmail.com>",
+  "homepage": "https://github.com/orbit-model/main",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orbit-model/main.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/orbit-model/main/issues"
+  },
+  "dependencies": {
+    "@orbit-model/branching": "0.0.1-alpha.1"
+  }
+}
