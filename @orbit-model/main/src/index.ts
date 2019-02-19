@@ -1,8 +1,3 @@
-import 'reflect-metadata';
-
-// branching
-export { default as ApplicationBranch } from './branching/ApplicationBranch';
-export { default as Branch } from './branching/Branch';
 
 // decorators
 export { default as attr } from './decorators/attr';

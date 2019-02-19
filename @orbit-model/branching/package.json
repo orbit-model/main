@@ -1,0 +1,42 @@
+{
+  "name": "@orbit-model/branching",
+  "version": "0.0.1-alpha.1",
+  "description": "Transcations for the client in the orbit-model world",
+  "keywords": [
+    "orbit",
+    "orbit.js",
+    "orbit-model",
+    "branching",
+    "transaction",
+    "git"
+  ],
+  "author": "Bernhard Halbartschlager <halbart.bernhard+git@gmail.com>",
+  "homepage": "https://github.com/orbit-model/main",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orbit-model/main.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/orbit-model/main/issues"
+  },
+  "dependencies": {
+    "@orbit/coordinator": "^0.16.0-beta.1",
+    "@orbit/store": "^0.16.0-beta.1",
+    "@orbit/utils": "^0.16.0-beta.1"
+  }
+}
