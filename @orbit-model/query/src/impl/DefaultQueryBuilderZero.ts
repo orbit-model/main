@@ -1,10 +1,10 @@
 import QueryBuilderZero from "../QueryBuilderZero";
-import Model from "../../model/Model";
 import QueryBuilder from "..//QueryBuilder";
-import classToDiName from "../../utils/classToDiName";
+import classToDiName from "./utils/classToDiName";
 import DefaultQueryBuilder from "./DefaultQueryBuilder";
-import Branch from "../../branching/Branch";
-import Container from "../../di/Container";
+import { Branch } from "@orbit-model/branching";
+import { Container } from "@orbit-model/di";
+import { Model } from "@orbit-model/model";
 
 export default class DefaultQueryBuilderZero implements QueryBuilderZero<Model> {
 

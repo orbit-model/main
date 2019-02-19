@@ -1,3 +1,3 @@
 
-export { default as ApplicationBranch } from './ApplicationBranch';
-export { default } from './Branch';
+export { default } from './ApplicationBranch';
+export { default as Branch } from './Branch';

@@ -1,15 +1,15 @@
 import QueryBuilder from "../QueryBuilder";
-import Branch from "../../branching/Branch";
-import Model from "../../model/Model";
 import { KeyMap, RecordIdentity, Record } from "@orbit/data";
-import Container from "../../di/Container";
-import Adapter from "../../middleware/Adapter";
+import { Branch } from "@orbit-model/branching";
+import { Container } from "@orbit-model/di";
+import { Adapter } from "@orbit-model/middleware";
+import { Model } from "@orbit-model/model";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
 
   private branch: Branch<Model>;
   private modelDiName: string;
-  private  di: Container;
+  private di: Container;
 
 
   constructor(branch: Branch<Model>, modelDiName: string, di: Container) {
@@ -20,7 +20,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
 
 
   async find(id: string): Promise<M> {
-    let rId : RecordIdentity = {
+    let rId: RecordIdentity = {
       type: this.modelDiName,
       id: this.getIdForKey(this.modelDiName, id)
     };
