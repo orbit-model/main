@@ -11,7 +11,7 @@
     "dev": "tsc -w"
   },
   "dependencies": {
-    "@orbit-model/main": "../",
+    "@orbit-model/main": "../@orbit-model/main",
     "typescript": "^3.2.2"
   }
 }

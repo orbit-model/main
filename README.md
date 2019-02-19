@@ -14,4 +14,4 @@ on the [orbit.js monorepo](https://github.com/orbitjs/orbit):
 
 ## License
 
-Copyright 2018 Bernhard Halbartschlager. MIT License (see LICENSE for details).
+Copyright 2018-2019 Bernhard Halbartschlager. MIT License (see LICENSE for details).

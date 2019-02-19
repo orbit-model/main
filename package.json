@@ -1,6 +1,5 @@
 {
-  "name": "@orbit-model/main",
-  "version": "0.0.1",
+  "name": "root",
   "description": "A models abstraction for Orbit.",
   "contributors": [
     "Bernhard Halbartschlager <halbart.bernhard+npm@gmail.com>"
@@ -14,28 +13,11 @@
   ],
   "repository": "https://github.com/bernhard---h/orbit-model",
   "license": "MIT",
-  "main": "dist/commonjs/es2017/index.js",
-  "module": "dist/commonjs/es2017/index.js",
-  "types": "dist/commonjs/es2017/index.d.ts",
+  "private": true,
   "scripts": {
-    "dev": "tsc -w",
-    "build": "rm -rf dist && BROCCOLI_ENV=dist broccoli build dist",
-    "build:tests": "rm -rf tests && BROCCOLI_ENV=tests broccoli build tests",
-    "prepare": "npm run build",
-    "test": "testem ci"
-  },
-  "dependencies": {
-    "@orbit/coordinator": "^0.16.0-beta.1",
-    "@orbit/core": "^0.16.0-beta.1",
-    "@orbit/data": "^0.16.0-beta.1",
-    "@orbit/store": "^0.16.0-beta.1",
-    "@orbit/utils": "^0.16.0-beta.1",
-    "reflect-metadata": "^0.1.12"
+    "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
-    "@glimmer/build": "^0.9.1",
-    "sinon": "^1.17.7",
-    "whatwg-fetch": "^2.0.3",
-    "typescript": "^3.2.2"
+    "lerna": "^3.13.0"
   }
 }
