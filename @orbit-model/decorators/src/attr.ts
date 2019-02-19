@@ -35,7 +35,7 @@ function getSchemaType(target: any, key: string): string {
 }
 
 export default function attrGenerator(options: AttrOptions = {}) {
-  return function attr<M extends Model>(target: { new(): M }, key: string) {
+  return function attr(target: any, key: string) {
     let diName = options.name || camelize(key);
 
     let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');

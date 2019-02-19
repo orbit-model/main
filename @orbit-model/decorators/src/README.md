@@ -1,5 +1,7 @@
 # Decorators
 
+> TODO: update docs
+
 ## @registerClass
 
 This is the most basic helper for our dependency injection system. It simply registers the class it's applied on with the application DI container.

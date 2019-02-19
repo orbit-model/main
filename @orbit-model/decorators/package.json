@@ -1,0 +1,41 @@
+{
+  "name": "@orbit-model/decorators",
+  "version": "0.0.1-alpha.1",
+  "description": "Decorators: an easy way to setup your model classes",
+  "keywords": [
+    "orbit",
+    "orbit.js",
+    "orbit-model",
+    "decorator",
+    "decorators"
+  ],
+  "author": "Bernhard Halbartschlager <halbart.bernhard+git@gmail.com>",
+  "homepage": "https://github.com/orbit-model/main",
+  "license": "MIT",
+  "main": "src/index.js",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orbit-model/main.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/orbit-model/main/issues"
+  },
+  "dependencies": {
+    "@orbit/data": "^0.16.0-beta.1",
+    "@orbit/utils": "^0.16.0-beta.1",
+    "reflect-metadata": "^0.1.13"
+  }
+}
