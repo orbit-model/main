@@ -1,11 +1,11 @@
 import RelationshipAdapterContract from "../RelationshipAdapter";
-import Model from "../../model/Model";
-import Container from "../../di/Container";
-import Store from "@orbit/store";
 import ModelSerializer from "../ModelSerializer";
+import Store from "@orbit/store";
 import { RecordIdentity } from "@orbit/data";
 import { dasherize } from "@orbit/utils";
-import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
+import { Container } from "@orbit-model/di";
+import { ModelMetaAccessor } from "@orbit-model/meta";
+import Model from "../model/Model";
 
 export default class DefaultRelationshipAdapter implements RelationshipAdapterContract<Model> {
   private di: Container | null = null;

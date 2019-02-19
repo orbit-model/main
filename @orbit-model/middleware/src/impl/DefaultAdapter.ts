@@ -1,12 +1,11 @@
 import { Record } from '@orbit/data';
 import Adapter from "../Adapter";
-import Model from "../../model/Model";
-import Container from "../../di/Container";
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
-import Branch from "../../branching/Branch";
-import DefaultOrbitModelMeta from "../../meta/pojos/DefaultOrbitModelMeta";
-import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
+import Model from "../model/Model";
+import { Container } from "@orbit-model/di";
+import Branch from "@orbit-model/branching";
+import { ModelMetaAccessor, DefaultOrbitModelMeta } from "@orbit-model/meta";
 
 
 export default class DefaultAdapter implements Adapter<Record, Model> {

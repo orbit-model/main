@@ -1,11 +1,10 @@
 import ModelSerializerContract from "../ModelSerializer";
-import Model from "../../model/Model";
-import Container from "../../di/Container";
+import Model from "../model/Model";
+import {Container} from "@orbit-model/di";
 import { Dict } from "@orbit/utils";
 import { RecordIdentity } from "@orbit/data";
-import { AttributeInfo } from "../../meta/ModelInfo";
-import findAttributeInfoByName from "../../utils/findAttributeInfoByName";
-import ModelMetaAccessor from "../../meta/ModelMetaAccessor";
+import { AttributeInfo, ModelMetaAccessor } from "@orbit-model/meta";
+import findAttributeInfoByName from "./utils/findAttributeInfoByName";
 
 export default class DefaultModelSerializer implements ModelSerializerContract<Model> {
 
