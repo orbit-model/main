@@ -1,6 +1,6 @@
 import Model from "./Model";
-import QueryBuilder from "../../query/src/QueryBuilder";
 import BranchQuery from "./BranchQuery";
+import QueryBuilder from "./QueryBuilder";
 
 export default interface QueryBuilderZero extends BranchQuery {
 

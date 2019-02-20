@@ -1,4 +1,4 @@
-import QueryBuilder from "../QueryBuilder";
+import QueryBuilder from "../../../core/src/QueryBuilder";
 import { KeyMap, RecordIdentity } from "@orbit/data";
 import { Branch, Model } from "@orbit-model/core";
 import { Container } from "@orbit-model/di";

@@ -18,8 +18,6 @@
     "postinstall": "lerna bootstrap --reject-cycles"
   },
   "devDependencies": {
-    "@glimmer/build": "^0.9.1",
-    "broccoli-cli": "^1.0.0",
     "lerna": "^3.13.0",
     "rimraf": "^2.6.3"
   }

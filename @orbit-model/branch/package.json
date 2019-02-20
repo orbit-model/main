@@ -6,6 +6,7 @@
     "orbit",
     "orbit.js",
     "orbit-model",
+    "branch",
     "branching",
     "transaction",
     "git"
@@ -13,7 +14,8 @@
   "author": "Bernhard Halbartschlager <halbart.bernhard+orbit-model@gmail.com>",
   "homepage": "https://github.com/orbit-model/main",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "directories": {
     "lib": "src",
     "test": "__tests__"
@@ -29,7 +31,7 @@
     "url": "git+https://github.com/orbit-model/main.git"
   },
   "scripts": {
-    "build": "rimraf dist && BROCCOLI_ENV=dist broccoli build dist",
+    "build": "rimraf dist && tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
