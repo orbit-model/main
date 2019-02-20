@@ -2,7 +2,7 @@
   "name": "root",
   "description": "A models abstraction for Orbit.",
   "contributors": [
-    "Bernhard Halbartschlager <halbart.bernhard+npm@gmail.com>"
+    "Bernhard Halbartschlager <halbart.bernhard+orbit-model@gmail.com>"
   ],
   "keywords": [
     "orbit",
@@ -15,9 +15,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap --reject-cycles"
   },
   "devDependencies": {
-    "lerna": "^3.13.0"
+    "@glimmer/build": "^0.9.1",
+    "broccoli-cli": "^1.0.0",
+    "lerna": "^3.13.0",
+    "rimraf": "^2.6.3"
   }
 }

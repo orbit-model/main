@@ -10,12 +10,12 @@
     "transaction",
     "git"
   ],
-  "author": "Bernhard Halbartschlager <halbart.bernhard+git@gmail.com>",
+  "author": "Bernhard Halbartschlager <halbart.bernhard+orbit-model@gmail.com>",
   "homepage": "https://github.com/orbit-model/main",
   "license": "MIT",
   "main": "src/index.ts",
   "directories": {
-    "lib": "lib",
+    "lib": "src",
     "test": "__tests__"
   },
   "files": [
@@ -29,6 +29,7 @@
     "url": "git+https://github.com/orbit-model/main.git"
   },
   "scripts": {
+    "build": "rimraf dist && BROCCOLI_ENV=dist broccoli build dist",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
