@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "declaration": true,
+    "newLine": "LF",
+    "strict": true
+  },
+  "exclude": [
+    "node_modules/**/*",
+    "**/*.spec.ts"
+  ]
+}
