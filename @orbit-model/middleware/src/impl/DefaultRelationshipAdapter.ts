@@ -1,11 +1,10 @@
-import RelationshipAdapter from "../RelationshipAdapter";
 import ModelSerializer from "../ModelSerializer";
 import { RecordIdentity } from "@orbit/data";
 import Store from "@orbit/store";
 import { dasherize } from "@orbit/utils";
+import { Model, RelationshipAdapter } from "@orbit-model/core";
 import ApplicationDI, { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
-import { Model } from "@orbit-model/model";
 
 export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   private di: Container | null = null;
@@ -148,5 +147,6 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   }
 
 }
+
 
 ApplicationDI.getDI().register('middleware', 'relationshipAdapter', DefaultRelationshipAdapter, { singleton: true });

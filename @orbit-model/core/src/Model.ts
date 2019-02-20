@@ -1,4 +1,4 @@
-import { MetaDataModel } from "@orbit-model/meta";
+import MetaDataModel from "./MetaDataModel";
 
 export default interface Model extends MetaDataModel {
   readonly type: string;

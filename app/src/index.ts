@@ -2,9 +2,10 @@
 import Store from '@orbit/store';
 import Planet from "./Planet";
 import { KeyMap } from "@orbit/data";
-import ApplicationBranch, { Branch } from "@orbit-model/branching";
+import ApplicationBranch  from "@orbit-model/branching";
+import { Branch, Model } from "@orbit-model/core";
 import ApplicationDI, { Container } from "@orbit-model/di";
-import { Model, SchemaBuilder } from "@orbit-model/model";
+import { SchemaBuilder } from "@orbit-model/model";
 
 (async function main() {
   const di: Container = ApplicationDI.getDI();

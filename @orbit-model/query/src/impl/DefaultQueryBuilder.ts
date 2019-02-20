@@ -1,9 +1,8 @@
 import QueryBuilder from "../QueryBuilder";
 import { KeyMap, RecordIdentity } from "@orbit/data";
-import { Branch } from "@orbit-model/branching";
+import { Branch, Model } from "@orbit-model/core";
 import { Container } from "@orbit-model/di";
-import { MiddlewareAdapter } from "@orbit-model/core";
-import { Model } from "@orbit-model/model";
+import { Adapter } from "@orbit-model/core";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
 
@@ -26,7 +25,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     };
     let record = await this.branch.getStore().query(q => q.findRecord(rId));
 
-    let adapter = this.di.get<MiddlewareAdapter>('middleware', 'adapter');
+    let adapter = this.di.get<Adapter>('middleware', 'adapter');
     return adapter.createFromRecord<M>(record, this.branch);
   }
 
@@ -34,7 +33,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     throw new Error("not implemented");
   }
 
-  get(): Promise<M[]> {
+  async get(): Promise<M[]> {
     throw new Error("not implemented");
   }
 

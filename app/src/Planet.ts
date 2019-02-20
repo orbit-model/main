@@ -1,7 +1,6 @@
 import SolarSystem from "./SolarSystem";
 import { attr, HasOne, hasOne, model } from "@orbit-model/decorators";
 import { ModelMixin } from "@orbit-model/model";
-import { Model } from "@orbit-model/model";
 
 
 @model()

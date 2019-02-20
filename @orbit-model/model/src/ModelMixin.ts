@@ -1,6 +1,6 @@
-import Model from "./Model";
+import Model from "../../core/src/Model";
 import ApplicationDI from "@orbit-model/di";
-import { MiddlewareAdapter } from "@orbit-model/core";
+import { Adapter } from "@orbit-model/core";
 import { ModelMetaAccessor, OrbitModelMeta } from "@orbit-model/meta";
 
 export default function ModelMixin(Base: { new(...args: any[]): any } | null = null): any {
@@ -36,7 +36,7 @@ export default function ModelMixin(Base: { new(...args: any[]): any } | null = n
 
 
     destroy(): Promise<void> {
-      let adapter = ApplicationDI.getDI().get<MiddlewareAdapter>("middleware", "adapter");
+      let adapter = ApplicationDI.getDI().get<Adapter>("middleware", "adapter");
       return adapter.destroy(this);
     }
   };

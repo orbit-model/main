@@ -1,4 +1,5 @@
 import { camelize } from "@orbit/utils";
+import { Adapter, Model } from "@orbit-model/core";
 import ApplicationDI from "@orbit-model/di";
 import {
   ModelMetaAccessor,
@@ -6,8 +7,6 @@ import {
   DefaultModelInfo,
   DefaultAttributeInfo
 } from "@orbit-model/meta";
-import { Adapter } from "@orbit-model/middleware";
-import { Model } from "@orbit-model/model";
 import "reflect-metadata";
 
 interface AttrOptions {
@@ -58,7 +57,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
         return meta.values[attrInfo.name];
       },
       set(v: any): void {
-        let adapter: Adapter = ApplicationDI.getDI().get('middleware', 'adapter');
+        let adapter = ApplicationDI.getDI().get<Adapter>('middleware', 'adapter');
         adapter.setAttrValue(this, key, v);
       }
     })

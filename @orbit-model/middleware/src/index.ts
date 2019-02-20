@@ -6,7 +6,7 @@ import "./impl/DefaultRelationshipAdapter";
 
 
 export { default as Adapter } from '../../core/src/Adapter';
-export { default as RelationshipAdapter } from './RelationshipAdapter';
+export { default as RelationshipAdapter } from '../../core/src/RelationshipAdapter';
 
 export { default as ModelSerializer } from './ModelSerializer';
 export { default as RecordSerializer } from './RecordSerializer';

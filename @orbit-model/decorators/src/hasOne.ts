@@ -1,5 +1,6 @@
 import { camelize } from "@orbit/utils";
 import DefaultHasOne from "./impl/DefaultHasOne";
+import { Model } from "@orbit-model/core";
 import ApplicationDI from "@orbit-model/di";
 import {
   ModelMetaAccessor,
@@ -7,8 +8,6 @@ import {
   DefaultModelInfo,
   DefaultRelationInfo
 } from "@orbit-model/meta";
-import { Adapter } from "@orbit-model/middleware";
-import { Model } from "@orbit-model/model";
 
 interface RelationOptions {
   name?: string;

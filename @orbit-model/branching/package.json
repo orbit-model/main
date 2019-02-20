@@ -1,7 +1,7 @@
 {
   "name": "@orbit-model/branching",
   "version": "0.0.1-alpha.1",
-  "description": "Transcations for the client in the orbit-model world",
+  "description": "Transactions for the client in the orbit-model world",
   "keywords": [
     "orbit",
     "orbit.js",
@@ -38,6 +38,7 @@
     "@orbit/coordinator": "^0.16.0-beta.1",
     "@orbit/store": "^0.16.0-beta.1",
     "@orbit/utils": "^0.16.0-beta.1",
+    "@orbit-model/core": "0.0.1-alpha.1",
     "@orbit-model/di": "0.0.1-alpha.1",
     "@orbit-model/query": "0.0.1-alpha.1"
   }

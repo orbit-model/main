@@ -6,12 +6,13 @@
   "author": "Bernhard Halbartschlager <halbart.bernhard+npm@gmail.com>",
   "license": "MIT",
   "private": false,
-  "repository": "https://github.com/bernhard---h/orbit-model",
+  "repository": "https://github.com/orbit-model/main",
   "scripts": {
     "dev": "tsc -w"
   },
   "dependencies": {
     "@orbit-model/branching": "../@orbit-model/branching",
+    "@orbit-model/core": "../@orbit-model/core",
     "@orbit-model/decorators": "../@orbit-model/decorators",
     "@orbit-model/di": "../@orbit-model/di",
     "@orbit-model/model": "../@orbit-model/model",

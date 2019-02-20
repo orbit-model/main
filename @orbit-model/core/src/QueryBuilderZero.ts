@@ -1,6 +1,6 @@
-import QueryBuilder from "./QueryBuilder";
+import Model from "./Model";
+import QueryBuilder from "../../query/src/QueryBuilder";
 import BranchQuery from "./BranchQuery";
-import { Model } from "@orbit-model/model";
 
 export default interface QueryBuilderZero extends BranchQuery {
 

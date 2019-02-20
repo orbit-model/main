@@ -1,4 +1,5 @@
 import { camelize } from "@orbit/utils";
+import { Model } from "@orbit-model/core";
 import ApplicationDI from "@orbit-model/di";
 import {
   ModelMetaAccessor,
@@ -6,8 +7,6 @@ import {
   ModelInfo,
   DefaultModelInfo
 } from "@orbit-model/meta";
-import { Adapter } from "@orbit-model/middleware";
-import { Model } from "@orbit-model/model";
 
 
 export default function registerClassGenerator(options: { name?: string } = {}) {

@@ -1,5 +1,5 @@
 import OrbitModelMeta from "../OrbitModelMeta";
-import { Branch } from "@orbit-model/branching";
+import { Branch } from "@orbit-model/core";
 
 export default class DefaultOrbitModelMeta implements OrbitModelMeta {
   branch: Branch;

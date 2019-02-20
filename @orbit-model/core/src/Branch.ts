@@ -1,5 +1,7 @@
+import BranchQuery from "./BranchQuery";
+import QueryBuilderZero from "./QueryBuilderZero";
 import Store from '@orbit/store';
-import { BranchQuery, QueryBuilderZero } from "@orbit-model/query";
+
 
 export default interface Branch {
   /**
