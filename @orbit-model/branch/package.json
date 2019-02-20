@@ -1,5 +1,5 @@
 {
-  "name": "@orbit-model/branching",
+  "name": "@orbit-model/branch",
   "version": "0.0.1-alpha.1",
   "description": "Transactions for the client in the orbit-model world",
   "keywords": [
