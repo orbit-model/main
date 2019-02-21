@@ -1,8 +1,8 @@
 //import 'reflect-metadata';
 import Store from '@orbit/store';
 import Planet from "./Planet";
-import { KeyMap } from "@orbit/data";
-import ApplicationBranch  from "@orbit-model/branch";
+import { KeyMap, Record } from "@orbit/data";
+import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "@orbit-model/core";
 import ApplicationDI, { Container } from "@orbit-model/di";
 import { SchemaBuilder } from "@orbit-model/model";
@@ -14,11 +14,14 @@ import { SchemaBuilder } from "@orbit-model/model";
   const keyMap = new KeyMap();
 
   const store = new Store({ schema, keyMap });
-  prefillStore(store);
 
   ApplicationBranch.setup(store);
+  let workBranch0: Branch = await ApplicationBranch.fork();
 
-  let workBranch0: Branch = ApplicationBranch.fork();
+  console.log("## 1 ###################################################");
+  await prefillStore(store);
+  //await waitFor(1000);
+  console.log("## 2 ###################################################");
 
   try {
     let model = await workBranch0.query().select(Planet).find("1");
@@ -26,10 +29,12 @@ import { SchemaBuilder } from "@orbit-model/model";
   } catch (e) {
     console.log('no model found: ', e.message)
   }
+  console.log("root: ", store.name, store.cache.getRecordsSync("planet"));
+  console.log("work: ", workBranch0.getStore().name, workBranch0.getStore().cache.getRecordsSync("planet"));
 })();
 
-function prefillStore(store: Store) {
-  store.update(t => t.addRecord({
+async function prefillStore(store: Store) {
+  await add(store, {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-8ca60c980b1e",
     keys: {
@@ -38,5 +43,17 @@ function prefillStore(store: Store) {
     attributes: {
       name: "earth"
     }
-  }));
+  });
+}
+
+async function add(store: Store, record: Record) {
+  let keyMap = store.cache.keyMap;
+  keyMap.pushRecord(record);
+  await store.update(t => t.addRecord(record));
+}
+
+function waitFor(milliseconds: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
 }

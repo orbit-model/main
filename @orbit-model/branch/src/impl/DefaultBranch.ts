@@ -1,4 +1,9 @@
-import Coordinator, { RequestStrategy, LogTruncationStrategy } from '@orbit/coordinator';
+import Coordinator, {
+  EventLoggingStrategy,
+  LogLevel,
+  LogTruncationStrategy,
+  RequestStrategy
+} from '@orbit/coordinator';
 import Store from "@orbit/store";
 import { uuid } from "@orbit/utils";
 import { Branch, BranchQuery, QueryBuilderZero } from "@orbit-model/core";
@@ -10,23 +15,40 @@ export default class DefaultBranch implements Branch {
   private readonly parent: Store;
   private readonly coordinator: Coordinator;
 
-  constructor(parent: Store) {
+  private constructor(parent: Store) {
     this.store = parent.fork({
-      name: `store-fork-${uuid()}`
+      name: `branch-${uuid()}`
     });
     this.parent = parent;
     this.coordinator = new Coordinator({
-      sources: [this.store, this.parent]
+      sources: [this.store, this.parent],
+      defaultActivationOptions: {
+        logLevel: LogLevel.Info
+      }
     });
     this.coordinator.addStrategy(new LogTruncationStrategy());
-    this.coordinator.addStrategy(new RequestStrategy({
-      source: this.parent.name,
-      on: 'beforeQuery',
-      target: this.store.name,
-      action: 'pull',
-      blocking: true
+    this.coordinator.addStrategy(new EventLoggingStrategy({
+      logLevel: LogLevel.Info
     }));
-    this.coordinator.activate();
+    this.coordinator.addStrategy(new RequestStrategy({
+      source: this.store.name,
+      on: 'beforeQuery',
+
+      target: this.parent.name,
+      action: 'pull',
+
+      blocking: true,
+      catch(...args: any[]) {
+        console.error("RequestStrategy query error: ", ...args);
+        return null;
+      }
+    }));
+  }
+
+  public static async factory(parent: Store): Promise<DefaultBranch> {
+    let b = new DefaultBranch(parent);
+    await b.coordinator.activate();
+    return b;
   }
 
 
@@ -34,13 +56,13 @@ export default class DefaultBranch implements Branch {
     return this.store;
   }
 
-  fork(): Branch {
-    return new DefaultBranch(this.store);
+  fork(): Promise<Branch> {
+    return DefaultBranch.factory(this.store);
   }
 
-  mergeAndDestroy(): Promise<void> {
-    this.coordinator.deactivate();
-    return this.parent.merge(this.store);
+  async mergeAndDestroy(): Promise<void> {
+    await this.coordinator.deactivate();
+    await this.parent.merge(this.store);
   }
 
   abandon(): void {
@@ -54,4 +76,5 @@ export default class DefaultBranch implements Branch {
     }
     return qb;
   }
+
 }

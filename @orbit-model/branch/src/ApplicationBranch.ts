@@ -10,7 +10,7 @@ export default class ApplicationBranch {
     ApplicationBranch.store = store;
   }
 
-  public static fork(): Branch {
-    return new DefaultBranch(ApplicationBranch.store);
+  public static fork(): Promise<Branch> {
+    return DefaultBranch.factory(ApplicationBranch.store);
   }
 }

@@ -12,7 +12,7 @@ export default interface Branch {
   /**
    * create a sub branch of the current branch by forking the store
    */
-  fork(): Branch;
+  fork(): Promise<Branch>;
 
   /**
    * persist all the changes made since this `Branch` has been created
