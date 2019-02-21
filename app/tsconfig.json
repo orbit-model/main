@@ -8,8 +8,8 @@
     "inlineSources": true,
     "inlineSourceMap": true,
     "declaration": true,
-    "strict": false,
     "newLine": "LF",
+    "rootDir": "src",
     "outDir": "dist"
   },
   "include": [

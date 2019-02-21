@@ -11,7 +11,7 @@
     "dev": "tsc -w"
   },
   "dependencies": {
-    "@orbit-model/branching": "../@orbit-model/branching",
+    "@orbit-model/branch": "../@orbit-model/branch",
     "@orbit-model/core": "../@orbit-model/core",
     "@orbit-model/decorators": "../@orbit-model/decorators",
     "@orbit-model/di": "../@orbit-model/di",

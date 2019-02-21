@@ -16,7 +16,7 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero {
     this.di = di;
   }
 
-  select<M extends Model>(klass: { new(): M } | string): QueryBuilder<M> {
+  select<M extends Model>(klass: { new(): M } | string | any): QueryBuilder<M> {
     let diName;
     if (typeof klass === 'string') {
       diName = klass;
