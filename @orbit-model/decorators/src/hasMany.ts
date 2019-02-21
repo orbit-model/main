@@ -21,10 +21,10 @@ export default function hasManyGenerator(options: RelationOptions = {}) {
     let diName = options.name || camelize(attributeName);
 
     let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
-    let reflection = mma.getReflection(target);
+    let reflection = mma.getReflection(target.constructor);
     if (reflection === undefined) {
       reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());
-      mma.setReflection(target, reflection);
+      mma.setReflection(target.constructor, reflection);
     }
 
     let relationInfo = new DefaultRelationInfo(attributeName, diName, options.relatedName || diName, "hasMany");

@@ -1,5 +1,4 @@
 import { camelize } from "@orbit/utils";
-import { Model } from "@orbit-model/core";
 import ApplicationDI from "@orbit-model/di";
 import {
   ModelMetaAccessor,
@@ -9,8 +8,8 @@ import {
 } from "@orbit-model/meta";
 
 
-export default function registerClassGenerator(options: { name?: string } = {}) {
-  return function registerClass(target: any) {
+export default function modelGenerator(options: { name?: string } = {}) {
+  return function model(target: any) {
     let diName = options.name || camelize(target.name);
     ApplicationDI.getDI().register("models", diName, target);
 
