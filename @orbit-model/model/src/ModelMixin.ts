@@ -1,9 +1,8 @@
-import Model from "../../core/src/Model";
 import ApplicationDI from "@orbit-model/di";
-import { Adapter } from "@orbit-model/core";
-import { ModelMetaAccessor, OrbitModelMeta } from "@orbit-model/meta";
+import { Adapter, Model, OrbitModelMeta } from "@orbit-model/core";
+import { ModelMetaAccessor } from "@orbit-model/meta";
 
-export default function ModelMixin(Base: { new(...args: any[]): any } | null = null): any {
+export default function ModelMixin(Base: any = null): any {
   return class ModelMixin extends Base implements Model {
     __orbitModelMeta: OrbitModelMeta | null = null;
 

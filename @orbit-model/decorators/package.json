@@ -15,11 +15,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "directories": {
-    "src": "src",
-    "test": "__tests__"
+    "src": "dist"
   },
   "files": [
-    "src"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"

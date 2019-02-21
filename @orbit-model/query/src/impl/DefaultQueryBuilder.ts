@@ -1,8 +1,6 @@
-import QueryBuilder from "../../../core/src/QueryBuilder";
 import { KeyMap, RecordIdentity } from "@orbit/data";
-import { Branch, Model } from "@orbit-model/core";
+import { Adapter, Branch, Model, QueryBuilder } from "@orbit-model/core";
 import { Container } from "@orbit-model/di";
-import { Adapter } from "@orbit-model/core";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
 

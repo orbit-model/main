@@ -9,10 +9,11 @@
     "inlineSourceMap": true,
     "declaration": true,
     "newLine": "LF",
-    "strict": true
+    "strict": true,
+    "declarationMap": true
   },
   "exclude": [
-    "node_modules/**/*",
+    "**/node_modules/**",
     "**/*.spec.ts"
   ]
 }

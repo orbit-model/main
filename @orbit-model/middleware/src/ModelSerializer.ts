@@ -1,6 +1,6 @@
 import { RecordIdentity } from '@orbit/data';
 import { Dict } from '@orbit/utils';
-import {Injectable} from "@orbit-model/di";
+import { Injectable } from "@orbit-model/di";
 import { Model } from "@orbit-model/core";
 
 export default interface ModelSerializer extends Injectable {
