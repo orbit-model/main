@@ -2,7 +2,8 @@ import Coordinator, {
   EventLoggingStrategy,
   LogLevel,
   LogTruncationStrategy,
-  RequestStrategy
+  RequestStrategy,
+  SyncStrategy
 } from '@orbit/coordinator';
 import Store from "@orbit/store";
 import { uuid } from "@orbit/utils";
@@ -35,13 +36,33 @@ export default class DefaultBranch implements Branch {
       on: 'beforeQuery',
 
       target: this.parent.name,
-      action: 'pull',
+      action: 'query',
+      // action: async function (data: any) {
+      //   try {
+      //     // @ts-ignore
+      //     let result = await this.target.query(data);
+      //     console.log("result: ", result);
+      //     console.log("source: ", this.source.update);
+      //     if (Array.isArray(result)) {
+      //       // @ts-ignore
+      //       await this.source.update(t => result.map(r => t.updateRecord(r)));
+      //     } else {
+      //       // @ts-ignore
+      //       await this.source.update(t => t.updateRecord(result));
+      //     }
+      //   } catch (e) {
+      //     console.error("ERROR! ", e.message);
+      //   }
+      // },
 
-      blocking: true,
-      catch(...args: any[]) {
-        console.error("RequestStrategy query error: ", ...args);
-        return null;
-      }
+      passHints: true,
+      blocking: true
+    }));
+    // Sync all changes received from the remote server to the store
+    this.coordinator.addStrategy(new SyncStrategy({
+      source: this.parent.name,
+      target: this.store.name,
+      blocking: true
     }));
   }
 

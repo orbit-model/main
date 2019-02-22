@@ -6,6 +6,7 @@ import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "@orbit-model/core";
 import ApplicationDI, { Container } from "@orbit-model/di";
 import { SchemaBuilder } from "@orbit-model/model";
+import "@orbit-model/middleware";
 
 (async function main() {
   const di: Container = ApplicationDI.getDI();
@@ -24,7 +25,16 @@ import { SchemaBuilder } from "@orbit-model/model";
   console.log("## 2 ###################################################");
 
   try {
-    let model = await workBranch0.query().select(Planet).find("1");
+    let promise = workBranch0.query().select(Planet).find("1");
+    await waitFor(1);
+    console.log("## 3 ###################################################");
+    promise.then((model, ...args) =>{
+      console.log("then: ", model, ...args);
+      return model;
+    }, (error) => {
+      console.error("error: ", error);
+    });
+    let model = await promise;
     console.log('model', model);
   } catch (e) {
     console.log('no model found: ', e.message)

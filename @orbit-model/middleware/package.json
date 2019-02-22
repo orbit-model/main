@@ -11,7 +11,7 @@
   "author": "Bernhard Halbartschlager <halbart.bernhard+orbit-model@gmail.com>",
   "homepage": "https://github.com/orbit-model/main",
   "license": "MIT",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "directories": {
     "lib": "dist"
