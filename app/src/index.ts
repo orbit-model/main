@@ -26,14 +26,8 @@ import "@orbit-model/middleware";
 
   try {
     let promise = workBranch0.query().select(Planet).find("1");
-    await waitFor(1);
+    //await waitFor(1);
     console.log("## 3 ###################################################");
-    promise.then((model, ...args) =>{
-      console.log("then: ", model, ...args);
-      return model;
-    }, (error) => {
-      console.error("error: ", error);
-    });
     let model = await promise;
     console.log('model', model);
   } catch (e) {

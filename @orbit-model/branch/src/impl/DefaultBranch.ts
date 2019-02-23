@@ -41,29 +41,44 @@ export default class DefaultBranch implements Branch {
       //   try {
       //     // @ts-ignore
       //     let result = await this.target.query(data);
+      //     // @ts-ignore
       //     console.log("result: ", result);
-      //     console.log("source: ", this.source.update);
-      //     if (Array.isArray(result)) {
-      //       // @ts-ignore
-      //       await this.source.update(t => result.map(r => t.updateRecord(r)));
-      //     } else {
-      //       // @ts-ignore
-      //       await this.source.update(t => t.updateRecord(result));
-      //     }
+      //     return result;
+      //     // @ts-ignore
+      //     //this.hints['data'] = result;
+      //     // console.log("source: ", this.source.update);
+      //     // if (Array.isArray(result)) {
+      //     //   // @ts-ignore
+      //     //   await this.source.update(t => result.map(r => t.updateRecord(r)));
+      //     // } else {
+      //     //   // @ts-ignore
+      //     //   await this.source.update(t => t.updateRecord(result));
+      //     // }
+      //     // @ts-ignore
+      //     // console.log("result2: ", this.source.query);
+      //     // @ts-ignore
+      //     // await this.source.merge(this.target).then(() => {
+      //     //   console.log("TEST");
+      //     //   throw new Error("TEST");
+      //     // });
       //   } catch (e) {
-      //     console.error("ERROR! ", e.message);
+      //     console.log("ERROR! ", e.message);
       //   }
       // },
 
       passHints: true,
-      blocking: true
+      blocking: true,
+
+      catch(...args: any[]) {
+        console.log('caught an error: ', ...args);
+      }
     }));
     // Sync all changes received from the remote server to the store
-    this.coordinator.addStrategy(new SyncStrategy({
-      source: this.parent.name,
-      target: this.store.name,
-      blocking: true
-    }));
+    // this.coordinator.addStrategy(new SyncStrategy({
+    //   source: this.parent.name,
+    //   target: this.store.name,
+    //   blocking: true
+    // }));
   }
 
   public static async factory(parent: Store): Promise<DefaultBranch> {
