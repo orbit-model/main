@@ -17,7 +17,7 @@
     "@orbit-model/di": "../@orbit-model/di",
     "@orbit-model/middleware": "../@orbit-model/middleware",
     "@orbit-model/model": "../@orbit-model/model",
-    "@orbit/store": "^0.16.0-beta.1",
+    "@orbit/store": "Bernhard---H/npm-registry.git#orbit-store-v0.16.0-beta.1-rebase.1-gitpkg",
     "@orbit/data": "^0.16.0-beta.1",
     "typescript": "^3.2.2"
   }
