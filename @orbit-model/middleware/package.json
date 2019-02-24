@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@orbit/data": "^0.16.0-beta.1",
-    "@orbit/store": "^0.16.0-beta.1",
+    "@orbit/store": "Bernhard---H/npm-registry.git#orbit-store-v0.16.0-beta.1-rebase.1-gitpkg",
     "@orbit/utils": "^0.16.0-beta.1",
     "@orbit-model/core": "0.0.1-alpha.1",
     "@orbit-model/di": "0.0.1-alpha.1",
