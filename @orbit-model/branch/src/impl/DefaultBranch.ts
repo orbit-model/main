@@ -2,13 +2,12 @@ import Coordinator, {
   EventLoggingStrategy,
   LogLevel,
   LogTruncationStrategy,
-  RequestStrategy,
-  SyncStrategy
 } from '@orbit/coordinator';
 import Store from "@orbit/store";
 import { uuid } from "@orbit/utils";
 import { Branch, BranchQuery, QueryBuilderZero } from "@orbit-model/core";
 import ApplicationDI from "@orbit-model/di";
+import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
 
 export default class DefaultBranch implements Branch {
 
@@ -31,48 +30,55 @@ export default class DefaultBranch implements Branch {
     this.coordinator.addStrategy(new EventLoggingStrategy({
       logLevel: LogLevel.Info
     }));
-    this.coordinator.addStrategy(new RequestStrategy({
+    this.coordinator.addStrategy(new DefaultBranchQueryStrategy({
       source: this.store.name,
-      on: 'beforeQuery',
-
       target: this.parent.name,
-      action: 'query',
-      // action: async function (data: any) {
-      //   try {
-      //     // @ts-ignore
-      //     let result = await this.target.query(data);
-      //     // @ts-ignore
-      //     console.log("result: ", result);
-      //     return result;
-      //     // @ts-ignore
-      //     //this.hints['data'] = result;
-      //     // console.log("source: ", this.source.update);
-      //     // if (Array.isArray(result)) {
-      //     //   // @ts-ignore
-      //     //   await this.source.update(t => result.map(r => t.updateRecord(r)));
-      //     // } else {
-      //     //   // @ts-ignore
-      //     //   await this.source.update(t => t.updateRecord(result));
-      //     // }
-      //     // @ts-ignore
-      //     // console.log("result2: ", this.source.query);
-      //     // @ts-ignore
-      //     // await this.source.merge(this.target).then(() => {
-      //     //   console.log("TEST");
-      //     //   throw new Error("TEST");
-      //     // });
-      //   } catch (e) {
-      //     console.log("ERROR! ", e.message);
-      //   }
-      // },
-
-      passHints: true,
-      blocking: true,
-
-      catch(...args: any[]) {
-        console.log('caught an error: ', ...args);
+      catch(...args: any[]){
+        console.error("error while running DefaultBranchQueryStrategy: ", ...args);
       }
     }));
+    // this.coordinator.addStrategy(new RequestStrategy({
+    //   source: this.store.name,
+    //   on: 'beforeQuery',
+    //
+    //   target: this.parent.name,
+    //   action: 'query',
+    //   // action: async function (data: any) {
+    //   //   try {
+    //   //     // @ts-ignore
+    //   //     let result = await this.target.query(data);
+    //   //     // @ts-ignore
+    //   //     console.log("result: ", result);
+    //   //     return result;
+    //   //     // @ts-ignore
+    //   //     //this.hints['data'] = result;
+    //   //     // console.log("source: ", this.source.update);
+    //   //     // if (Array.isArray(result)) {
+    //   //     //   // @ts-ignore
+    //   //     //   await this.source.update(t => result.map(r => t.updateRecord(r)));
+    //   //     // } else {
+    //   //     //   // @ts-ignore
+    //   //     //   await this.source.update(t => t.updateRecord(result));
+    //   //     // }
+    //   //     // @ts-ignore
+    //   //     // console.log("result2: ", this.source.query);
+    //   //     // @ts-ignore
+    //   //     // await this.source.merge(this.target).then(() => {
+    //   //     //   console.log("TEST");
+    //   //     //   throw new Error("TEST");
+    //   //     // });
+    //   //   } catch (e) {
+    //   //     console.log("ERROR! ", e.message);
+    //   //   }
+    //   // },
+    //
+    //   passHints: true,
+    //   blocking: true,
+    //
+    //   catch(...args: any[]) {
+    //     console.log('caught an error: ', ...args);
+    //   }
+    // }));
     // Sync all changes received from the remote server to the store
     // this.coordinator.addStrategy(new SyncStrategy({
     //   source: this.parent.name,
