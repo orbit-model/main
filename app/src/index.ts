@@ -29,12 +29,12 @@ import "@orbit-model/middleware";
     //await waitFor(1);
     console.log("## 3 ###################################################");
     let model = await promise;
-    console.log('model', model);
+    console.log('model', JSON.stringify(model));
   } catch (e) {
     console.log('no model found: ', e.message)
   }
-  console.log("root: ", store.name, store.cache.getRecordsSync("planet"));
-  console.log("work: ", workBranch0.getStore().name, workBranch0.getStore().cache.getRecordsSync("planet"));
+  //console.log("root: ", store.name, store.cache.getRecordsSync("planet"));
+  //console.log("work: ", workBranch0.getStore().name, workBranch0.getStore().cache.getRecordsSync("planet"));
 })();
 
 async function prefillStore(store: Store) {

@@ -23,13 +23,13 @@ export default class DefaultBranch implements Branch {
     this.coordinator = new Coordinator({
       sources: [this.store, this.parent],
       defaultActivationOptions: {
-        logLevel: LogLevel.Info
+    //    logLevel: LogLevel.Info
       }
     });
     this.coordinator.addStrategy(new LogTruncationStrategy());
-    this.coordinator.addStrategy(new EventLoggingStrategy({
-      logLevel: LogLevel.Info
-    }));
+    // this.coordinator.addStrategy(new EventLoggingStrategy({
+    //   logLevel: LogLevel.Info
+    // }));
     this.coordinator.addStrategy(new DefaultBranchQueryStrategy({
       source: this.store.name,
       target: this.parent.name,

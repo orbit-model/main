@@ -2,9 +2,14 @@ import ApplicationDI from "@orbit-model/di";
 import { Adapter, Model, OrbitModelMeta } from "@orbit-model/core";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 
-export default function ModelMixin(Base: any = null): any {
-  return class ModelMixin extends Base implements Model {
-    __orbitModelMeta: OrbitModelMeta | null = null;
+class Base {
+
+}
+
+export default function ModelMixin(base: any = Base): any {
+  abstract class ModelMixin extends base implements Model {
+
+    abstract __orbitModelMeta: OrbitModelMeta | null;
 
     get id(): string | undefined {
       if (!this.__orbitModelMeta) {
@@ -38,5 +43,27 @@ export default function ModelMixin(Base: any = null): any {
       let adapter = ApplicationDI.getDI().get<Adapter>("middleware", "adapter");
       return adapter.destroy(this);
     }
-  };
+
+    toJSON() {
+      interface IJson {
+        [key: string]: any;
+      };
+      let json = {
+        type: this.type,
+        id: this.id
+      } as IJson;
+
+      let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
+      let meta = mma.getMeta(this);
+      if (meta)
+      for (let attr in meta.values){
+        if (meta.values.hasOwnProperty(attr)){
+          json[attr] = meta.values[attr]
+        }
+      }
+
+      return json;
+    }
+  }
+  return ModelMixin;
 }
