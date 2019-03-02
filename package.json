@@ -16,7 +16,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
-    "build:watch": "lerna run build && lerna run --stream --no-sort --concurrency=99 build:watch",
+    "build:watch": "lerna run --stream --no-sort --concurrency=99 build:watch",
     "postinstall": "lerna bootstrap --reject-cycles && cd app && rimraf package-lock.json && npm install"
   },
   "devDependencies": {

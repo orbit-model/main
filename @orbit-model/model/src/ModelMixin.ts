@@ -47,7 +47,7 @@ export default function ModelMixin(base: any = Base): any {
     toJSON() {
       interface IJson {
         [key: string]: any;
-      };
+      }
       let json = {
         type: this.type,
         id: this.id

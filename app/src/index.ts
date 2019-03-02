@@ -19,17 +19,12 @@ import "@orbit-model/middleware";
   ApplicationBranch.setup(store);
   let workBranch0: Branch = await ApplicationBranch.fork();
 
-  console.log("## 1 ###################################################");
   await prefillStore(store);
-  //await waitFor(1000);
-  console.log("## 2 ###################################################");
 
   try {
-    let promise = workBranch0.query().select(Planet).find("1");
-    //await waitFor(1);
-    console.log("## 3 ###################################################");
-    let model = await promise;
-    console.log('model', JSON.stringify(model));
+    let model = await workBranch0.query().select(Planet).find("1");
+    console.log('model', model);
+    console.log('JSON', JSON.stringify(model));
   } catch (e) {
     console.log('no model found: ', e.message)
   }
