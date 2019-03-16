@@ -31,8 +31,7 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc",
-    "build:watch": "tsc -w",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build:watch": "tsc -w"
   },
   "bugs": {
     "url": "https://github.com/orbit-model/main/issues"
