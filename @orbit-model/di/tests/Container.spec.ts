@@ -4,6 +4,8 @@ import DefaultContainer from "../src/impl/DefaultContainer";
 
 
 describe('di.Container', function () {
+  class Example {
+  }
 
   let container: Container;
 
@@ -13,29 +15,61 @@ describe('di.Container', function () {
 
   describe('#register', function () {
     it('takes a class', function () {
-      class example {
-      }
-
       expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
-      container.register('test', 'example', example);
+      container.register('test', 'example', Example);
       assert.include(container.getNames('test'), 'example');
     });
     it('takes a singleton class', function () {
-      class example {
-      }
-
       expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
-      container.register('test', 'example', example, { singleton: true });
+      container.register('test', 'example', Example, { singleton: true });
       assert.include(container.getNames('test'), 'example');
     });
     it('is able to instantiate', function () {
-      class example {
-      }
-
-      container.register('test', 'example', example);
-      assert.instanceOf(container.get('test', 'example'), example);
+      expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
+      container.register('test', 'example', Example);
+      assert.instanceOf(container.get('test', 'example'), Example);
     });
-
+    it('respects the singleton option', function () {
+      expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
+      container.register('test', 'example', Example, { singleton: true });
+      let inst1 = container.get('test', 'example');
+      assert.instanceOf(inst1, Example);
+      let inst2 = container.get('test', 'example');
+      assert.instanceOf(inst2, Example);
+      assert.strictEqual(inst1, inst2, "is singleton?");
+    });
   });
 
+  describe('#registerObject', function () {
+    it('works', function(){
+      expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
+      let inst = {};
+      container.registerObject('test', 'example', inst);
+      assert.strictEqual(container.get('test', 'example'), inst);
+    });
+  });
+
+  describe('#get', function () {
+    it('works', function(){
+      expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
+      container.register('test', 'example', Example);
+      assert.instanceOf(container.get('test', 'example'), Example);
+    });
+  });
+
+  describe('#getClass', function () {
+    it('works', function(){
+      expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
+      container.register('test', 'example', Example);
+      assert.strictEqual(container.getClass('test', 'example'), Example);
+    });
+  });
+
+  describe('#getNames', function () {
+    it('works', function(){
+      expect(() => container.getNames('test')).to.throw(/namespace/i, "init state: empty");
+      container.register('test', 'example', Example);
+      assert.include(container.getNames('test'), 'example');
+    });
+  });
 });
