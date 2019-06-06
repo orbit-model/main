@@ -16,7 +16,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
 
-  async find(id: string): Promise<M> {
+  async find(id: string): Promise<M|null> {
     let rId: RecordIdentity = {
       type: this.modelDiName,
       id: this.getIdForKey(this.modelDiName, id)
@@ -27,7 +27,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     return adapter.createFromRecord<M>(record, this.branch);
   }
 
-  async first(): Promise<M> {
+  async first(): Promise<M|null> {
     throw new Error("not implemented");
   }
 
@@ -62,11 +62,11 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
 
   //## builder methods ####################################
 
-  filter(attr: string, op: string, value: any): QueryBuilder<M> {
+  filterAttr(attr: string, op: string, value: any): QueryBuilder<M> {
     return this;
   }
 
-  filterEq(attr: string, value: any): QueryBuilder<M> {
+  filterAttrEq(attr: string, value: any): QueryBuilder<M> {
     return this;
   }
 

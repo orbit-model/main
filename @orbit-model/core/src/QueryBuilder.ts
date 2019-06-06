@@ -2,9 +2,9 @@
 export default interface QueryBuilder<M> {
   get(): Promise<M[]>;
 
-  find(id: string): Promise<M>;
+  find(id: string): Promise<M|null>;
 
-  first(): Promise<M>;
+  first(): Promise<M|null>;
 
   //## builder methods ####################################
 
@@ -12,13 +12,13 @@ export default interface QueryBuilder<M> {
 
   /**
    * translates into:
-   *    q.filter({ attribute, op, value })
+   *    q.filterAttr({ attribute, op, value })
    */
-  filter(attr: string, op: string, value: any): QueryBuilder<M>;
+  filterAttr(attr: string, op: string, value: any): QueryBuilder<M>;
 
   /**
    * shorthand for:
-   *    this.filter(attr, "===", value);
+   *    this.filterAttr(attr, "===", value);
    */
-  filterEq(attr: string, value: any): QueryBuilder<M>;
+  filterAttrEq(attr: string, value: any): QueryBuilder<M>;
 }
