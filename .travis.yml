@@ -13,14 +13,11 @@ before_deploy:
 deploy:
   - provider: script
     script: |
-              /usr/bin/expect <<EOD
-              spawn npm adduser --scope@orbit-model
-              expect {
-                  "Username:" {send "bernhard---h\r"; exp_continue}
-                  "Password:" {send "$NPM_REGISTRY_TOKEN\r"; exp_continue}
-                  "Email: (this IS public)" {send "halbart.bernhard+npm@gmail.com\r"; exp_continue}
-              }
-              EOD && npm run pubilsh:canary
+      npm adduser --scope@orbit-model <<!
+        bernhard---h
+        $NPM_REGISTRY_TOKEN
+        halbart.bernhard+npm@gmail.com
+      ! && npm run pubilsh:canary
     on:
       branch: develop
 #  - provider: script
