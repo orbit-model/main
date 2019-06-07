@@ -12,6 +12,7 @@ before_deploy:
   - npm ci
 deploy:
   - provider: script
+    skip_cleanup: true
     script: |
       npm adduser --scope@orbit-model <<!
         bernhard---h
