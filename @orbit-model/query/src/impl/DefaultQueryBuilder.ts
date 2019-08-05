@@ -1,4 +1,14 @@
-import { KeyMap, RecordIdentity } from "@orbit/data";
+import {
+  AttributeSortSpecifier,
+  FilterSpecifier,
+  FindRecords,
+  KeyMap,
+  PageSpecifier,
+  RecordIdentity,
+  SortOrder,
+  SortSpecifier,
+  ValueComparisonOperator
+} from "@orbit/data";
 import { Adapter, Branch, Model, QueryBuilder } from "@orbit-model/core";
 import { Container } from "@orbit-model/di";
 
@@ -8,6 +18,9 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   private modelDiName: string;
   private di: Container;
 
+  private querySort?: SortSpecifier[];
+  private queryFilter?: FilterSpecifier[];
+  private queryPage?: PageSpecifier = undefined;
 
   constructor(branch: Branch, modelDiName: string, di: Container) {
     this.branch = branch;
@@ -16,7 +29,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
 
-  async find(id: string): Promise<M|null> {
+  async find(id: string): Promise<M | null> {
     let rId: RecordIdentity = {
       type: this.modelDiName,
       id: this.getIdForKey(this.modelDiName, id)
@@ -27,12 +40,33 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     return adapter.createFromRecord<M>(record, this.branch);
   }
 
-  async first(): Promise<M|null> {
-    throw new Error("not implemented");
+  async first(): Promise<M | null> {
+    if (!this.queryPage) {
+      this.queryPage = {
+        kind: "offsetLimit",
+        offset: 0,
+        limit: 1
+      }
+    }
+
+    let result = await this.get();
+    if (result.length === 0) {
+      return null;
+    }
+    return result[0];
   }
 
   async get(): Promise<M[]> {
-    throw new Error("not implemented");
+    let records: [] = await this.branch.getStore().query({
+      op: 'findRecords',
+      type: this.modelDiName,
+      sort: this.querySort,
+      filter: this.queryFilter,
+      page: this.queryPage
+    } as FindRecords);
+
+    let adapter = this.di.get<Adapter>('middleware', 'adapter');
+    return records.map(record => adapter.createFromRecord(record, this.branch))
   }
 
   private getKeyMap(): KeyMap {
@@ -62,16 +96,47 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
 
   //## builder methods ####################################
 
-  filterAttr(attr: string, op: string, value: any): QueryBuilder<M> {
+  filterAttr(attribute: string, op: ValueComparisonOperator, value: any): QueryBuilder<M> {
+    if (this.queryFilter === undefined) {
+      this.queryFilter = [];
+    }
+    this.queryFilter.push({
+      kind: "attribute",
+      op,
+      attribute,
+      value
+    });
     return this;
   }
 
   filterAttrEq(attr: string, value: any): QueryBuilder<M> {
+    return this.filterAttr(attr, "equal", value);
+  }
+
+  sortBy(...attrs: string[]): QueryBuilder<M> {
+    this.sortImpl("ascending", attrs);
     return this;
   }
 
-  sortBy(...attr: string[]): QueryBuilder<M> {
+  sortByDesc(...attrs: string[]): QueryBuilder<M> {
+    this.sortImpl("ascending", attrs);
     return this;
+  }
+
+  private sortImpl(order: SortOrder, attrs: string[]) {
+    if (this.querySort === undefined) {
+      this.querySort = [];
+    }
+    this.querySort.concat(
+      attrs.map(attr => {
+          return {
+            kind: "attribute",
+            attribute: attr,
+            order: order
+          } as AttributeSortSpecifier
+        }
+      )
+    );
   }
 
 }

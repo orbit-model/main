@@ -8,7 +8,17 @@ export default interface QueryBuilder<M> {
 
   //## builder methods ####################################
 
+  /**
+   * add a list of attributes to sort by in ascending order
+   * @param attr
+   */
   sortBy(...attr: string[]): QueryBuilder<M>;
+
+  /**
+   * add a list of attributes to sort by in descending order
+   * @param attr
+   */
+  sortByDesc(...attr: string[]): QueryBuilder<M>;
 
   /**
    * translates into:
