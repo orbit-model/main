@@ -9,6 +9,8 @@ script:
   - npm test
 
 before_deploy:
+  - node --version
+  - npm version
   - npm ci
 deploy:
   - provider: script
@@ -21,8 +23,3 @@ deploy:
       ! && npm run pubilsh:canary
     on:
       branch: develop
-#  - provider: script
-#    script:
-#    on:
-#      branch: master
-#      tags: true
