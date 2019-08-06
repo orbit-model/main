@@ -9,9 +9,6 @@ script:
   - npm test
 
 before_deploy:
-  - node --version
-  - npm version
-  - npm ci
 deploy:
 #  - provider: npm
 ##    script: npm run publish:canary
@@ -21,6 +18,9 @@ deploy:
 #      branch: develop
   - provider: script
     script: |
+      node --version && \
+      npm version && \
+      npm ci && \
       npm adduser --scope=@orbit-model <<!
         bernhard---h
         $NPM_REGISTRY_TOKEN
