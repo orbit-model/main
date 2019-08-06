@@ -13,19 +13,18 @@ before_deploy:
   - npm version
   - npm ci
 deploy:
-  - provider: npm
-    script: npm run publish:canary
-    email: halbart.bernhard+npm@gmail.com
-    api_key: $NPM_REGISTRY_TOKEN
-    on:
-      branch: develop
-#  - provider: script
-#    skip_cleanup: true
-#    script: |
-#      npm adduser --scope@orbit-model <<!
-#        bernhard---h
-#        $NPM_REGISTRY_TOKEN
-#        halbart.bernhard+npm@gmail.com
-#      ! && npm run pubilsh:canary
+#  - provider: npm
+##    script: npm run publish:canary
+#    email: halbart.bernhard+npm@gmail.com
+#    api_key: $NPM_REGISTRY_TOKEN
 #    on:
 #      branch: develop
+  - provider: script
+    script: |
+      npm adduser --scope=@orbit-model <<!
+        bernhard---h
+        $NPM_REGISTRY_TOKEN
+        halbart.bernhard+npm@gmail.com
+      ! && npm run pubilsh:canary
+    on:
+      branch: develop
