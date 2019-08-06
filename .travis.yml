@@ -18,10 +18,7 @@ deploy:
 #      branch: develop
   - provider: script
     script: |
-      node --version &&
-      npm version &&
-      npm ci &&
-      npm adduser --scope=@orbit-model <<!
+      node --version && npm version && npm ci && npm adduser --scope=@orbit-model <<!
         bernhard---h
         $NPM_REGISTRY_TOKEN
         halbart.bernhard+npm@gmail.com
