@@ -14,8 +14,7 @@
     "**/test/**",
     "**/.*",
     "**/*.js",
-    "**/*.json",
-    "**/*.md"
+    "**/*.json"
   ],
   "packages": [
     "@orbit-model/*"
