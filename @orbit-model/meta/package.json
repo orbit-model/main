@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/meta",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1",
   "description": "The orbit-model approach to relfection",
   "keywords": [
     "orbit",
@@ -34,8 +34,8 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/core": "^0.0.1-alpha.1",
-    "@orbit-model/di": "^0.0.1-alpha.1"
+    "@orbit-model/core": "^0.0.1",
+    "@orbit-model/di": "^0.0.1"
   },
   "gitHead": "807e14b2bcf23b47ec2aa6586f472c31528c6c03"
 }

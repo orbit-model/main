@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/branch",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1",
   "description": "Transactions for the client in the orbit-model world",
   "keywords": [
     "orbit",
@@ -37,9 +37,9 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/core": "^0.0.1-alpha.1",
-    "@orbit-model/di": "^0.0.1-alpha.1",
-    "@orbit-model/query": "^0.0.1-alpha.1",
+    "@orbit-model/core": "^0.0.1",
+    "@orbit-model/di": "^0.0.1",
+    "@orbit-model/query": "^0.0.1",
     "@orbit/coordinator": "^0.16.0",
     "@orbit/memory": "0.16.0",
     "@orbit/utils": "^0.16.0"
