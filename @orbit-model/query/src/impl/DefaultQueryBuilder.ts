@@ -14,9 +14,9 @@ import { Container } from "@orbit-model/di";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
 
-  private branch: Branch;
-  private modelDiName: string;
-  private di: Container;
+  private readonly branch: Branch;
+  private readonly modelDiName: string;
+  private readonly di: Container;
 
   private querySort?: SortSpecifier[];
   private queryFilter?: FilterSpecifier[];
