@@ -8,8 +8,8 @@ script:
   - npm run build
   - npm test
 
-deploy:
-  provider: script
-  script: echo "@orbit-model:registry=https://registry.npmjs.org/" > ~/.npmrc && echo $NPMRC >> ~/.npmrc && cat ~/.npmrc && npm whoami && npm ci && npm run publish:canary
-  on:
-    branch: develop
+#deploy:
+#  provider: script
+#  script: echo "@orbit-model:registry=https://registry.npmjs.org/" > ~/.npmrc && echo $NPMRC >> ~/.npmrc && npm ci && npm run publish:canary
+#  on:
+#    branch: develop
