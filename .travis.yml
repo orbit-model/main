@@ -10,6 +10,6 @@ script:
 
 deploy:
   provider: script
-  script: echo $NPMRC >> ~/.npmrc && npm ci && npm run publish:canary
+  script: echo $NPMRC >> ~/.npmrc && cat ~/.npmrc && npm whoami && npm ci && npm run publish:canary
   on:
     branch: develop
