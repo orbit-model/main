@@ -21,6 +21,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   }
 
   private static getNameFromType<M>(model: M): string {
+    // @ts-ignore
     return dasherize(model.constructor.name)
   }
 
