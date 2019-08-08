@@ -8,7 +8,6 @@ script:
   - npm run build
   - npm test
 
-before_deploy:
 deploy:
 #  - provider: npm
 ##    script: npm run publish:canary
@@ -18,10 +17,10 @@ deploy:
 #      branch: develop
   - provider: script
     script: |
-      node --version && npm version && npm ci && npm adduser --scope=@orbit-model <<!
+      npm ci && npm adduser --scope=@orbit-model <<!
       bernhard---h
       $NPM_REGISTRY_TOKEN
       halbart.bernhard+npm@gmail.com
-      ! && npm run pubilsh:canary
+      ! && echo "hallo test text" && npm run pubilsh:canary
     on:
       branch: develop
