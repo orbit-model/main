@@ -10,6 +10,6 @@ script:
 
 deploy:
   provider: script
-  script: echo $NPMRC >> ~/.npmrc && npm ci && npm run rimraf app/package-lock.json && npm run publish:canary
+  script: echo $NPMRC >> ~/.npmrc && npm ci && npm run publish:canary
   on:
     branch: develop
