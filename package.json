@@ -18,8 +18,8 @@
     "build": "lerna run build",
     "build:watch": "lerna run --stream --no-sort --concurrency=99 build:watch",
     "test": "lerna run test",
-    "postinstall": "lerna bootstrap --reject-cycles && cd app && rimraf package-lock.json && npm install",
-    "publish:canary": "npm run build && rimraf app/package-lock.json && lerna publish from-package --canary --dist-tag canary --no-git-reset"
+    "postinstall": "lerna bootstrap --reject-cycles && cd app && npm install",
+    "publish:canary": "npm run build && lerna publish from-package --canary --dist-tag canary --no-git-reset"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
