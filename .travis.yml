@@ -9,7 +9,7 @@ script:
   - npm test
 
 deploy:
-  - provider: script
-    script: echo $NPMRC >> ~/.npmrc && npm ci && npm run pubilsh:canary
-    on:
-      branch: develop
+  provider: script
+  script: echo $NPMRC >> ~/.npmrc && npm ci && npm run pubilsh:canary
+  on:
+    branch: develop
