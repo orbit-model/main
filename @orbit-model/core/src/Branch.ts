@@ -1,13 +1,13 @@
 import BranchQuery from "./BranchQuery";
 import QueryBuilderZero from "./QueryBuilderZero";
-import Store from '@orbit/store';
+import Memory from '@orbit/memory';
 
 
 export default interface Branch {
   /**
    * get the current fork of the store
    */
-  getStore(): Store;
+  getStore(): Memory;
 
   /**
    * create a sub branch of the current branch by forking the store

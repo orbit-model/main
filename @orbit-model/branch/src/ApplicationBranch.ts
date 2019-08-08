@@ -1,12 +1,12 @@
 import DefaultBranch from "./impl/DefaultBranch";
-import Store from "@orbit/store";
+import Memory from "@orbit/memory";
 import { Branch } from "@orbit-model/core";
 
 export default class ApplicationBranch {
 
-  private static store: Store;
+  private static store: Memory;
 
-  public static setup(store: Store): void {
+  public static setup(store: Memory): void {
     ApplicationBranch.store = store;
   }
 

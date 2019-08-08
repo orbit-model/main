@@ -1,6 +1,6 @@
 import { ConnectionStrategy } from "@orbit/coordinator";
 import Orbit, { Listener } from "@orbit/core";
-import Store from "@orbit/store";
+import Memory from "@orbit/memory";
 
 export interface DefaultBranchQueryStrategyOptions {
   /**
@@ -34,7 +34,7 @@ export default class DefaultBranchQueryStrategy extends ConnectionStrategy {
   }
 
   protected generateListener(): Listener {
-    const target = this.target as Store;
+    const target = this.target as Memory;
 
     return (data: any, hints: any): any => {
       let result;
@@ -56,7 +56,7 @@ export default class DefaultBranchQueryStrategy extends ConnectionStrategy {
 
       Orbit.assert("query result is a promise", !!result && !!result.then);
       result.then(() => {
-        (this.source as Store).rebase()
+        (this.source as Memory).rebase()
       });
 
       Orbit.assert("blocking is always true", this._blocking === true);

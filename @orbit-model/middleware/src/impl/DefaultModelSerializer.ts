@@ -4,7 +4,7 @@ import { RecordIdentity } from "@orbit/data";
 import { Dict } from "@orbit/utils";
 import { Model } from "@orbit-model/core";
 import ApplicationDI, { Container } from "@orbit-model/di";
-import { AttributeInfo, ModelMetaAccessor } from "@orbit-model/meta";
+import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultModelSerializer implements ModelSerializer {
 

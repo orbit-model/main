@@ -1,6 +1,6 @@
 import ModelSerializer from "../ModelSerializer";
 import { RecordIdentity } from "@orbit/data";
-import Store from "@orbit/store";
+import Memory from "@orbit/memory";
 import { dasherize } from "@orbit/utils";
 import { Model, RelationshipAdapter } from "@orbit-model/core";
 import ApplicationDI, { Container } from "@orbit-model/di";
@@ -24,7 +24,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     return dasherize(model.constructor.name)
   }
 
-  private getStore(model: Model): Store {
+  private getStore(model: Model): Memory {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
@@ -39,14 +39,14 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
 //## to one #########################################################
   getRelatedModel<T extends Model, R extends Model>(model: T, relationship: string): Promise<R> {
-    let store: Store = this.getStore(model);
+    let store: Memory = this.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
     return store.query(q => q.findRelatedRecord(recordIdentity, relationship));
   }
 
   setRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
-    let store: Store = this.getStore(model);
+    let store: Memory = this.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
@@ -61,7 +61,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
 //## to many ########################################################
   getAllRelatedModels<T extends Model, R extends Model>(model: T, relationship: string): Promise<R[]> {
-    let store: Store = this.getStore(model);
+    let store: Memory = this.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
     return store.query(q => q.findRelatedRecords(recordIdentity, relationship));
@@ -111,7 +111,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
   async syncRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void> {
     // todo: look at method performance
-    let store: Store = this.getStore(model);
+    let store: Memory = this.getStore(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);

@@ -3,7 +3,7 @@ import Coordinator, {
   LogLevel,
   LogTruncationStrategy,
 } from '@orbit/coordinator';
-import Store from "@orbit/store";
+import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
 import { Branch, BranchQuery, QueryBuilderZero } from "@orbit-model/core";
 import ApplicationDI from "@orbit-model/di";
@@ -11,11 +11,11 @@ import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
 
 export default class DefaultBranch implements Branch {
 
-  private readonly store: Store;
-  private readonly parent: Store;
+  private readonly store: Memory;
+  private readonly parent: Memory;
   private readonly coordinator: Coordinator;
 
-  private constructor(parent: Store) {
+  private constructor(parent: Memory) {
     this.store = parent.fork({
       name: `branch-${uuid()}`
     });
@@ -87,14 +87,14 @@ export default class DefaultBranch implements Branch {
     // }));
   }
 
-  public static async factory(parent: Store): Promise<DefaultBranch> {
+  public static async factory(parent: Memory): Promise<DefaultBranch> {
     let b = new DefaultBranch(parent);
     await b.coordinator.activate();
     return b;
   }
 
 
-  getStore(): Store {
+  getStore(): Memory {
     return this.store;
   }
 
