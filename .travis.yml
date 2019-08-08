@@ -9,18 +9,8 @@ script:
   - npm test
 
 deploy:
-#  - provider: npm
-##    script: npm run publish:canary
-#    email: halbart.bernhard+npm@gmail.com
-#    api_key: $NPM_REGISTRY_TOKEN
-#    on:
-#      branch: develop
   - provider: script
     script: |
-      npm ci && npm adduser --scope=@orbit-model <<!
-      bernhard---h
-      $NPM_REGISTRY_TOKEN
-      halbart.bernhard+npm@gmail.com
-      ! && echo "hallo test text" && npm run pubilsh:canary
+      echo $NPMRC >> ~/.npmrc && cat ~/.npmrc && npm ci && npm run pubilsh:canary
     on:
       branch: develop
