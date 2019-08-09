@@ -20,6 +20,7 @@
     "test": "lerna run test",
     "postinstall": "lerna bootstrap --reject-cycles && cd app && npm install --no-package-lock",
     "publish:release": "npm install && npm run build && lerna publish from-git --dist-tag latest --no-git-reset",
+    "publish:release:fix": "npm install && npm run build && lerna publish from-package --dist-tag latest --no-git-reset",
     "publish:canary": "npm install && npm run build && lerna publish --canary --dist-tag canary --no-git-reset"
   },
   "devDependencies": {
