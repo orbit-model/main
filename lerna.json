@@ -2,8 +2,7 @@
   "command": {
     "version": {
       "allowBranch": [
-        "master",
-        "develop"
+        "master"
       ],
       "preid": "alpha",
       "message": "orbit-model release: %s"
