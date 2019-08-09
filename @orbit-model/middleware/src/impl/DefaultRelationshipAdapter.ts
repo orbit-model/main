@@ -34,7 +34,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     if (meta === undefined) {
       throw new Error("Model meta data has not been initialized yet!");
     }
-    return meta.branch.getStore();
+    return meta.branch.getMemorySource();
   }
 
 

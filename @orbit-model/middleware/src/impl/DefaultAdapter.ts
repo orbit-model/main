@@ -24,7 +24,7 @@ export default class DefaultAdapter implements Adapter {
     }
 
     let model: M = this.di.get<M>("models", type);
-    let orbitUUID = branch.getStore().schema.generateId(type);
+    let orbitUUID = branch.getMemorySource().schema.generateId(type);
     let meta = new DefaultOrbitModelMeta(branch, type, orbitUUID);
 
     let mma = this.di.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
@@ -89,7 +89,7 @@ export default class DefaultAdapter implements Adapter {
       throw new Error("The object handed to DefaultAdapter.setAttrValue() is not a valid model: no reflection info found");
     }
     let attrOrbitName = reflection.modelInfo.attributes[attribute].name;
-    await meta.branch.getStore().update(t => t.replaceKey(recordId, attrOrbitName, value))
+    await meta.branch.getMemorySource().update(t => t.replaceKey(recordId, attrOrbitName, value))
   }
 
 
@@ -105,7 +105,7 @@ export default class DefaultAdapter implements Adapter {
     if (meta === undefined) {
       throw new Error('Model has not been initialized yet!');
     }
-    let store = meta.branch.getStore();
+    let store = meta.branch.getMemorySource();
 
     let reflection = mma.getReflection(model.constructor);
     if (reflection === undefined) {
@@ -133,7 +133,7 @@ export default class DefaultAdapter implements Adapter {
     if (meta === undefined) {
       throw new Error('Model has not been initialized yet!');
     }
-    let store = meta.branch.getStore();
+    let store = meta.branch.getMemorySource();
 
     let recordId = modelSerializer.getIdentity(model);
     await store.update(t => t.removeRecord(recordId));

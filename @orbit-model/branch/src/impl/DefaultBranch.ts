@@ -11,17 +11,17 @@ import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
 
 export default class DefaultBranch implements Branch {
 
-  private readonly store: Memory;
+  private readonly memorySource: Memory;
   private readonly parent: Memory;
   private readonly coordinator: Coordinator;
 
   private constructor(parent: Memory) {
-    this.store = parent.fork({
+    this.memorySource = parent.fork({
       name: `branch-${uuid()}`
     });
     this.parent = parent;
     this.coordinator = new Coordinator({
-      sources: [this.store, this.parent],
+      sources: [this.memorySource, this.parent],
       defaultActivationOptions: {
     //    logLevel: LogLevel.Info
       }
@@ -31,14 +31,14 @@ export default class DefaultBranch implements Branch {
     //   logLevel: LogLevel.Info
     // }));
     this.coordinator.addStrategy(new DefaultBranchQueryStrategy({
-      source: this.store.name,
+      source: this.memorySource.name,
       target: this.parent.name,
       catch(...args: any[]){
         console.error("error while running DefaultBranchQueryStrategy: ", ...args);
       }
     }));
     // this.coordinator.addStrategy(new RequestStrategy({
-    //   source: this.store.name,
+    //   source: this.memorySource.name,
     //   on: 'beforeQuery',
     //
     //   target: this.parent.name,
@@ -79,10 +79,10 @@ export default class DefaultBranch implements Branch {
     //     console.log('caught an error: ', ...args);
     //   }
     // }));
-    // Sync all changes received from the remote server to the store
+    // Sync all changes received from the remote server to the memorySource
     // this.coordinator.addStrategy(new SyncStrategy({
     //   source: this.parent.name,
-    //   target: this.store.name,
+    //   target: this.memorySource.name,
     //   blocking: true
     // }));
   }
@@ -94,17 +94,17 @@ export default class DefaultBranch implements Branch {
   }
 
 
-  getStore(): Memory {
-    return this.store;
+  getMemorySource(): Memory {
+    return this.memorySource;
   }
 
   fork(): Promise<Branch> {
-    return DefaultBranch.factory(this.store);
+    return DefaultBranch.factory(this.memorySource);
   }
 
   async mergeAndDestroy(): Promise<void> {
     await this.coordinator.deactivate();
-    await this.parent.merge(this.store);
+    await this.parent.merge(this.memorySource);
   }
 
   abandon(): void {

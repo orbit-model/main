@@ -22,7 +22,7 @@ export default interface Adapter extends Injectable {
   updateModel<M extends Model>(record: Record, model: M): void;
 
   /**
-   * sets an individual value on a model and propagates it to the store
+   * sets an individual value on a model and propagates it to the memory source
    */
   setAttrValue<M extends Model>(model: M, attribute: string, value: any): Promise<void>;
 

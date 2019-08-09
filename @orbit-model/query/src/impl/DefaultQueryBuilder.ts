@@ -34,7 +34,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
       type: this.modelDiName,
       id: this.getIdForKey(this.modelDiName, id)
     };
-    let record = await this.branch.getStore().query(q => q.findRecord(rId));
+    let record = await this.branch.getMemorySource().query(q => q.findRecord(rId));
 
     let adapter = this.di.get<Adapter>('middleware', 'adapter');
     return adapter.createFromRecord<M>(record, this.branch);
@@ -57,7 +57,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   async get(): Promise<M[]> {
-    let records: [] = await this.branch.getStore().query({
+    let records: [] = await this.branch.getMemorySource().query({
       op: 'findRecords',
       type: this.modelDiName,
       sort: this.querySort,
@@ -70,7 +70,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   private getKeyMap(): KeyMap {
-    let keyMap = this.branch.getStore().cache.keyMap;
+    let keyMap = this.branch.getMemorySource().cache.keyMap;
     if (keyMap === undefined) {
       throw new Error("You have to add a KeyMap to your StoreSettings!");
     }
@@ -82,7 +82,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     let id = keyMap.keyToId(type, "remoteId", remoteId);
     if (id === undefined) {
       // remoteId value is not known by keyMap -> push new mapping
-      id = this.branch.getStore().schema.generateId(type);
+      id = this.branch.getMemorySource().schema.generateId(type);
       keyMap.pushRecord({
         type,
         id,

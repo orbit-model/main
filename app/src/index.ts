@@ -29,7 +29,7 @@ import "@orbit-model/middleware";
     console.log('no model found: ', e.message)
   }
   //console.log("root: ", store.name, store.cache.getRecordsSync("planet"));
-  //console.log("work: ", workBranch0.getStore().name, workBranch0.getStore().cache.getRecordsSync("planet"));
+  //console.log("work: ", workBranch0.getMemorySource().name, workBranch0.getMemorySource().cache.getRecordsSync("planet"));
 })();
 
 async function prefillStore(store: Store) {
