@@ -7,7 +7,7 @@ export default interface Branch {
   /**
    * get the current fork of the store
    */
-  getStore(): Memory;
+  getMemorySource(): Memory;
 
   /**
    * create a sub branch of the current branch by forking the store
