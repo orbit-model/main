@@ -18,7 +18,7 @@
     "build": "lerna run build",
     "build:watch": "lerna run --stream --no-sort --concurrency=99 build:watch",
     "test": "lerna run test",
-    "init": "echo \"#! /bin/sh\n\nexec npm run build\" >> .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit",
+    "init": "echo \"#! /bin/sh\n\nexec npm run build\" > .git/hooks/pre-push && chmod +x .git/hooks/pre-commit",
     "postinstall": "lerna bootstrap --reject-cycles && npm run init && cd app && npm install --no-package-lock",
     "publish:release": "npm install && npm run build && lerna publish from-git --dist-tag latest --no-git-reset",
     "publish:release:fix": "npm install && npm run build && lerna publish from-package --dist-tag latest --no-git-reset",
