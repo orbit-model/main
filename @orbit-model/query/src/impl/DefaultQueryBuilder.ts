@@ -1,16 +1,16 @@
-import Orbit, {
+import {
   AttributeSortSpecifier,
   FilterSpecifier,
   FindRecords,
   KeyMap,
-  PageSpecifier, QueryOrExpression,
+  PageSpecifier,
   RecordIdentity,
   SetComparisonOperator,
   SortOrder,
   SortSpecifier,
   ValueComparisonOperator
 } from "@orbit/data";
-import { Adapter, Branch, Model, OrbitModelMeta, QueryBuilder } from "@orbit-model/core";
+import { Adapter, Branch, Model, QueryBuilder } from "@orbit-model/core";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 
@@ -142,7 +142,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   filterRelatedModel<R extends Model>(op: SetComparisonOperator, model: R | R[]): QueryBuilder<M> {
-    let record: RecordIdentity| RecordIdentity[];
+    let record: RecordIdentity | RecordIdentity[];
     if (Array.isArray(model)) {
       record = model.map(this.modelToRecordID)
     } else {
@@ -157,6 +157,12 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   filterRelatedModels<R extends Model>(op: SetComparisonOperator, models: R[]): QueryBuilder<M> {
+    let records = models.map(this.modelToRecordID)
+    this.pushFilter({
+      kind: "relatedRecord",
+      op,
+      records
+    });
     return this;
   }
 
