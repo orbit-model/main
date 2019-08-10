@@ -1,16 +1,18 @@
-import {
+import Orbit, {
   AttributeSortSpecifier,
   FilterSpecifier,
   FindRecords,
   KeyMap,
-  PageSpecifier,
+  PageSpecifier, QueryOrExpression,
   RecordIdentity,
+  SetComparisonOperator,
   SortOrder,
   SortSpecifier,
   ValueComparisonOperator
 } from "@orbit/data";
-import { Adapter, Branch, Model, QueryBuilder } from "@orbit-model/core";
+import { Adapter, Branch, Model, OrbitModelMeta, QueryBuilder } from "@orbit-model/core";
 import { Container } from "@orbit-model/di";
+import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
 
@@ -34,7 +36,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
       type: this.modelDiName,
       id: this.getIdForKey(this.modelDiName, id)
     };
-    let record = await this.branch.getMemorySource().query(q => q.findRecord(rId));
+    let record = await this.branch.getMemorySource().query((q: any) => q.findRecord(rId));
 
     let adapter = this.di.get<Adapter>('middleware', 'adapter');
     return adapter.createFromRecord<M>(record, this.branch);
@@ -94,13 +96,39 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     return id;
   }
 
+  private modelToRecordID<R extends Model>(model: R): RecordIdentity {
+    let mma = this.di.get<ModelMetaAccessor>("orbit-model", "modelMetaAccessor");
+
+    let meta = mma.getMeta(model);
+    if (meta === undefined) {
+      throw new Error('Model has not been initialized yet!');
+    }
+
+    let id = meta.orbitUUID;
+    if (id === undefined) {
+      let remoteId = meta.id.remoteId;
+      if (remoteId === undefined) {
+        throw new Error('Model has not been assigned an ID yet!');
+      }
+      id = this.getIdForKey(meta.className, remoteId);
+    }
+    return {
+      type: meta.className,
+      id
+    }
+  }
+
   //## builder methods ####################################
 
-  filterAttr(attribute: string, op: ValueComparisonOperator, value: any): QueryBuilder<M> {
+  private pushFilter(filter: FilterSpecifier) {
     if (this.queryFilter === undefined) {
       this.queryFilter = [];
     }
-    this.queryFilter.push({
+    this.queryFilter.push(filter);
+  }
+
+  filterAttr(attribute: string, op: ValueComparisonOperator, value: any): QueryBuilder<M> {
+    this.pushFilter({
       kind: "attribute",
       op,
       attribute,
@@ -111,6 +139,25 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
 
   filterAttrEq(attr: string, value: any): QueryBuilder<M> {
     return this.filterAttr(attr, "equal", value);
+  }
+
+  filterRelatedModel<R extends Model>(op: SetComparisonOperator, model: R | R[]): QueryBuilder<M> {
+    let record: RecordIdentity| RecordIdentity[];
+    if (Array.isArray(model)) {
+      record = model.map(this.modelToRecordID)
+    } else {
+      record = this.modelToRecordID(model);
+    }
+    this.pushFilter({
+      kind: "relatedRecord",
+      op,
+      record
+    });
+    return this;
+  }
+
+  filterRelatedModels<R extends Model>(op: SetComparisonOperator, models: R[]): QueryBuilder<M> {
+    return this;
   }
 
   sortBy(...attrs: string[]): QueryBuilder<M> {
