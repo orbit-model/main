@@ -1,7 +1,6 @@
 import OrbitModelReflection from "../OrbitModelReflection";
-import OrbitModelMeta from "../OrbitModelMeta";
 import ModelMetaAccessor from "../ModelMetaAccessor";
-import { MetaDataModel } from "@orbit-model/core";
+import { MetaDataModel, OrbitModelMeta } from "@orbit-model/core";
 import ApplicationDI from "@orbit-model/di";
 
 
@@ -57,3 +56,4 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
 
 
 ApplicationDI.getDI().register('system', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });
+ApplicationDI.getDI().register('orbit-model', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });
