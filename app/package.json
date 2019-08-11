@@ -17,7 +17,7 @@
     "@orbit-model/di": "../@orbit-model/di",
     "@orbit-model/middleware": "../@orbit-model/middleware",
     "@orbit-model/model": "../@orbit-model/model",
-    "@orbit/store": "0.16.0",
+    "@orbit/memory": "0.16.0",
     "@orbit/data": "^0.16.0",
     "typescript": "^3.5.3"
   }

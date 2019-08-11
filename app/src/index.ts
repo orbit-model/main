@@ -1,5 +1,4 @@
-//import 'reflect-metadata';
-import Store from '@orbit/store';
+import Memory from '@orbit/memory';
 import Planet from "./Planet";
 import { KeyMap, Record } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
@@ -14,12 +13,12 @@ import "@orbit-model/middleware";
   const schema = di.get<SchemaBuilder>('system', 'schemaBuilder').createSchema();
   const keyMap = new KeyMap();
 
-  const store = new Store({ schema, keyMap });
+  const memory = new Memory({ schema, keyMap });
 
-  ApplicationBranch.setup(store);
+  ApplicationBranch.setup(memory);
   let workBranch0: Branch = await ApplicationBranch.fork();
 
-  await prefillStore(store);
+  await prefillMemorySource(memory);
 
   try {
     let model = await workBranch0.query().select(Planet).find("1");
@@ -28,12 +27,12 @@ import "@orbit-model/middleware";
   } catch (e) {
     console.log('no model found: ', e.message)
   }
-  //console.log("root: ", store.name, store.cache.getRecordsSync("planet"));
+  //console.log("root: ", memory.name, memory.cache.getRecordsSync("planet"));
   //console.log("work: ", workBranch0.getMemorySource().name, workBranch0.getMemorySource().cache.getRecordsSync("planet"));
 })();
 
-async function prefillStore(store: Store) {
-  await add(store, {
+async function prefillMemorySource(memory: Memory) {
+  await add(memory, {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-8ca60c980b1e",
     keys: {
@@ -45,10 +44,10 @@ async function prefillStore(store: Store) {
   });
 }
 
-async function add(store: Store, record: Record) {
-  let keyMap = store.cache.keyMap;
+async function add(memory: Memory, record: Record) {
+  let keyMap = memory.cache.keyMap;
   keyMap.pushRecord(record);
-  await store.update(t => t.addRecord(record));
+  await memory.update(t => t.addRecord(record));
 }
 
 function waitFor(milliseconds: number) {
