@@ -48,22 +48,28 @@ export default function ModelMixin(base: any = Base): any {
       interface IJson {
         [key: string]: any;
       }
-      let json = {
+
+      let json: IJson = {
         type: this.type,
         id: this.id
-      } as IJson;
+      };
+      if (typeof super["toJSON"] === "function") {
+        json["__super"] = super.toJSON();
+      }
 
       let mma: ModelMetaAccessor = ApplicationDI.getDI().get('system', 'modelMetaAccessor');
       let meta = mma.getMeta(this);
-      if (meta)
-      for (let attr in meta.values){
-        if (meta.values.hasOwnProperty(attr)){
-          json[attr] = meta.values[attr]
+      if (meta) {
+        for (let attr in meta.values) {
+          if (meta.values.hasOwnProperty(attr)) {
+            json[attr] = meta.values[attr]
+          }
         }
       }
 
       return json;
     }
   }
+
   return ModelMixin;
 }
