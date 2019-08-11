@@ -47,7 +47,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    */
   setMeta<M extends MetaDataModel>(model: M, meta: OrbitModelMeta): void {
     Object.defineProperty(
-      model, '__orbitModelMeta',
+      model, "__orbitModelMeta",
       { enumerable: false, value: meta }
     );
   }
@@ -55,5 +55,4 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
 }
 
 
-ApplicationDI.getDI().register('system', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });
-ApplicationDI.getDI().register('orbit-model', 'modelMetaAccessor', DefaultModelMetaAccessor, { singleton: true });
+ApplicationDI.getDI().register("system", "modelMetaAccessor", DefaultModelMetaAccessor, { singleton: true });

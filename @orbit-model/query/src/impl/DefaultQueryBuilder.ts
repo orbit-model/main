@@ -97,7 +97,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   private modelToRecordID<R extends Model>(model: R): RecordIdentity {
-    let mma = this.di.get<ModelMetaAccessor>("orbit-model", "modelMetaAccessor");
+    let mma = this.di.get<ModelMetaAccessor>("system", "modelMetaAccessor");
 
     let meta = mma.getMeta(model);
     if (meta === undefined) {
