@@ -7,9 +7,5 @@ before_script:
 script:
   - npm run build
   - npm test
-
-#deploy:
-#  provider: script
-#  script: echo "@orbit-model:registry=https://registry.npmjs.org/" > ~/.npmrc && echo $NPMRC >> ~/.npmrc && npm ci && npm run publish:canary
-#  on:
-#    branch: develop
+  - cd app && npm run build
+  - cd app/dist && node ./index.js
