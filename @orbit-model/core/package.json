@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/core",
-  "version": "0.0.2-alpha.21+4683602",
+  "version": "0.0.2-alpha.25+5fb3dd4",
   "description": "Mostly TypeScript types and contracts",
   "keywords": [
     "orbit",
@@ -33,9 +33,9 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/di": "^0.0.2-alpha.21+4683602",
+    "@orbit-model/di": "^0.0.2-alpha.25+5fb3dd4",
     "@orbit/data": "^0.16.0",
     "@orbit/memory": "0.16.0"
   },
-  "gitHead": "4683602a7af464cc4d3dac7030e02b16f7880b5a"
+  "gitHead": "5fb3dd4c29de0291d8e5e6a0ac1cc346988ed101"
 }
