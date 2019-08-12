@@ -5,6 +5,9 @@ import { KeyMap, Record } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "@orbit-model/core";
 
+// fail on unhandled promise exceptions
+process.on('unhandledRejection', up => { throw up });
+
 (async function main() {
   let schema = SchemaBuilder.createSchema();
   let keyMap = new KeyMap();
