@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/bootstrap",
-  "version": "0.0.2-alpha.10+d2b869c",
+  "version": "0.0.2-alpha.21+4683602",
   "description": "Helpers for setting up orbit-model with orbit",
   "keywords": [
     "orbit",
@@ -33,7 +33,8 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/di": "^0.0.1",
-    "@orbit-model/model": "^0.0.2-alpha.10"
-  }
+    "@orbit-model/di": "^0.0.2-alpha.21+4683602",
+    "@orbit-model/model": "^0.0.2-alpha.21+4683602"
+  },
+  "gitHead": "4683602a7af464cc4d3dac7030e02b16f7880b5a"
 }
