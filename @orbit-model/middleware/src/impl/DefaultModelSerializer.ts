@@ -19,8 +19,7 @@ export default class DefaultModelSerializer implements ModelSerializer {
       throw new Error("the DefaultModelSerializer has to be instantiated through a DI container");
     }
 
-    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
-    let reflection = mma.getReflection(model.constructor);
+    let reflection = ModelMetaAccessor.getReflection(model.constructor);
     if (reflection === undefined) {
       throw new Error("The object handed to the DefaultModelSerializer is not a valid model: no reflection info found");
     }
@@ -28,7 +27,7 @@ export default class DefaultModelSerializer implements ModelSerializer {
     if (type === undefined) {
       throw new Error("The object handed to the DefaultModelSerializer is not a valid model: reflection info not complete");
     }
-    let meta = mma.getMeta(model);
+    let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
       throw new Error('Model has not been initialized yet!');
     }
@@ -43,12 +42,11 @@ export default class DefaultModelSerializer implements ModelSerializer {
       throw new Error("the DefaultModelSerializer has to be instantiated through a DI container");
     }
 
-    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
-    let reflection = mma.getReflection(model.constructor);
+    let reflection = ModelMetaAccessor.getReflection(model.constructor);
     if (reflection === undefined) {
       throw new Error("The object handed to the DefaultModelSerializer is not a valid model: no reflection info found");
     }
-    let meta = mma.getMeta(model);
+    let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
       throw new Error('Model has not been initialized yet!');
     }

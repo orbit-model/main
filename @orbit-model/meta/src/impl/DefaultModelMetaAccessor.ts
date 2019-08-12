@@ -1,6 +1,4 @@
-import OrbitModelReflection from "../OrbitModelReflection";
-import ModelMetaAccessor from "../ModelMetaAccessor";
-import { MetaDataModel, OrbitModelMeta } from "@orbit-model/core";
+import { MetaDataModel, ModelMetaAccessor, OrbitModelMeta, OrbitModelReflection } from "@orbit-model/core";
 
 
 export default class DefaultModelMetaAccessor implements ModelMetaAccessor {

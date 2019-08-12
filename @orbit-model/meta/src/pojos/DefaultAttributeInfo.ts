@@ -1,4 +1,4 @@
-import { AttributeInfo } from "../ModelInfo";
+import { AttributeInfo } from "@orbit-model/core/dist/ModelInfo";
 
 export default class DefaultAttributeInfo implements AttributeInfo {
   attributeName: string;

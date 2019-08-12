@@ -38,7 +38,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     };
     let record = await this.branch.getMemorySource().query((q: any) => q.findRecord(rId));
 
-    let adapter = this.di.get<Adapter>('middleware', 'adapter');
+    let adapter = this.di.get<Adapter>('system', 'Adapter');
     return adapter.createFromRecord<M>(record, this.branch);
   }
 
@@ -67,7 +67,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
       page: this.queryPage
     } as FindRecords);
 
-    let adapter = this.di.get<Adapter>('middleware', 'adapter');
+    let adapter = this.di.get<Adapter>('system', 'Adapter');
     return records.map(record => adapter.createFromRecord(record, this.branch))
   }
 
@@ -97,18 +97,16 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   private modelToRecordID<R extends Model>(model: R): RecordIdentity {
-    let mma = this.di.get<ModelMetaAccessor>("system", "modelMetaAccessor");
-
-    let meta = mma.getMeta(model);
+    let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
-      throw new Error('Model has not been initialized yet!');
+      throw new Error("Model has not been initialized yet!");
     }
 
     let id = meta.orbitUUID;
     if (id === undefined) {
       let remoteId = meta.id.remoteId;
       if (remoteId === undefined) {
-        throw new Error('Model has not been assigned an ID yet!');
+        throw new Error("Model has not been assigned an ID yet!");
       }
       id = this.getIdForKey(meta.className, remoteId);
     }

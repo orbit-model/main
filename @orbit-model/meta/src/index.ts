@@ -1,7 +1,7 @@
+export { ModelMetaAccessor } from './facades/ModelMetaAccessor';
 
-export { default as ModelMetaAccessor } from './ModelMetaAccessor';
-export { default as ModelInfo, AttributeInfo, RelationInfo } from './ModelInfo';
-export { default as OrbitModelReflection } from './OrbitModelReflection';
+// private:
+export { default as DefaultModelMetaAccessor } from './impl/DefaultModelMetaAccessor';
 
 // POJOs (private)
 export { default as DefaultAttributeInfo } from './pojos/DefaultAttributeInfo';

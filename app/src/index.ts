@@ -1,10 +1,9 @@
+import { SchemaBuilder } from "@orbit-model/bootstrap";
 import Memory from '@orbit/memory';
 import Planet from "./Planet";
 import { KeyMap, Record } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "@orbit-model/core";
-import "@orbit-model/middleware";
-import { SchemaBuilder } from "@orbit-model/bootstrap";
 
 (async function main() {
   let schema = SchemaBuilder.createSchema();
@@ -17,13 +16,9 @@ import { SchemaBuilder } from "@orbit-model/bootstrap";
 
   await prefillMemorySource(memory);
 
-  try {
-    let model = await workBranch0.query().select(Planet).find("1");
-    console.log('model', model);
-    console.log('JSON', JSON.stringify(model));
-  } catch (e) {
-    console.log('no model found: ', e.message)
-  }
+  let model = await workBranch0.query().select(Planet).find("1");
+  console.log('model', model);
+  console.log('JSON', JSON.stringify(model));
 })();
 
 async function prefillMemorySource(memory: Memory) {

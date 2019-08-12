@@ -1,4 +1,4 @@
-import { RelationInfo } from "../ModelInfo";
+import { RelationInfo } from "@orbit-model/core/dist/ModelInfo";
 
 export default class DefaultRelationInfo implements RelationInfo {
   attributeName: string;

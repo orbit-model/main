@@ -1,4 +1,4 @@
-import { DI } from "@orbit-model/di";
+import { DI } from "../DI";
 
 export default function createFacadeFor(namespace: string, name: string) {
   return new Proxy({}, {

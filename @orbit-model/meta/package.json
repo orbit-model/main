@@ -34,7 +34,8 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/core": "^0.0.2-alpha.21+4683602"
+    "@orbit-model/core": "^0.0.2-alpha.21+4683602",
+    "@orbit-model/di": "^0.0.2-alpha.21+4683602"
   },
   "gitHead": "4683602a7af464cc4d3dac7030e02b16f7880b5a"
 }

@@ -1,4 +1,4 @@
-import createFacadeFor from "./utils/createFacadeFor";
+import { createFacadeFor } from "@orbit-model/di";
 import { SchemaBuilder as iSchemaBuilder } from "@orbit-model/model";
 
-export const SchemaBuilder = createFacadeFor('system', 'schemaBuilder') as iSchemaBuilder;
+export const SchemaBuilder = createFacadeFor('system', 'SchemaBuilder') as iSchemaBuilder;

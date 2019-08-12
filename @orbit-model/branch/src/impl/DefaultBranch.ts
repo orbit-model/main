@@ -111,7 +111,7 @@ export default class DefaultBranch implements Branch {
     this.coordinator.deactivate();
   }
 
-  query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder: string = "queryBuilder"): Q {
+  query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder: string = "QueryBuilder"): Q {
     let qb = DI.get<Q>("system", queryBuilder);
     if (typeof qb["setBranch"] === "function") {
       qb["setBranch"](this);

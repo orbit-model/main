@@ -34,7 +34,11 @@
   },
   "dependencies": {
     "@orbit-model/di": "^0.0.2-alpha.21+4683602",
-    "@orbit-model/model": "^0.0.2-alpha.21+4683602"
+    "@orbit-model/model": "^0.0.2-alpha.21+4683602",
+    "@orbit-model/branch": "^0.0.2-alpha.21+4683602",
+    "@orbit-model/meta": "^0.0.2-alpha.21+4683602",
+    "@orbit-model/middleware": "^0.0.2-alpha.21+4683602",
+    "@orbit-model/query": "^0.0.2-alpha.21+4683602"
   },
   "gitHead": "4683602a7af464cc4d3dac7030e02b16f7880b5a"
 }

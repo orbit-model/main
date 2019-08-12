@@ -3,9 +3,9 @@ import { DI } from "@orbit-model/di";
 import {
   ModelMetaAccessor,
   DefaultOrbitModelReflection,
-  ModelInfo,
   DefaultModelInfo
 } from "@orbit-model/meta";
+import { ModelInfo } from "@orbit-model/core";
 
 
 export default function modelGenerator(options: { name?: string } = {}) {
@@ -13,11 +13,10 @@ export default function modelGenerator(options: { name?: string } = {}) {
     let diName = options.name || camelize(target.name);
     DI.register("models", diName, target);
 
-    let mma = DI.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
-    let reflection = mma.getReflection(target);
+    let reflection = ModelMetaAccessor.getReflection(target);
     if (reflection === undefined) {
       reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());
-      mma.setReflection(target, reflection);
+      ModelMetaAccessor.setReflection(target, reflection);
     }
 
     let modelInfo: ModelInfo = reflection.modelInfo;

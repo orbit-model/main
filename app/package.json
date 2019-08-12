@@ -8,7 +8,8 @@
   "private": false,
   "repository": "https://github.com/orbit-model/main",
   "scripts": {
-    "dev": "tsc -w"
+    "build": "rimraf dist && tsc",
+    "build:watch": "tsc -w"
   },
   "dependencies": {
     "@orbit-model/branch": "../@orbit-model/branch",

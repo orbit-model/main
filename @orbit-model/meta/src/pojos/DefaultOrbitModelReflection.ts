@@ -1,5 +1,5 @@
-import OrbitModelReflection from "../OrbitModelReflection";
-import ModelInfo from "../ModelInfo";
+import OrbitModelReflection from "@orbit-model/core/dist/OrbitModelReflection";
+import ModelInfo from "@orbit-model/core/dist/ModelInfo";
 
 export default class DefaultOrbitModelReflection implements OrbitModelReflection {
   isAbstract?: boolean;

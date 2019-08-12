@@ -33,12 +33,11 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       throw new Error("the DefaultSchemaBuilder has to be instantiated through a DI container");
     }
 
-    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
     let models: Dict<ModelDefinition> = {};
 
     for (let diName of this.di.getNames('models')) {
       let klass = this.di.getClass('models', diName);
-      let reflection = mma.getReflection(klass);
+      let reflection = ModelMetaAccessor.getReflection(klass);
       if (reflection === undefined) {
         throw new Error("Model '" + diName + "' with class name '" + klass.name + "' has not been initialized correctly: " +
           "no reflection information found");

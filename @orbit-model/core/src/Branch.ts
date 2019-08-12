@@ -25,7 +25,7 @@ export default interface Branch {
   abandon(): void;
 
   /**
-   * @param queryBuilder = "query-builder"
+   * @param queryBuilder defaults to "QueryBuilder"
    */
   query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder?: string): Q;
 }

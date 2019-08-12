@@ -10,7 +10,6 @@ export default class DefaultAdapter implements Adapter {
 
   private di: Container | null = null;
 
-
   create<M extends Model>(modelName: string | Function | { new(): M }, branch: Branch): M {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
@@ -27,8 +26,7 @@ export default class DefaultAdapter implements Adapter {
     let orbitUUID = branch.getMemorySource().schema.generateId(type);
     let meta = new DefaultOrbitModelMeta(branch, type, orbitUUID);
 
-    let mma = this.di.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
-    mma.setMeta(model, meta);
+    ModelMetaAccessor.setMeta(model, meta);
     return model;
   }
 
@@ -39,15 +37,13 @@ export default class DefaultAdapter implements Adapter {
 
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
-    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
-
     let recordType = recordSerializer.getType(record);
 
     let model: M = this.di.get<M>("models", recordType);
 
     let meta = new DefaultOrbitModelMeta(branch, recordType, recordSerializer.getID(record));
     meta.id.remoteId = recordSerializer.getRemoteId(record);
-    mma.setMeta(model, meta);
+    ModelMetaAccessor.setMeta(model, meta);
 
     // fill the model's attributes with values
     let attrs = recordSerializer.getAttributeValues(record);
@@ -75,16 +71,15 @@ export default class DefaultAdapter implements Adapter {
     }
 
     let modelSerializer = this.getModelSerializer();
-    let mma = this.di.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
 
-    let meta = mma.getMeta(model);
+    let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
       throw new Error('Model has not been initialized yet!');
     }
     meta.values[attribute] = value;
 
     let recordId = modelSerializer.getIdentity(model);
-    let reflection = mma.getReflection(model.constructor);
+    let reflection = ModelMetaAccessor.getReflection(model.constructor);
     if (reflection === undefined) {
       throw new Error("The object handed to DefaultAdapter.setAttrValue() is not a valid model: no reflection info found");
     }
@@ -99,15 +94,14 @@ export default class DefaultAdapter implements Adapter {
     }
 
     let modelSerializer = this.getModelSerializer();
-    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
 
-    let meta = mma.getMeta(model);
+    let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
       throw new Error('Model has not been initialized yet!');
     }
     let store = meta.branch.getMemorySource();
 
-    let reflection = mma.getReflection(model.constructor);
+    let reflection = ModelMetaAccessor.getReflection(model.constructor);
     if (reflection === undefined) {
       throw new Error("The object handed to DefaultAdapter.save() is not a valid model: no reflection info found");
     }
@@ -128,8 +122,7 @@ export default class DefaultAdapter implements Adapter {
     }
 
     let modelSerializer = this.getModelSerializer();
-    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
-    let meta = mma.getMeta(model);
+    let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
       throw new Error('Model has not been initialized yet!');
     }
@@ -148,14 +141,14 @@ export default class DefaultAdapter implements Adapter {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
-    return this.di.get("middleware", "modelSerializer");
+    return this.di.get("system", "ModelSerializer");
   }
 
   private getRecordSerializer(): RecordSerializer {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
-    return this.di.get("middleware", "recordSerializer");
+    return this.di.get("system", "RecordSerializer");
   }
 }
 

@@ -1,5 +1,5 @@
 import { camelize } from "@orbit/utils";
-import { Adapter, Model } from "@orbit-model/core";
+import { Adapter } from "@orbit-model/core";
 import {
   ModelMetaAccessor,
   DefaultOrbitModelReflection,
@@ -37,11 +37,10 @@ export default function attrGenerator(options: AttrOptions = {}) {
   return function attr(target: any, key: string) {
     let diName = options.name || camelize(key);
 
-    let mma = DI.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
-    let reflection = mma.getReflection(target.constructor);
+    let reflection = ModelMetaAccessor.getReflection(target.constructor);
     if (reflection === undefined) {
       reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());
-      mma.setReflection(target.constructor, reflection);
+      ModelMetaAccessor.setReflection(target.constructor, reflection);
     }
 
     let attrInfo = new DefaultAttributeInfo(key, diName, options.defaultValue, options.schemaType || getSchemaType(target, key));
@@ -49,8 +48,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
 
     Object.defineProperty(target, key, {
       get(): any {
-        let mma = DI.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
-        let meta = mma.getMeta(this);
+        let meta = ModelMetaAccessor.getMeta(this);
         if (meta === undefined) {
           throw new Error('Model has not been initialized yet!');
         }

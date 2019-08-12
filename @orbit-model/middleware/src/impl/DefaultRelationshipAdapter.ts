@@ -17,7 +17,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     if (this.di === null) {
       throw new Error("the DefaultRelationshipAdapter has to be instantiated through a DI container");
     }
-    return this.di.get("middleware", "modelSerializer");
+    return this.di.get("system", "ModelSerializer");
   }
 
   private static getNameFromType<M>(model: M): string {
@@ -29,8 +29,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
-    let mma: ModelMetaAccessor = this.di.get('system', 'modelMetaAccessor');
-    let meta = mma.getMeta(model);
+    let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
       throw new Error("Model meta data has not been initialized yet!");
     }

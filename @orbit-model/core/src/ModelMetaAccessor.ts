@@ -1,5 +1,6 @@
+import MetaDataModel from "./MetaDataModel";
+import OrbitModelMeta from "./OrbitModelMeta";
 import OrbitModelReflection from "./OrbitModelReflection";
-import { MetaDataModel, OrbitModelMeta } from "@orbit-model/core";
 
 
 export default interface ModelMetaAccessor {

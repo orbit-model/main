@@ -26,8 +26,7 @@ export default function ModelMixin(base: any = Base): any {
     }
 
     get type(): string {
-      let mma: ModelMetaAccessor = DI.get("system", "modelMetaAccessor");
-      let reflection = mma.getReflection(this.constructor);
+      let reflection = ModelMetaAccessor.getReflection(this.constructor);
       if (reflection === undefined) {
         throw new Error("Object is not a valid model: no reflection information found")
       }
@@ -40,7 +39,7 @@ export default function ModelMixin(base: any = Base): any {
 
 
     destroy(): Promise<void> {
-      let adapter: Adapter = DI.get<Adapter>("middleware", "adapter");
+      let adapter: Adapter = DI.get<Adapter>("system", "Adapter");
       return adapter.destroy(this);
     }
 
@@ -57,8 +56,7 @@ export default function ModelMixin(base: any = Base): any {
         json["__super"] = super.toJSON();
       }
 
-      let mma: ModelMetaAccessor = DI.get("system", 'modelMetaAccessor');
-      let meta = mma.getMeta(this);
+      let meta = ModelMetaAccessor.getMeta(this);
       if (meta) {
         for (let attr in meta.values) {
           if (meta.values.hasOwnProperty(attr)) {

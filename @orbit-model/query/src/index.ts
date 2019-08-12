@@ -1,2 +1,2 @@
-// register with application DI:
-import "./impl/DefaultQueryBuilderZero";
+
+export {default as DefaultQueryBuilderZero} from './impl/DefaultQueryBuilderZero';
