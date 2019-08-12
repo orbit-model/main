@@ -3,17 +3,14 @@ import Planet from "./Planet";
 import { KeyMap, Record } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "@orbit-model/core";
-import ApplicationDI, { Container } from "@orbit-model/di";
-import { SchemaBuilder } from "@orbit-model/model";
 import "@orbit-model/middleware";
+import { SchemaBuilder } from "@orbit-model/bootstrap";
 
 (async function main() {
-  const di: Container = ApplicationDI.getDI();
+  let schema = SchemaBuilder.createSchema();
+  let keyMap = new KeyMap();
 
-  const schema = di.get<SchemaBuilder>('system', 'schemaBuilder').createSchema();
-  const keyMap = new KeyMap();
-
-  const memory = new Memory({ schema, keyMap });
+  let memory = new Memory({ schema, keyMap });
 
   ApplicationBranch.setup(memory);
   let workBranch0: Branch = await ApplicationBranch.fork();
@@ -27,8 +24,6 @@ import "@orbit-model/middleware";
   } catch (e) {
     console.log('no model found: ', e.message)
   }
-  //console.log("root: ", memory.name, memory.cache.getRecordsSync("planet"));
-  //console.log("work: ", workBranch0.getMemorySource().name, workBranch0.getMemorySource().cache.getRecordsSync("planet"));
 })();
 
 async function prefillMemorySource(memory: Memory) {
