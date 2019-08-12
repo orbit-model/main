@@ -1,6 +1,6 @@
-import ApplicationDI from "@orbit-model/di";
 import { Adapter, Model, OrbitModelMeta } from "@orbit-model/core";
 import { ModelMetaAccessor } from "@orbit-model/meta";
+import { DI } from "@orbit-model/di";
 
 class Base {
 
@@ -26,7 +26,7 @@ export default function ModelMixin(base: any = Base): any {
     }
 
     get type(): string {
-      let mma: ModelMetaAccessor = ApplicationDI.getDI().get("system", "modelMetaAccessor");
+      let mma: ModelMetaAccessor = DI.get("system", "modelMetaAccessor");
       let reflection = mma.getReflection(this.constructor);
       if (reflection === undefined) {
         throw new Error("Object is not a valid model: no reflection information found")
@@ -40,7 +40,7 @@ export default function ModelMixin(base: any = Base): any {
 
 
     destroy(): Promise<void> {
-      let adapter = ApplicationDI.getDI().get<Adapter>("middleware", "adapter");
+      let adapter: Adapter = DI.get<Adapter>("middleware", "adapter");
       return adapter.destroy(this);
     }
 
@@ -57,7 +57,7 @@ export default function ModelMixin(base: any = Base): any {
         json["__super"] = super.toJSON();
       }
 
-      let mma: ModelMetaAccessor = ApplicationDI.getDI().get("system", 'modelMetaAccessor');
+      let mma: ModelMetaAccessor = DI.get("system", 'modelMetaAccessor');
       let meta = mma.getMeta(this);
       if (meta) {
         for (let attr in meta.values) {

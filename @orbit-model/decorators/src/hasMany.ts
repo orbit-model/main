@@ -1,13 +1,12 @@
 import { camelize } from "@orbit/utils";
 import DefaultHasMany from "./impl/DefaultHasMany";
-import { Model } from "@orbit-model/core";
-import ApplicationDI from "@orbit-model/di";
 import {
   ModelMetaAccessor,
   DefaultOrbitModelReflection,
   DefaultModelInfo,
   DefaultRelationInfo
 } from "@orbit-model/meta";
+import { DI } from "@orbit-model/di";
 
 interface RelationOptions {
   name?: string;
@@ -20,7 +19,7 @@ export default function hasManyGenerator(options: RelationOptions = {}) {
     // 1. gather meta data
     let diName = options.name || camelize(attributeName);
 
-    let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+    let mma = DI.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
     let reflection = mma.getReflection(target.constructor);
     if (reflection === undefined) {
       reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());

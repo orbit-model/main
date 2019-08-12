@@ -1,17 +1,16 @@
+import MigratableContainer from "./MigratableContainer";
 import Container from "./Container";
 import DefaultContainer from "./impl/DefaultContainer";
-import MigratableContainer from "./MigratableContainer";
 
-
-export default class ApplicationDI {
+export default class AppDI {
 
   private static di: MigratableContainer | null = null;
 
   public static getDI(): Container {
-    if (ApplicationDI.di === null) {
-      ApplicationDI.di = new DefaultContainer();
+    if (AppDI.di === null) {
+      AppDI.di = new DefaultContainer();
     }
-    return ApplicationDI.di;
+    return AppDI.di;
   }
 
   /**
@@ -21,11 +20,11 @@ export default class ApplicationDI {
    *
    * @param di
    */
-  public static replaceDI(di: MigratableContainer): void {
-    if (ApplicationDI.di !== null) {
-      ApplicationDI.di.migrateTo(di);
+  public static migrateTo(di: MigratableContainer): void {
+    if (AppDI.di !== null) {
+      AppDI.di.migrateTo(di);
     }
-    ApplicationDI.di = di;
+    AppDI.di = di;
   }
 
 }

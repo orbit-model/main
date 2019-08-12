@@ -1,8 +1,6 @@
 import RecordSerializer from "../RecordSerializer";
 import { Record } from '@orbit/data';
 import { Dict } from "@orbit/utils";
-import ApplicationDI from "@orbit-model/di";
-
 
 export default class DefaultRecordSerializer implements RecordSerializer {
 
@@ -27,5 +25,3 @@ export default class DefaultRecordSerializer implements RecordSerializer {
   }
 
 }
-
-ApplicationDI.getDI().register('middleware', 'recordSerializer', DefaultRecordSerializer, { singleton: true });

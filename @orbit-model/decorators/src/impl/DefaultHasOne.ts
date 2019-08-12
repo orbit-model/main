@@ -1,7 +1,6 @@
 import HasOne from "../contracts/HasOne";
 import { Model, RelationshipAdapter } from "@orbit-model/core";
-import ApplicationDI from "@orbit-model/di";
-
+import { DI } from "@orbit-model/di";
 
 export default class DefaultHasOne<Own extends Model, Related extends Model> implements HasOne<Related> {
 
@@ -28,6 +27,6 @@ export default class DefaultHasOne<Own extends Model, Related extends Model> imp
 
 
   private getRelationshipAdapter(): RelationshipAdapter {
-    return ApplicationDI.getDI().get('middleware', 'relationshipAdapter');
+    return DI.get('middleware', 'relationshipAdapter');
   }
 }

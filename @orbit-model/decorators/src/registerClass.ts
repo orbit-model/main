@@ -1,10 +1,9 @@
 import { camelize } from "@orbit/utils";
-import ApplicationDI from "@orbit-model/di";
-
+import { DI } from "@orbit-model/di";
 
 export default function registerClassGenerator(namespace: string, options: { name?: string } = {}) {
   return function registerClass(target: any) {
     let diName = options.name || camelize(target.name);
-    ApplicationDI.getDI().register(namespace, diName, target);
+    DI.register(namespace, diName, target);
   }
 }

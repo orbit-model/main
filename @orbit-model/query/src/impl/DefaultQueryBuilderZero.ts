@@ -1,7 +1,7 @@
 import classToDiName from "./utils/classToDiName";
 import DefaultQueryBuilder from "./DefaultQueryBuilder";
 import { Branch, Model, QueryBuilder, QueryBuilderZero } from "@orbit-model/core";
-import ApplicationDI, { Container } from "@orbit-model/di";
+import { Container } from "@orbit-model/di";
 
 export default class DefaultQueryBuilderZero implements QueryBuilderZero {
 
@@ -33,5 +33,3 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero {
   }
 
 }
-
-ApplicationDI.getDI().register("system", "queryBuilder", DefaultQueryBuilderZero);

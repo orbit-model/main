@@ -1,6 +1,3 @@
-// register with application DI:
-import './impl/DefaultModelMetaAccessor';
-
 
 export { default as ModelMetaAccessor } from './ModelMetaAccessor';
 export { default as ModelInfo, AttributeInfo, RelationInfo } from './ModelInfo';

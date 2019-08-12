@@ -3,7 +3,7 @@ import findAttributeInfoByName from "./utils/findAttributeInfoByName";
 import { RecordIdentity } from "@orbit/data";
 import { Dict } from "@orbit/utils";
 import { Model } from "@orbit-model/core";
-import ApplicationDI, { Container } from "@orbit-model/di";
+import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultModelSerializer implements ModelSerializer {
@@ -67,5 +67,3 @@ export default class DefaultModelSerializer implements ModelSerializer {
   }
 
 }
-
-ApplicationDI.getDI().register('middleware', 'modelSerializer', DefaultModelSerializer, { singleton: true });

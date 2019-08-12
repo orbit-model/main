@@ -3,7 +3,7 @@ import { RecordIdentity } from "@orbit/data";
 import Memory from "@orbit/memory";
 import { dasherize } from "@orbit/utils";
 import { Model, RelationshipAdapter } from "@orbit-model/core";
-import ApplicationDI, { Container } from "@orbit-model/di";
+import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultRelationshipAdapter implements RelationshipAdapter {
@@ -148,6 +148,3 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   }
 
 }
-
-
-ApplicationDI.getDI().register('middleware', 'relationshipAdapter', DefaultRelationshipAdapter, { singleton: true });

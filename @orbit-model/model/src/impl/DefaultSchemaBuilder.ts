@@ -1,7 +1,7 @@
 import SchemaBuilder from "../SchemaBuilder";
 import { AttributeDefinition, ModelDefinition, RelationshipDefinition, Schema } from "@orbit/data";
 import { Dict } from "@orbit/utils";
-import ApplicationDI, { Container } from "@orbit-model/di";
+import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
@@ -88,5 +88,3 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
   }
 
 }
-
-ApplicationDI.getDI().register('system', 'schemaBuilder', DefaultSchemaBuilder, { singleton: true });

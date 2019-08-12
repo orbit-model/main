@@ -1,5 +1,5 @@
 import { camelize } from "@orbit/utils";
-import ApplicationDI from "@orbit-model/di";
+import { DI } from "@orbit-model/di";
 import {
   ModelMetaAccessor,
   DefaultOrbitModelReflection,
@@ -11,9 +11,9 @@ import {
 export default function modelGenerator(options: { name?: string } = {}) {
   return function model(target: any) {
     let diName = options.name || camelize(target.name);
-    ApplicationDI.getDI().register("models", diName, target);
+    DI.register("models", diName, target);
 
-    let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+    let mma = DI.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
     let reflection = mma.getReflection(target);
     if (reflection === undefined) {
       reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());

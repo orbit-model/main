@@ -1,7 +1,6 @@
 import HasMany from "../contracts/HasMany";
 import { Model, RelationshipAdapter } from "@orbit-model/core";
-import ApplicationDI from "@orbit-model/di";
-
+import { DI } from "@orbit-model/di";
 
 export default class DefaultHasMany<Own extends Model, Related extends Model> implements HasMany<Model> {
 
@@ -41,6 +40,6 @@ export default class DefaultHasMany<Own extends Model, Related extends Model> im
 
 
   private getRelationshipAdapter(): RelationshipAdapter {
-    return ApplicationDI.getDI().get('middleware', 'relationshipAdapter');
+    return DI.get('middleware', 'relationshipAdapter');
   }
 }

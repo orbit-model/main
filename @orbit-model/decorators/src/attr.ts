@@ -1,6 +1,5 @@
 import { camelize } from "@orbit/utils";
 import { Adapter, Model } from "@orbit-model/core";
-import ApplicationDI from "@orbit-model/di";
 import {
   ModelMetaAccessor,
   DefaultOrbitModelReflection,
@@ -8,6 +7,7 @@ import {
   DefaultAttributeInfo
 } from "@orbit-model/meta";
 import "reflect-metadata";
+import { DI } from "@orbit-model/di";
 
 interface AttrOptions {
   name?: string;
@@ -37,7 +37,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
   return function attr(target: any, key: string) {
     let diName = options.name || camelize(key);
 
-    let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+    let mma = DI.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
     let reflection = mma.getReflection(target.constructor);
     if (reflection === undefined) {
       reflection = new DefaultOrbitModelReflection(new DefaultModelInfo());
@@ -49,7 +49,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
 
     Object.defineProperty(target, key, {
       get(): any {
-        let mma = ApplicationDI.getDI().get<ModelMetaAccessor>('system', 'modelMetaAccessor');
+        let mma = DI.get<ModelMetaAccessor>('system', 'modelMetaAccessor');
         let meta = mma.getMeta(this);
         if (meta === undefined) {
           throw new Error('Model has not been initialized yet!');
@@ -57,7 +57,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
         return meta.values[attrInfo.name];
       },
       set(v: any): void {
-        let adapter = ApplicationDI.getDI().get<Adapter>('middleware', 'adapter');
+        let adapter = DI.get<Adapter>('middleware', 'adapter');
         adapter.setAttrValue(this, key, v);
       }
     })

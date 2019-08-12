@@ -6,8 +6,8 @@ import Coordinator, {
 import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
 import { Branch, BranchQuery, QueryBuilderZero } from "@orbit-model/core";
-import ApplicationDI from "@orbit-model/di";
 import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
+import { DI } from "@orbit-model/di";
 
 export default class DefaultBranch implements Branch {
 
@@ -112,7 +112,7 @@ export default class DefaultBranch implements Branch {
   }
 
   query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder: string = "queryBuilder"): Q {
-    let qb = ApplicationDI.getDI().get<Q>("system", queryBuilder);
+    let qb = DI.get<Q>("system", queryBuilder);
     if (typeof qb["setBranch"] === "function") {
       qb["setBranch"](this);
     }
