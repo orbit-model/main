@@ -20,6 +20,7 @@
     "@orbit-model/model": "../@orbit-model/model",
     "@orbit/memory": "0.16.0",
     "@orbit/data": "^0.16.0",
+    "rimraf": "2.6.3",
     "typescript": "^3.5.3"
   }
 }
