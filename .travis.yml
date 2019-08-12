@@ -8,4 +8,4 @@ script:
   - npm run build
   - npm test
   - cd app && npm run build
-  - cd app/dist && node ./index.js
+  - cd dist && node ./index.js
