@@ -25,7 +25,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     return dasherize(model.constructor.name)
   }
 
-  private getStore(model: Model): Memory {
+  private getMemorySource(model: Model): Memory {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
@@ -39,18 +39,18 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
 //## to one #########################################################
   getRelatedModel<T extends Model, R extends Model>(model: T, relationship: string): Promise<R> {
-    let store: Memory = this.getStore(model);
+    let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    return store.query(q => q.findRelatedRecord(recordIdentity, relationship));
+    return memorySource.query(q => q.findRelatedRecord(recordIdentity, relationship));
   }
 
   setRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
-    let store: Memory = this.getStore(model);
+    let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    return store.update(
+    return memorySource.update(
       t => t.replaceRelatedRecord(
         modelSerializer.getIdentity(model),
         relName,
@@ -61,18 +61,18 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
 //## to many ########################################################
   getAllRelatedModels<T extends Model, R extends Model>(model: T, relationship: string): Promise<R[]> {
-    let store: Memory = this.getStore(model);
+    let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    return store.query(q => q.findRelatedRecords(recordIdentity, relationship));
+    return memorySource.query(q => q.findRelatedRecords(recordIdentity, relationship));
   }
 
   addRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
-    let store = this.getStore(model);
+    let memorySource = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    return store.update(
+    return memorySource.update(
       t => t.addToRelatedRecords(
         modelSerializer.getIdentity(model),
         relName,
@@ -82,11 +82,11 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   }
 
   removeRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
-    let store = this.getStore(model);
+    let memorySource = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    return store.update(
+    return memorySource.update(
       t => t.removeFromRelatedRecords(
         modelSerializer.getIdentity(model),
         relName,
@@ -96,11 +96,11 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   }
 
   replaceRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void> {
-    let store = this.getStore(model);
+    let memorySource = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    return store.update(
+    return memorySource.update(
       t => t.replaceRelatedRecords(
         modelSerializer.getIdentity(model),
         relName,
@@ -111,19 +111,19 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
   async syncRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void> {
     // todo: look at method performance
-    let store: Memory = this.getStore(model);
+    let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    let current: RecordIdentity[] = await store.query(q => q.findRelatedRecords(recordIdentity, relName));
+    let current: RecordIdentity[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relName));
 
     let valueIds: RecordIdentity[] = value.map(modelSerializer.getIdentity);
 
     // add all models not in relationship
     await Promise.all(valueIds.map(async (val) => {
       if (current.find(curr => curr.id == val.id) === undefined) {
-        await store.update(
+        await memorySource.update(
           t => t.addToRelatedRecords(
             recordIdentity,
             relName,
@@ -135,7 +135,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     // remove models from relationship not in given model array
     await Promise.all(current.map(async (curr) => {
       if (valueIds.find(val => curr.id == val.id) === undefined) {
-        await store.update(
+        await memorySource.update(
           t => t.removeFromRelatedRecords(
             recordIdentity,
             relName,
