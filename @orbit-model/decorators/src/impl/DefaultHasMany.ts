@@ -40,6 +40,6 @@ export default class DefaultHasMany<Own extends Model, Related extends Model> im
 
 
   private getRelationshipAdapter(): RelationshipAdapter {
-    return DI.get('middleware', 'relationshipAdapter');
+    return DI.get('system', 'RelationshipAdapter');
   }
 }
