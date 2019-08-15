@@ -1,12 +1,11 @@
 import { camelize } from "@orbit/utils";
 import DefaultHasOne from "./impl/DefaultHasOne";
 import {
-  ModelMetaAccessor,
-  DefaultOrbitModelReflection,
   DefaultModelInfo,
-  DefaultRelationInfo
+  DefaultOrbitModelReflection,
+  DefaultRelationInfo,
+  ModelMetaAccessor
 } from "@orbit-model/meta";
-import { DI } from "@orbit-model/di";
 
 interface RelationOptions {
   name?: string;
@@ -25,8 +24,8 @@ export default function hasOneGenerator(options: RelationOptions = {}) {
       ModelMetaAccessor.setReflection(target.constructor, reflection);
     }
 
-    let relationInfo = new DefaultRelationInfo(attributeName, diName, options.relatedName||diName, "hasOne");
-    relationInfo.inverse = options.inverse;
+    let relatedName = options.relatedName || diName;
+    let relationInfo = new DefaultRelationInfo(attributeName, diName, relatedName, "hasOne", options.inverse);
     reflection.modelInfo.relationships[attributeName] = relationInfo;
 
     // 2. create function

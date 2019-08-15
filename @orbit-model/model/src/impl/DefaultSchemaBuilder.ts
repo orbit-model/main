@@ -55,20 +55,23 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
 
       let relationships: Dict<RelationshipDefinition> = {};
       for (let rel in reflection.modelInfo.relationships) {
-        let relInfo = reflection.modelInfo.relationships[rel];
-        let inverse = relInfo.inverse;
-        if (!inverse) {
-          if (relInfo.type === "hasMany") {
-            inverse = diName;
-          } else if (relInfo.type === "hasOne") {
-            inverse = this.pluralize(diName);
+        if (reflection.modelInfo.relationships.hasOwnProperty(rel)) {
+          let relInfo = reflection.modelInfo.relationships[rel];
+          let inverse = relInfo.inverse;
+          if (!inverse) {
+            if (relInfo.type === "hasMany") {
+              inverse = diName;
+            } else if (relInfo.type === "hasOne") {
+              inverse = this.pluralize(diName);
+            }
           }
+
+          relationships[relInfo.name] = {
+            type: relInfo.type,
+            model: relInfo.relatedName,
+            inverse
+          };
         }
-        relationships[relInfo.name] = {
-          type: relInfo.type,
-          model: relInfo.relatedName,
-          inverse
-        };
       }
 
       models[diName] = {

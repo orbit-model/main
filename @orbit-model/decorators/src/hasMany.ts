@@ -1,17 +1,18 @@
 import { camelize } from "@orbit/utils";
 import DefaultHasMany from "./impl/DefaultHasMany";
 import {
-  ModelMetaAccessor,
-  DefaultOrbitModelReflection,
   DefaultModelInfo,
-  DefaultRelationInfo
+  DefaultOrbitModelReflection,
+  DefaultRelationInfo,
+  ModelMetaAccessor
 } from "@orbit-model/meta";
-import { DI } from "@orbit-model/di";
+// @ts-ignore
+import { singularize } from 'inflected';
 
 interface RelationOptions {
-  name?: string;
-  relatedName?: string
-  inverse?: string
+  name?: string;  // name of the relatationship
+  relatedName?: string  // name of the related model
+  inverse?: string  // name of the inverse model
 }
 
 export default function hasManyGenerator(options: RelationOptions = {}) {
@@ -25,8 +26,8 @@ export default function hasManyGenerator(options: RelationOptions = {}) {
       ModelMetaAccessor.setReflection(target.constructor, reflection);
     }
 
-    let relationInfo = new DefaultRelationInfo(attributeName, diName, options.relatedName || diName, "hasMany");
-    relationInfo.inverse = options.inverse;
+    let relatedName = options.relatedName || singularize(diName);
+    let relationInfo = new DefaultRelationInfo(attributeName, diName, relatedName, "hasMany", options.inverse);
     reflection.modelInfo.relationships[attributeName] = relationInfo;
 
     // 2. create function
