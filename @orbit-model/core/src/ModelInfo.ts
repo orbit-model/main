@@ -1,5 +1,4 @@
-
-export default interface ModelInfo {
+export interface ModelInfo {
   className: string | undefined;  // todo: do we need this?
   name: string | undefined;    // effectively the JSON-API type of that model
   attributes: {
@@ -18,9 +17,9 @@ export interface AttributeInfo {
 }
 
 export interface RelationInfo {
-  attributeName: string;
-  name: string;
-  type: "hasOne" | "hasMany";
-  relatedName: string;    // name in the API == name of the class in the DI
-  inverse: string | undefined;
+  readonly attributeName: string;
+  readonly name: string;
+  readonly type: "hasOne" | "hasMany";
+  readonly relatedName: string;    // name in the API == name of the class in the DI
+  readonly inverse: string | undefined;
 }

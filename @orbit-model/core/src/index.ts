@@ -3,7 +3,7 @@ export { default as Branch } from "./Branch";
 export { default as BranchQuery } from "./BranchQuery";
 export { default as MetaDataModel } from "./MetaDataModel";
 export { default as Model } from "./Model";
-export { default as ModelInfo, AttributeInfo, RelationInfo } from './ModelInfo';
+export { ModelInfo, AttributeInfo, RelationInfo } from './ModelInfo';
 export { default as ModelMetaAccessor } from "./ModelMetaAccessor";
 export { default as OrbitModelMeta } from "./OrbitModelMeta";
 export { default as OrbitModelReflection } from './OrbitModelReflection';
