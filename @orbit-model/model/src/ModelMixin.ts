@@ -6,26 +6,25 @@ class Base {
 
 }
 
-export default function ModelMixin(base: any = Base): any {
-  abstract class ModelMixin extends base implements Model {
+export default function ModelMixin(base: any = Base): { new(): Model } {
+  class ModelMixinClass extends base implements Model {
+    __orbitModelMeta: OrbitModelMeta | null = null;
 
-    abstract __orbitModelMeta: OrbitModelMeta | null;
-
-    get id(): string | undefined {
+    public get id(): string | undefined {
       if (!this.__orbitModelMeta) {
         return undefined;
       }
       return this.__orbitModelMeta.id.remoteId;
     }
 
-    set id(value) {
+    public set id(value) {
       if (!this.__orbitModelMeta) {
         throw new Error("Orbit-Model meta data object has not been initialized yet.");
       }
       this.__orbitModelMeta.id.remoteId = value;
     }
 
-    get type(): string {
+    public get type(): string {
       let reflection = ModelMetaAccessor.getReflection(this.constructor);
       if (reflection === undefined) {
         throw new Error("Object is not a valid model: no reflection information found")
@@ -38,12 +37,12 @@ export default function ModelMixin(base: any = Base): any {
     }
 
 
-    destroy(): Promise<void> {
+    public destroy(): Promise<void> {
       let adapter: Adapter = DI.get<Adapter>("system", "Adapter");
       return adapter.destroy(this);
     }
 
-    toJSON() {
+    public toJSON() {
       interface IJson {
         [key: string]: any;
       }
@@ -69,5 +68,5 @@ export default function ModelMixin(base: any = Base): any {
     }
   }
 
-  return ModelMixin;
+  return ModelMixinClass;
 }

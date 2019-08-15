@@ -1,7 +1,7 @@
 import { SetComparisonOperator, ValueComparisonOperator } from "@orbit/data";
 import Model from "./Model";
 
-export default interface QueryBuilder<M> {
+export default interface QueryBuilder<M extends Model> {
   get(): Promise<M[]>;
 
   find(id: string): Promise<M | null>;
