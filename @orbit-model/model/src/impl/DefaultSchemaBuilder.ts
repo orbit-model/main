@@ -3,6 +3,8 @@ import { AttributeDefinition, ModelDefinition, RelationshipDefinition, Schema } 
 import { Dict } from "@orbit/utils";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
+// @ts-ignore
+import { pluralize, singularize } from 'inflected';
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
   private di: Container | null = null;
@@ -12,8 +14,8 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
   private static version = 1;
 
   constructor() {
-    this.pluralize = Schema.prototype.pluralize;
-    this.singularize = Schema.prototype.singularize;
+    this.pluralize = pluralize;
+    this.singularize = singularize;
   }
 
   _setOrbitDi(di: Container): void {
