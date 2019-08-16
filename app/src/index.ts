@@ -1,11 +1,12 @@
 import { SchemaBuilder } from "@orbit-model/bootstrap";
 import Memory from '@orbit/memory';
-import Planet from "./Planet";
-import './SolarSystem';
-import { KeyMap, Record } from "@orbit/data";
+import "./Planet";  // workaround
+import './SolarSystem'; // workaround
+import { KeyMap } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "@orbit-model/core";
 import { demoData } from "./demoData";
+import SolarSystem from "./SolarSystem";
 
 // fail on unhandled promise exceptions
 process.on('unhandledRejection', up => { throw up });
@@ -21,9 +22,13 @@ process.on('unhandledRejection', up => { throw up });
 
   await demoData(memory);
 
-  let model = await workBranch.query().select(Planet).find("1");
-  console.log('model', model);
-  console.log('JSON', JSON.stringify(model));
+  let theSolarSystem: SolarSystem = await workBranch.query().select<SolarSystem>(SolarSystem).find("1");
+  console.log('our solar system', theSolarSystem);
+  console.log('JSON', JSON.stringify(theSolarSystem));
+
+  let planets = await theSolarSystem.planets().getAll();
+  console.log('planets', planets.length, theSolarSystem.planets);
+  console.log('JSON', JSON.stringify(planets));
 })();
 
 
