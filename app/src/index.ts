@@ -1,4 +1,4 @@
-import "@orbit-model/bootstrap";  // workaround
+import "@orbit-model/bootstrap"; // workaround
 import { SchemaBuilder } from "@orbit-model/model";
 import Memory from '@orbit/memory';
 import "./Planet"; // workaround
@@ -43,7 +43,22 @@ process.on('unhandledRejection', up => {
   let theMilkyWay: Galaxy = await theSolarSystem.galaxy().get();
   Orbit.assert("found our home galaxy", theMilkyWay !== null);
 
-  Adapter.create(Planet, workBranch);
+
+  console.log("start adding own stuff to the universe...");
+  let mySolarSystem = Adapter.create<SolarSystem>(SolarSystem, workBranch);
+  mySolarSystem.name = "My beautiful Solar-System";
+  mySolarSystem.galaxy().set(theMilkyWay);
+  console.log("created my very own SolarSystem", mySolarSystem);
+
+  let myPlanet = Adapter.create<Planet>(Planet, workBranch);
+  myPlanet.name = "My beautiful Planet";
+  myPlanet.solarSystem().set(theSolarSystem);
+  console.log("added a Planet to my SolarSystem", myPlanet);
+
+  let planetsPlus = await workBranch.query().select<Planet>(Planet).get();
+  Orbit.assert("one more planet:", Array.isArray(planetsPlus));
+  Orbit.assert("one more planet:", planetsPlus.length === 6);
+
 })();
 
 
