@@ -15,14 +15,16 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "clean": "rimraf ./@orbit-model/*/node_modules ./app/node_modules",
     "build": "lerna run build",
+    "build:clean": "npm run clean && npm install && npm run build",
     "build:watch": "lerna run --stream --no-sort --concurrency=99 build:watch",
     "test": "lerna run test",
     "init": "echo \"#! /bin/sh\n\nexec npm run build\" > .git/hooks/pre-push && chmod +x .git/hooks/pre-commit",
     "postinstall": "lerna bootstrap --reject-cycles && cd app && npm install --no-package-lock",
     "publish:release": "npm install && npm run build && lerna publish from-git --dist-tag latest --no-git-reset",
     "publish:release:fix": "npm install && npm run build && lerna publish from-package --dist-tag latest --no-git-reset",
-    "publish:canary": "npm install && npm run build && lerna publish --canary --dist-tag canary --no-git-reset"
+    "publish:canary": "npm run build:clean && lerna publish --canary --dist-tag canary --no-git-reset"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
