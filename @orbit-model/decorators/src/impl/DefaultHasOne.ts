@@ -4,8 +4,8 @@ import { DI } from "@orbit-model/di";
 
 export default class DefaultHasOne<Own extends Model, Related extends Model> implements HasOne<Related> {
 
-  private relationship: string;
-  private ownModel: Own;
+  private readonly relationship: string;
+  private readonly ownModel: Own;
 
   /**
    * @private
