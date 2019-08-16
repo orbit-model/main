@@ -32,7 +32,7 @@ export default function hasManyGenerator(options: RelationOptions = {}) {
 
     // 2. create function
     target[attributeName] = function hasManyRelationship() {
-      return new DefaultHasMany(relationInfo.relatedName, this)
+      return new DefaultHasMany(diName, this)
     }
   }
 }

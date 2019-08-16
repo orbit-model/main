@@ -27,7 +27,7 @@ process.on('unhandledRejection', up => { throw up });
   console.log('JSON', JSON.stringify(theSolarSystem));
 
   let planets = await theSolarSystem.planets().getAll();
-  console.log('planets', planets.length, theSolarSystem.planets);
+  console.log('planets', planets.length, planets);
   console.log('JSON', JSON.stringify(planets));
 })();
 

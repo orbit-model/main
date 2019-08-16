@@ -1,8 +1,8 @@
 import ModelSerializer from "../ModelSerializer";
-import { RecordIdentity } from "@orbit/data";
+import { RecordIdentity, Record } from "@orbit/data";
 import Memory from "@orbit/memory";
 import { dasherize } from "@orbit/utils";
-import { Model, RelationshipAdapter } from "@orbit-model/core";
+import { Adapter, Model, OrbitModelMeta, RelationshipAdapter } from "@orbit-model/core";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 
@@ -20,12 +20,22 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     return this.di.get("system", "ModelSerializer");
   }
 
-  private static getNameFromType<M>(model: M): string {
-    // @ts-ignore
+  private getAdapter(): Adapter {
+    if (this.di === null) {
+      throw new Error("the DefaultRelationshipAdapter has to be instantiated through a DI container");
+    }
+    return this.di.get<Adapter>("system", "Adapter");
+  }
+
+  private static getNameFromType<M extends Model>(model: M): string {
     return dasherize(model.constructor.name)
   }
 
   private getMemorySource(model: Model): Memory {
+    return this.getMeta(model).branch.getMemorySource();
+  }
+
+  private getMeta(model: Model): OrbitModelMeta {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
@@ -33,16 +43,20 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     if (meta === undefined) {
       throw new Error("Model meta data has not been initialized yet!");
     }
-    return meta.branch.getMemorySource();
+    return meta;
   }
 
 
 //## to one #########################################################
-  getRelatedModel<T extends Model, R extends Model>(model: T, relationship: string): Promise<R> {
+  async getRelatedModel<T extends Model, R extends Model>(model: T, relationship: string): Promise<R> {
     let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    return memorySource.query(q => q.findRelatedRecord(recordIdentity, relationship));
+    let record = await memorySource.query(q => q.findRelatedRecord(recordIdentity, relationship));
+
+    let adapter = this.getAdapter();
+    let branch = this.getMeta(model).branch;
+    return adapter.createFromRecord<R>(record, branch);
   }
 
   setRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
@@ -60,11 +74,16 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   }
 
 //## to many ########################################################
-  getAllRelatedModels<T extends Model, R extends Model>(model: T, relationship: string): Promise<R[]> {
+  async getAllRelatedModels<T extends Model, R extends Model>(model: T, relationship: string): Promise<R[]> {
+    console.log("model:", model, "relationship: ", relationship);
     let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    return memorySource.query(q => q.findRelatedRecords(recordIdentity, relationship));
+    let records: Record[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relationship));
+
+    let adapter = this.getAdapter();
+    let branch = this.getMeta(model).branch;
+    return records.map(record => adapter.createFromRecord<R>(record, branch))
   }
 
   addRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
@@ -98,7 +117,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
   replaceRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void> {
     let memorySource = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
-    let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
+    let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value[0]);
 
     return memorySource.update(
       t => t.replaceRelatedRecords(
@@ -114,7 +133,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
+    let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value[0]);
 
     let current: RecordIdentity[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relName));
 
