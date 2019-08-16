@@ -4,6 +4,7 @@ import { Record } from '@orbit/data';
 import { Adapter, Branch, Model } from "../../../contracts";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor, DefaultOrbitModelMeta } from "@orbit-model/meta";
+import classFunctionToDiName from "./utils/classFunctionToDiName";
 
 
 export default class DefaultAdapter implements Adapter {
@@ -19,7 +20,7 @@ export default class DefaultAdapter implements Adapter {
     if (typeof modelName === "string") {
       type = modelName;
     } else {
-      type = modelName.name;
+      type = classFunctionToDiName<M>(modelName);
     }
 
     let model: M = this.di.get<M>("models", type);

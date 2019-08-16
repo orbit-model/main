@@ -55,7 +55,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
         return meta.values[attrInfo.name];
       },
       set(v: any): void {
-        let adapter = DI.get<Adapter>('middleware', 'adapter');
+        let adapter = DI.get<Adapter>('system', 'Adapter');
         adapter.setAttrValue(this, key, v);
       }
     })
