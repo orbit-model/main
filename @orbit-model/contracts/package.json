@@ -1,5 +1,5 @@
 {
-  "name": "@orbit-model/core",
+  "name": "@orbit-model/contracts",
   "version": "0.0.2-alpha.25+5fb3dd4",
   "description": "Mostly TypeScript types and contracts",
   "keywords": [

@@ -1,4 +1,4 @@
-import { Branch, OrbitModelMeta } from "@orbit-model/core";
+import { Branch, OrbitModelMeta } from "../../../contracts";
 
 export default class DefaultOrbitModelMeta implements OrbitModelMeta {
   branch: Branch;

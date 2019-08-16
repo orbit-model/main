@@ -35,7 +35,7 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/core": "^0.0.2-alpha.25+5fb3dd4",
+    "@orbit-model/contracts": "^0.0.2-alpha.25+5fb3dd4",
     "@orbit-model/di": "^0.0.2-alpha.25+5fb3dd4",
     "@orbit-model/meta": "^0.0.2-alpha.25+5fb3dd4",
     "@orbit-model/middleware": "^0.0.2-alpha.25+5fb3dd4",

@@ -1,5 +1,5 @@
 import { camelize } from "@orbit/utils";
-import { Adapter } from "@orbit-model/core";
+import { Adapter } from "../../contracts";
 import {
   ModelMetaAccessor,
   DefaultOrbitModelReflection,

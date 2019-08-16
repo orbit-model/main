@@ -10,7 +10,7 @@ import {
   SortSpecifier,
   ValueComparisonOperator
 } from "@orbit/data";
-import { Adapter, Branch, Model, QueryBuilder } from "@orbit-model/core";
+import { Adapter, Branch, Model, QueryBuilder } from "../../../contracts";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 

@@ -1,6 +1,6 @@
 import classToDiName from "./utils/classToDiName";
 import DefaultQueryBuilder from "./DefaultQueryBuilder";
-import { Branch, Model, QueryBuilder, QueryBuilderZero } from "@orbit-model/core";
+import { Branch, Model, QueryBuilder, QueryBuilderZero } from "../../../contracts";
 import { Container } from "@orbit-model/di";
 
 export default class DefaultQueryBuilderZero implements QueryBuilderZero {

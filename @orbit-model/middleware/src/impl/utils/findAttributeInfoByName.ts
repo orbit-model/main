@@ -1,4 +1,4 @@
-import { AttributeInfo, OrbitModelReflection } from "@orbit-model/core";
+import { AttributeInfo, OrbitModelReflection } from "../../../../contracts";
 
 /**
  * find the `AttributeInfo` within reflection data by it's internal name (server name)

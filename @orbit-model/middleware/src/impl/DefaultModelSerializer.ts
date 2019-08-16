@@ -2,7 +2,7 @@ import ModelSerializer from "../ModelSerializer";
 import findAttributeInfoByName from "./utils/findAttributeInfoByName";
 import { RecordIdentity } from "@orbit/data";
 import { Dict } from "@orbit/utils";
-import { Model } from "@orbit-model/core";
+import { Model } from "../../../contracts";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 

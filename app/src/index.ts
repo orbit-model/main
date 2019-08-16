@@ -6,7 +6,7 @@ import './SolarSystem'; // workaround
 import './Galaxy'; // workaround
 import Orbit, { KeyMap } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
-import { Branch } from "@orbit-model/core";
+import { Branch } from "../../@orbit-model/contracts";
 import { demoData } from "./demoData";
 import SolarSystem from "./SolarSystem";
 import Galaxy from "./Galaxy";

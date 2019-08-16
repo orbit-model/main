@@ -1,7 +1,7 @@
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
 import { Record } from '@orbit/data';
-import { Adapter, Branch, Model } from "@orbit-model/core";
+import { Adapter, Branch, Model } from "../../../contracts";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor, DefaultOrbitModelMeta } from "@orbit-model/meta";
 

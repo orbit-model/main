@@ -2,7 +2,7 @@ import ModelSerializer from "../ModelSerializer";
 import { RecordIdentity, Record } from "@orbit/data";
 import Memory from "@orbit/memory";
 import { dasherize } from "@orbit/utils";
-import { Adapter, Model, OrbitModelMeta, RelationshipAdapter } from "@orbit-model/core";
+import { Adapter, Model, OrbitModelMeta, RelationshipAdapter } from "../../../contracts";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 

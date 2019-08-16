@@ -5,7 +5,7 @@ import Coordinator, {
 } from '@orbit/coordinator';
 import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
-import { Branch, BranchQuery, QueryBuilderZero } from "@orbit-model/core";
+import { Branch, BranchQuery, QueryBuilderZero } from "../../../contracts";
 import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
 import { DI } from "@orbit-model/di";
 

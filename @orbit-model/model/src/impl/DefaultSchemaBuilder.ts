@@ -1,4 +1,4 @@
-import { SchemaBuilder } from "@orbit-model/core";
+import { SchemaBuilder } from "../../../contracts";
 import { AttributeDefinition, ModelDefinition, RelationshipDefinition, Schema } from "@orbit/data";
 import { Dict } from "@orbit/utils";
 import { Container } from "@orbit-model/di";

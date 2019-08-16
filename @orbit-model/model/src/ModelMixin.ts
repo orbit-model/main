@@ -1,4 +1,4 @@
-import { Adapter, Model, OrbitModelMeta } from "@orbit-model/core";
+import { Adapter, Model, OrbitModelMeta } from "../../contracts";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 import { DI } from "@orbit-model/di";
 

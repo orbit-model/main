@@ -5,7 +5,7 @@ import {
   DefaultOrbitModelReflection,
   DefaultModelInfo
 } from "@orbit-model/meta";
-import { ModelInfo } from "@orbit-model/core";
+import { ModelInfo } from "../../contracts";
 
 
 export default function modelGenerator(options: { name?: string } = {}) {
