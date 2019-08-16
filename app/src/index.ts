@@ -1,15 +1,19 @@
 import { SchemaBuilder } from "@orbit-model/bootstrap";
 import Memory from '@orbit/memory';
-import "./Planet";  // workaround
+import "./Planet"; // workaround
 import './SolarSystem'; // workaround
-import { KeyMap } from "@orbit/data";
+import './Galaxy'; // workaround
+import Orbit, { KeyMap } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "@orbit-model/core";
 import { demoData } from "./demoData";
 import SolarSystem from "./SolarSystem";
+import Galaxy from "./Galaxy";
 
 // fail on unhandled promise exceptions
-process.on('unhandledRejection', up => { throw up });
+process.on('unhandledRejection', up => {
+  throw up
+});
 
 (async function main() {
   let schema = SchemaBuilder.createSchema();
@@ -23,12 +27,18 @@ process.on('unhandledRejection', up => { throw up });
   await demoData(memory);
 
   let theSolarSystem: SolarSystem = await workBranch.query().select<SolarSystem>(SolarSystem).find("1");
+  Orbit.assert("found solar system with id 1", theSolarSystem !== null);
   console.log('our solar system', theSolarSystem);
   console.log('JSON', JSON.stringify(theSolarSystem));
 
   let planets = await theSolarSystem.planets().getAll();
-  console.log('planets', planets.length, planets);
+  Orbit.assert("related planets result is array", Array.isArray(planets));
+  Orbit.assert("found related planets", planets.length === 5);
+  console.log('planets', planets);
   console.log('JSON', JSON.stringify(planets));
+
+  let theMilkyWay: Galaxy = await theSolarSystem.galaxy().get();
+  Orbit.assert("found our home galaxy", theMilkyWay !== null);
 })();
 
 

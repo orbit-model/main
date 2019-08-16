@@ -4,7 +4,7 @@ import { Record } from "@orbit/data";
 export async function demoData(memory: Memory) {
   await add(memory, {
     type: "planet",
-    id: "1208ed04-1f8b-4197-9f4f-100000000000",
+    id: "1208ed04-1f8b-4197-9f4f-300000000000",
     keys: {
       remoteId: "1",
     },
@@ -14,7 +14,7 @@ export async function demoData(memory: Memory) {
   });
   await add(memory, {
     type: "planet",
-    id: "1208ed04-1f8b-4197-9f4f-100000000001",
+    id: "1208ed04-1f8b-4197-9f4f-300000000001",
     keys: {
       remoteId: "2",
     },
@@ -24,7 +24,7 @@ export async function demoData(memory: Memory) {
   });
   await add(memory, {
     type: "planet",
-    id: "1208ed04-1f8b-4197-9f4f-100000000002",
+    id: "1208ed04-1f8b-4197-9f4f-300000000002",
     keys: {
       remoteId: "3",
     },
@@ -34,7 +34,7 @@ export async function demoData(memory: Memory) {
   });
   await add(memory, {
     type: "planet",
-    id: "1208ed04-1f8b-4197-9f4f-100000000003",
+    id: "1208ed04-1f8b-4197-9f4f-300000000003",
     keys: {
       remoteId: "4",
     },
@@ -44,7 +44,7 @@ export async function demoData(memory: Memory) {
   });
   await add(memory, {
     type: "planet",
-    id: "1208ed04-1f8b-4197-9f4f-100000000004",
+    id: "1208ed04-1f8b-4197-9f4f-300000000004",
     keys: {
       remoteId: "5",
     },
@@ -54,7 +54,7 @@ export async function demoData(memory: Memory) {
   });
   await add(memory, {
     type: "solarSystem",
-    id: "1208ed04-1f8b-4197-9f4f-000000000000",
+    id: "1208ed04-1f8b-4197-9f4f-200000000000",
     keys: {
       remoteId: "1",
     },
@@ -66,26 +66,42 @@ export async function demoData(memory: Memory) {
         data: [
           {
             type: "planet",
-            id: "1208ed04-1f8b-4197-9f4f-100000000000"
+            id: "1208ed04-1f8b-4197-9f4f-300000000000"
           },
           {
             type: "planet",
-            id: "1208ed04-1f8b-4197-9f4f-100000000001"
+            id: "1208ed04-1f8b-4197-9f4f-300000000001"
           },
           {
             type: "planet",
-            id: "1208ed04-1f8b-4197-9f4f-100000000002"
+            id: "1208ed04-1f8b-4197-9f4f-300000000002"
           },
           {
             type: "planet",
-            id: "1208ed04-1f8b-4197-9f4f-100000000003"
+            id: "1208ed04-1f8b-4197-9f4f-300000000003"
           },
           {
             type: "planet",
-            id: "1208ed04-1f8b-4197-9f4f-100000000004"
+            id: "1208ed04-1f8b-4197-9f4f-300000000004"
           }
         ]
-      } // end of "planets"
+      },  // end of "planets"
+      galaxy: {
+        data: {
+          type: "galaxy",
+          id: "1208ed04-1f8b-4197-9f4f-100000000000"
+        }
+      }
+    }
+  });
+  await add(memory, {
+    type: "galaxy",
+    id: "1208ed04-1f8b-4197-9f4f-100000000000",
+    keys: {
+      remoteId: "1",
+    },
+    attributes: {
+      name: "Milky Way"
     }
   });
 }
