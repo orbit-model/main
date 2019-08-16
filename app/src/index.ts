@@ -10,6 +10,8 @@ import { Branch } from "../../@orbit-model/contracts";
 import { demoData } from "./demoData";
 import SolarSystem from "./SolarSystem";
 import Galaxy from "./Galaxy";
+import { Adapter } from "@orbit-model/middleware";
+import Planet from "./Planet";
 
 // fail on unhandled promise exceptions
 process.on('unhandledRejection', up => {
@@ -40,6 +42,8 @@ process.on('unhandledRejection', up => {
 
   let theMilkyWay: Galaxy = await theSolarSystem.galaxy().get();
   Orbit.assert("found our home galaxy", theMilkyWay !== null);
+
+  Adapter.create(Planet, workBranch);
 })();
 
 
