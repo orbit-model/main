@@ -5,4 +5,4 @@ export { default as MigratableContainer } from './MigratableContainer';
 export { default as Container } from './Container';
 export { default as Injectable } from './Injectable';
 
-export { default as  createFacadeFor } from './facades/utils/createFacadeFor';
+export { default as createFacadeFor } from './facades/utils/createFacadeFor';
