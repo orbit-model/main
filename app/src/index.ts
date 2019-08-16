@@ -1,4 +1,5 @@
-import { SchemaBuilder } from "@orbit-model/bootstrap";
+import "@orbit-model/bootstrap";  // workaround
+import { SchemaBuilder } from "@orbit-model/model";
 import Memory from '@orbit/memory';
 import "./Planet"; // workaround
 import './SolarSystem'; // workaround

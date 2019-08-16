@@ -1,6 +1,6 @@
 
 export { default as ModelMixin } from './ModelMixin';
-export { default as SchemaBuilder } from './SchemaBuilder';
+export { SchemaBuilder } from './facades/SchemaBuilder';
 
 // private
 export { default as DefaultSchemaBuilder } from './impl/DefaultSchemaBuilder';

@@ -10,3 +10,4 @@ export { default as OrbitModelReflection } from './OrbitModelReflection';
 export { default as QueryBuilder } from "./QueryBuilder";
 export { default as QueryBuilderZero } from "./QueryBuilderZero";
 export { default as RelationshipAdapter } from "./RelationshipAdapter";
+export { default as SchemaBuilder } from "./SchemaBuilder";
