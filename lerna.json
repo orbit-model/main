@@ -2,7 +2,8 @@
   "command": {
     "version": {
       "allowBranch": [
-        "master"
+        "master",
+        "develop"
       ],
       "message": "orbit-model release: %s"
     },
