@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/di",
-  "version": "0.0.2-alpha.25+5fb3dd4",
+  "version": "0.0.2-beta.0",
   "description": "Implementation of the first draft dependency injection system adapted for orbit-model",
   "keywords": [
     "orbit",

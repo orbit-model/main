@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/decorators",
-  "version": "0.0.2-alpha.49+aac9f9f",
+  "version": "0.0.2-beta.0",
   "description": "Decorators: an easy way to setup your model classes",
   "keywords": [
     "orbit",
@@ -35,11 +35,11 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/contracts": "^0.0.2-alpha.25+5fb3dd4",
-    "@orbit-model/di": "^0.0.2-alpha.25+5fb3dd4",
-    "@orbit-model/meta": "^0.0.2-alpha.25+5fb3dd4",
-    "@orbit-model/middleware": "^0.0.2-alpha.49+aac9f9f",
-    "@orbit-model/model": "^0.0.2-alpha.25+5fb3dd4",
+    "@orbit-model/contracts": "^0.0.2-beta.0",
+    "@orbit-model/di": "^0.0.2-beta.0",
+    "@orbit-model/meta": "^0.0.2-beta.0",
+    "@orbit-model/middleware": "^0.0.2-beta.0",
+    "@orbit-model/model": "^0.0.2-beta.0",
     "@orbit/data": "^0.16.0",
     "@orbit/utils": "^0.16.0",
     "inflected": "^2.0.4",
