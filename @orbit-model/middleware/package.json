@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/middleware",
-  "version": "0.0.2-alpha.25+5fb3dd4",
+  "version": "0.0.2-alpha.49+aac9f9f",
   "description": "The middleware package contains the main abstractions to core orbit.js",
   "keywords": [
     "orbit",
@@ -41,5 +41,5 @@
     "@orbit/memory": "0.16.0",
     "@orbit/utils": "^0.16.0"
   },
-  "gitHead": "5fb3dd4c29de0291d8e5e6a0ac1cc346988ed101"
+  "gitHead": "aac9f9facbc5e9a92850d47b28604bb703d2970b"
 }

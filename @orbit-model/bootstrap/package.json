@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/bootstrap",
-  "version": "0.0.2-alpha.25+5fb3dd4",
+  "version": "0.0.2-alpha.49+aac9f9f",
   "description": "Helpers for setting up orbit-model with orbit",
   "keywords": [
     "orbit",
@@ -36,9 +36,9 @@
     "@orbit-model/branch": "^0.0.2-alpha.25+5fb3dd4",
     "@orbit-model/di": "^0.0.2-alpha.25+5fb3dd4",
     "@orbit-model/meta": "^0.0.2-alpha.25+5fb3dd4",
-    "@orbit-model/middleware": "^0.0.2-alpha.25+5fb3dd4",
+    "@orbit-model/middleware": "^0.0.2-alpha.49+aac9f9f",
     "@orbit-model/model": "^0.0.2-alpha.25+5fb3dd4",
     "@orbit-model/query": "^0.0.2-alpha.25+5fb3dd4"
   },
-  "gitHead": "5fb3dd4c29de0291d8e5e6a0ac1cc346988ed101"
+  "gitHead": "aac9f9facbc5e9a92850d47b28604bb703d2970b"
 }
