@@ -4,8 +4,10 @@
       "allowBranch": [
         "master"
       ],
-      "preid": "alpha",
       "message": "orbit-model release: %s"
+    },
+    "publish": {
+      "graphType": "all"
     }
   },
   "ignoreChanges": [
@@ -13,6 +15,7 @@
     "**/test/**",
     "**/.*",
     "**/*.js",
+    "**/*.md",
     "**/*.json"
   ],
   "packages": [
