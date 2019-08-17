@@ -1,6 +1,7 @@
 
 export { Adapter } from './facades/Adapter';
 export { RelationshipAdapter } from './facades/RelationshipAdapter';
+export { iMiddleware, Middleware } from './facades/Middleware';
 
 export { default as ModelSerializer } from './ModelSerializer';
 export { default as RecordSerializer } from './RecordSerializer';

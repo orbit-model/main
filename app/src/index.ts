@@ -10,8 +10,8 @@ import { Branch } from "../../@orbit-model/contracts";
 import { demoData } from "./demoData";
 import SolarSystem from "./SolarSystem";
 import Galaxy from "./Galaxy";
-import { Adapter } from "@orbit-model/middleware";
 import Planet from "./Planet";
+import { Middleware } from "@orbit-model/middleware";
 
 // fail on unhandled promise exceptions
 process.on('unhandledRejection', up => {
@@ -45,12 +45,12 @@ process.on('unhandledRejection', up => {
 
 
   console.log("start adding own stuff to the universe...");
-  let mySolarSystem = Adapter.create<SolarSystem>(SolarSystem, workBranch);
+  let mySolarSystem = Middleware.create<SolarSystem>(SolarSystem, workBranch);
   mySolarSystem.name = "My beautiful Solar-System";
   mySolarSystem.galaxy().set(theMilkyWay);
   console.log("created my very own SolarSystem", mySolarSystem);
 
-  let myPlanet = Adapter.create<Planet>(Planet, workBranch);
+  let myPlanet = Middleware.create<Planet>(Planet, workBranch);
   myPlanet.name = "My beautiful Planet";
   myPlanet.solarSystem().set(theSolarSystem);
   console.log("added a Planet to my SolarSystem", myPlanet);
