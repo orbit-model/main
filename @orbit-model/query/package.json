@@ -1,6 +1,6 @@
 {
 	"name": "@orbit-model/query",
-	"version": "0.0.2-alpha.25+5fb3dd4",
+	"version": "0.0.2-beta.0",
 	"description": "An easy way to retrieve models.",
 	"keywords": [
 		"orbit",
@@ -31,10 +31,10 @@
 		"url": "https://github.com/orbit-model/main/issues"
 	},
 	"dependencies": {
-		"@orbit-model/contracts": "^0.0.2-alpha.25+5fb3dd4",
-		"@orbit-model/di": "^0.0.2-alpha.25+5fb3dd4",
-		"@orbit-model/meta": "^0.0.2-alpha.25+5fb3dd4",
+		"@orbit-model/contracts": "^0.0.2-beta.0",
+		"@orbit-model/di": "^0.0.2-beta.0",
+		"@orbit-model/meta": "^0.0.2-beta.0",
 		"@orbit/data": "^0.16.0"
 	},
-	"gitHead": "5fb3dd4c29de0291d8e5e6a0ac1cc346988ed101"
+	"gitHead": "08a9739c83cdfe7f0335aa894c8ee13048c7b7f9"
 }

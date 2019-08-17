@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/di",
-  "version": "0.0.2-alpha.25+5fb3dd4",
+  "version": "0.0.2-beta.0",
   "description": "Implementation of the first draft dependency injection system adapted for orbit-model",
   "keywords": [
     "orbit",
@@ -34,5 +34,5 @@
   "bugs": {
     "url": "https://github.com/orbit-model/main/issues"
   },
-  "gitHead": "5fb3dd4c29de0291d8e5e6a0ac1cc346988ed101"
+  "gitHead": "08a9739c83cdfe7f0335aa894c8ee13048c7b7f9"
 }
