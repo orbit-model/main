@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "@orbit-model/di": "^0.0.2-beta.0",
+    "@orbit/coordinator": "^0.16.0",
+    "@orbit/core": "^0.16.0",
     "@orbit/data": "^0.16.0",
     "@orbit/memory": "0.16.0"
   },
