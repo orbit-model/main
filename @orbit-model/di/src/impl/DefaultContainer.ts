@@ -3,44 +3,48 @@ import MigratableContainer from "../MigratableContainer";
 
 
 interface Contained<T> {
-  get(): T;
+  get(args?: any[]): T;
 
-  getClass(): { new(): T };
+  getClass(): { new(...args: any[]): T };
 }
 
 class ContainedSimpleClass<T> implements Contained<T> {
-  private klass: { new(): T };
+  private readonly klass: { new(...args: any[]): T };
 
-  constructor(klass: { new(): T }) {
+  constructor(klass: { new(...args: any[]): T }) {
     this.klass = klass;
   }
 
-  get(): T {
-    return new this.klass();
+  get(args?: any[]): T {
+    let a: any[] = args || [];
+    return new this.klass(...a);
   }
 
-  getClass(): { new(): T } {
+  getClass(): { new(...args: any[]): T } {
     return this.klass;
   }
 }
 
 class ContainedSingletonClass<T> implements Contained<T> {
-  private klass: { new(): T };
+  private readonly klass: { new(...args: any[]): T };
   private instance: T | undefined;
 
-  constructor(klass: { new(): T }, instance: T | undefined = undefined) {
+  constructor(klass: { new(...args: any[]): T }, instance: T | undefined = undefined) {
     this.klass = klass;
     this.instance = instance;
   }
 
-  get(): T {
+  get(args?: any[]): T {
+    if (typeof args !== "undefined") {
+      throw new Error("Passing instantiation arguments for singletons is not supported!")
+    }
     if (typeof this.instance === "undefined") {
       this.instance = new this.klass();
     }
     return this.instance;
   }
 
-  getClass(): { new(): T } {
+  getClass(): { new(...args: any[]): T } {
     return this.klass;
   }
 
@@ -50,38 +54,38 @@ class ContainedSingletonClass<T> implements Contained<T> {
 }
 
 class ContainedObject<T> implements Contained<T> {
-  private instance: T;
+  private readonly instance: T;
 
   constructor(instance: T) {
     this.instance = instance;
   }
 
-  get(): T {
+  get(args?: any[]): T {
+    if (typeof args !== "undefined") {
+      throw new Error("Passing instantiation arguments for objects is not supported!")
+    }
     return this.instance;
   }
 
-  getClass(): { new(): T } {
+  getClass(): { new(...args: any[]): T } {
     throw new Error("Container doesn't have a class in the registry, only an instance");
   }
 }
 
 
 export default class DefaultContainer implements MigratableContainer {
-
-  private container: Map<string, Map<string, Contained<any>>>;
-
+  private readonly container: Map<string, Map<string, Contained<any>>>;
 
   public constructor() {
     this.container = new Map<string, Map<string, Contained<any>>>();
   }
 
-
   private resolveNamespace<T>(namespace: string): Map<string, Contained<T>> {
-    let ns = this.container.get(namespace);
-    if (ns === undefined) {
+    let namespaceMap = this.container.get(namespace);
+    if (namespaceMap === undefined) {
       throw new Error("container could not find namespace '" + namespace + "'");
     }
-    return ns;
+    return namespaceMap;
   }
 
   private resolve<T>(namespace: string, name: string): Contained<T> {
@@ -93,10 +97,14 @@ export default class DefaultContainer implements MigratableContainer {
     return c;
   }
 
-  public get<T extends Injectable>(namespace: string, name: string): T;
-  public get<T>(namespace: string, name: string): T;
-  public get<T extends Injectable = any>(namespace: string, name: string): T {
-    let instance = this.resolve<T>(namespace, name).get();
+  public get<T extends Injectable>(namespace: string, name: string, options?: { args?: any[] }): T;
+  public get<T>(namespace: string, name: string, options?: { args?: any[] }): T;
+  public get<T extends Injectable = any>(namespace: string, name: string, options?: { args?: any[] }): T {
+    let args: any[] | undefined = undefined;
+    if (options && options.args) {
+      args = options.args;
+    }
+    let instance = this.resolve<T>(namespace, name).get(args);
     if (typeof instance['_setOrbitDi'] === "function") {
       instance._setOrbitDi(this);
     }
@@ -141,13 +149,13 @@ export default class DefaultContainer implements MigratableContainer {
 
   public migrateTo(other: MigratableContainer): void {
     for (let namespace of this.container.keys()) {
-      let nsMap = this.container.get(namespace);
-      if (nsMap === undefined){
+      let namespaceMap = this.container.get(namespace);
+      if (namespaceMap === undefined) {
         throw new Error("not happening!")
       }
-      for (let name of nsMap.keys()) {
-        let entry = nsMap.get(name);
-        if (entry === undefined){
+      for (let name of namespaceMap.keys()) {
+        let entry = namespaceMap.get(name);
+        if (entry === undefined) {
           throw new Error("not happening!")
         }
 
@@ -159,9 +167,9 @@ export default class DefaultContainer implements MigratableContainer {
           }
         } else if (entry instanceof ContainedObject) {
           other.registerObject(namespace, name, entry.get());
+        } else {
+          other.register(namespace, name, entry.getClass());
         }
-
-        other.register(namespace, name, entry.getClass());
       }
     }
   }

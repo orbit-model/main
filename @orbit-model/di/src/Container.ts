@@ -27,8 +27,9 @@ export default interface Container {
    *
    * @param namespace
    * @param name
+   * @param options
    */
-  get<T>(namespace: string, name: string): T;
+  get<T>(namespace: string, name: string, options?: { args?: any[] }): T;
 
   /**
    * Returns a class or throws an error if no class was registered for given `namespace` and `name` parameters.
