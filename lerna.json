@@ -11,6 +11,8 @@
       "graphType": "all"
     }
   },
+  "useWorkspaces": true,
+  "npmClient": "yarn",
   "ignoreChanges": [
     "/app/**",
     "**/test/**",

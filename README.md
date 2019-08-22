@@ -1,3 +1,5 @@
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
 # orbit-model
 
 This is the playground for creating a first version of a model based abstraction layer for the [orbit.js](http://orbitjs.com) data orchestration library.
