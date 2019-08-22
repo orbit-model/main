@@ -43,7 +43,7 @@ export default class DefaultAdapter implements Adapter {
     let model: M = this.di.get<M>("models", recordType);
 
     let meta = new DefaultOrbitModelMeta(branch, recordType, recordSerializer.getID(record));
-    meta.id.remoteId = recordSerializer.getRemoteId(record);
+    meta.ids.remoteId = recordSerializer.getRemoteId(record);
     ModelMetaAccessor.setMeta(model, meta);
 
     // fill the model's attributes with values
