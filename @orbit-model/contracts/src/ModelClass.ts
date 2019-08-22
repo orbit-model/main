@@ -10,8 +10,7 @@ export interface ModelClassOptions {
 }
 
 export default interface ModelClass<MODEL extends Model = Model> {
+  new (branch: Branch, ...args: any[]): MODEL;
 
-  new(branch: Branch, ...args: any[]): MODEL;
-
-  new(branch: ModelClassOptions, ...args: any[]): MODEL;
+  new (branch: ModelClassOptions, ...args: any[]): MODEL;
 }

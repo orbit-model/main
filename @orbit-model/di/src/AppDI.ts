@@ -3,7 +3,6 @@ import Container from "./Container";
 import DefaultContainer from "./impl/DefaultContainer";
 
 export default class AppDI {
-
   private static di: MigratableContainer | null = null;
 
   public static getDI(): Container {
@@ -26,5 +25,4 @@ export default class AppDI {
     }
     AppDI.di = di;
   }
-
 }

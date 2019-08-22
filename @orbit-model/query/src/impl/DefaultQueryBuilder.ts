@@ -15,7 +15,6 @@ import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
-
   private readonly branch: Branch;
   private readonly modelDiName: string;
   private readonly di: Container;
@@ -30,7 +29,6 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     this.di = di;
   }
 
-
   async find(id: string): Promise<M | null> {
     let rId: RecordIdentity = {
       type: this.modelDiName,
@@ -38,7 +36,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     };
     let record = await this.branch.getMemorySource().query((q: any) => q.findRecord(rId));
 
-    let adapter = this.di.get<Adapter>('system', 'Adapter');
+    let adapter = this.di.get<Adapter>("system", "Adapter");
     return adapter.createFromRecord<M>(record, this.branch);
   }
 
@@ -48,7 +46,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
         kind: "offsetLimit",
         offset: 0,
         limit: 1
-      }
+      };
     }
 
     let result = await this.get();
@@ -60,15 +58,15 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
 
   async get(): Promise<M[]> {
     let records: [] = await this.branch.getMemorySource().query({
-      op: 'findRecords',
+      op: "findRecords",
       type: this.modelDiName,
       sort: this.querySort,
       filter: this.queryFilter,
       page: this.queryPage
     } as FindRecords);
 
-    let adapter = this.di.get<Adapter>('system', 'Adapter');
-    return records.map(record => adapter.createFromRecord(record, this.branch))
+    let adapter = this.di.get<Adapter>("system", "Adapter");
+    return records.map(record => adapter.createFromRecord(record, this.branch));
   }
 
   private getKeyMap(): KeyMap {
@@ -113,7 +111,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     return {
       type: meta.className,
       id
-    }
+    };
   }
 
   //## builder methods ####################################
@@ -142,7 +140,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   filterRelatedModel<R extends Model>(op: SetComparisonOperator, model: R | R[]): QueryBuilder<M> {
     let record: RecordIdentity | RecordIdentity[];
     if (Array.isArray(model)) {
-      record = model.map(this.modelToRecordID)
+      record = model.map(this.modelToRecordID);
     } else {
       record = this.modelToRecordID(model);
     }
@@ -155,7 +153,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   filterRelatedModels<R extends Model>(op: SetComparisonOperator, models: R[]): QueryBuilder<M> {
-    let records = models.map(this.modelToRecordID)
+    let records = models.map(this.modelToRecordID);
     this.pushFilter({
       kind: "relatedRecord",
       op,
@@ -180,14 +178,12 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     }
     this.querySort.concat(
       attrs.map(attr => {
-          return {
-            kind: "attribute",
-            attribute: attr,
-            order: order
-          } as AttributeSortSpecifier
-        }
-      )
+        return {
+          kind: "attribute",
+          attribute: attr,
+          order: order
+        } as AttributeSortSpecifier;
+      })
     );
   }
-
 }

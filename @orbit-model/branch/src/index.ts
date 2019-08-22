@@ -1,5 +1,4 @@
-import "@orbit-model/query"
+import "@orbit-model/query";
 
-
-export { default } from './ApplicationBranch';
-export { default as DefaultBranch } from './impl/DefaultBranch';
+export { default } from "./ApplicationBranch";
+export { default as DefaultBranch } from "./impl/DefaultBranch";

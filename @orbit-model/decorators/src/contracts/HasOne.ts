@@ -1,4 +1,3 @@
-
 export default interface HasOne<T> {
   get(): Promise<T>;
 

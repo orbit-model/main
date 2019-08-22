@@ -4,7 +4,6 @@ import SolarSystem from "./SolarSystem";
 
 @model()
 export default class Galaxy extends ModelMixin() {
-
   @attr()
   name: string;
 

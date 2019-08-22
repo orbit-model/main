@@ -2,9 +2,7 @@ import MetaDataModel from "./MetaDataModel";
 import OrbitModelMeta from "./OrbitModelMeta";
 import OrbitModelReflection from "./OrbitModelReflection";
 
-
 export default interface ModelMetaAccessor {
-
   /**
    * Returns the models meta data by accessing a hidden static property on a models class.
    *
@@ -28,5 +26,4 @@ export default interface ModelMetaAccessor {
    * Sets a new meta data pojo onto a hidden static property of the given model class.
    */
   setMeta<M extends MetaDataModel>(model: M, meta: OrbitModelMeta): void;
-
 }

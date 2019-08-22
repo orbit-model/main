@@ -4,7 +4,6 @@ import { Source } from "@orbit/data";
 import Coordinator from "@orbit/coordinator";
 
 export default interface OrbitSystem {
-
   getMemorySource(): MemorySource;
 
   getBucket(): Bucket;
@@ -14,5 +13,4 @@ export default interface OrbitSystem {
   getRemoteSource(key?: string): Source;
 
   getCoordinator(): Coordinator;
-
 }

@@ -7,7 +7,6 @@ import { ModelMetaAccessor } from "@orbit-model/meta";
 import { Model } from "@orbit-model/contracts";
 
 export default class DefaultModelSerializer implements ModelSerializer {
-
   private di: Container | null = null;
 
   _setOrbitDi(di: Container): void {
@@ -25,11 +24,13 @@ export default class DefaultModelSerializer implements ModelSerializer {
     }
     let type = reflection.modelInfo.name;
     if (type === undefined) {
-      throw new Error("The object handed to the DefaultModelSerializer is not a valid model: reflection info not complete");
+      throw new Error(
+        "The object handed to the DefaultModelSerializer is not a valid model: reflection info not complete"
+      );
     }
     let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
-      throw new Error('Model has not been initialized yet!');
+      throw new Error("Model has not been initialized yet!");
     }
     return {
       id: meta.orbitUUID,
@@ -48,7 +49,7 @@ export default class DefaultModelSerializer implements ModelSerializer {
     }
     let meta = ModelMetaAccessor.getMeta(model);
     if (meta === undefined) {
-      throw new Error('Model has not been initialized yet!');
+      throw new Error("Model has not been initialized yet!");
     }
 
     for (let name in attributes) {
@@ -63,5 +64,4 @@ export default class DefaultModelSerializer implements ModelSerializer {
       }
     }
   }
-
 }

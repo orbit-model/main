@@ -1,7 +1,6 @@
 import Container from "./Container";
 
 export default interface MigratableContainer extends Container {
-
   /**
    * The only valid use case for this method is, when migrating from another container.
    *
@@ -14,7 +13,7 @@ export default interface MigratableContainer extends Container {
    * @param klass
    * @param instance
    */
-   registerInstantiatedSingleton<T = any>(namespace: string, name: string, klass: { new(): T }, instance: T): void;
+  registerInstantiatedSingleton<T = any>(namespace: string, name: string, klass: { new (): T }, instance: T): void;
 
   /**
    * Migrate the contents of the current DI container to another one in order to prepare replacing this container.
@@ -22,6 +21,5 @@ export default interface MigratableContainer extends Container {
    * @private
    * @param other
    */
-   migrateTo(other: MigratableContainer): void;
-
+  migrateTo(other: MigratableContainer): void;
 }

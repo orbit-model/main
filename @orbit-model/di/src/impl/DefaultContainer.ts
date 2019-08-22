@@ -1,17 +1,16 @@
 import Injectable from "../Injectable";
 import MigratableContainer from "../MigratableContainer";
 
-
 interface Contained<T> {
   get(args?: any[]): T;
 
-  getClass(): { new(...args: any[]): T };
+  getClass(): { new (...args: any[]): T };
 }
 
 class ContainedSimpleClass<T> implements Contained<T> {
-  private readonly klass: { new(...args: any[]): T };
+  private readonly klass: { new (...args: any[]): T };
 
-  constructor(klass: { new(...args: any[]): T }) {
+  constructor(klass: { new (...args: any[]): T }) {
     this.klass = klass;
   }
 
@@ -20,23 +19,23 @@ class ContainedSimpleClass<T> implements Contained<T> {
     return new this.klass(...a);
   }
 
-  getClass(): { new(...args: any[]): T } {
+  getClass(): { new (...args: any[]): T } {
     return this.klass;
   }
 }
 
 class ContainedSingletonClass<T> implements Contained<T> {
-  private readonly klass: { new(...args: any[]): T };
+  private readonly klass: { new (...args: any[]): T };
   private instance: T | undefined;
 
-  constructor(klass: { new(...args: any[]): T }, instance: T | undefined = undefined) {
+  constructor(klass: { new (...args: any[]): T }, instance: T | undefined = undefined) {
     this.klass = klass;
     this.instance = instance;
   }
 
   get(args?: any[]): T {
     if (typeof args !== "undefined") {
-      throw new Error("Passing instantiation arguments for singletons is not supported!")
+      throw new Error("Passing instantiation arguments for singletons is not supported!");
     }
     if (typeof this.instance === "undefined") {
       this.instance = new this.klass();
@@ -44,7 +43,7 @@ class ContainedSingletonClass<T> implements Contained<T> {
     return this.instance;
   }
 
-  getClass(): { new(...args: any[]): T } {
+  getClass(): { new (...args: any[]): T } {
     return this.klass;
   }
 
@@ -62,16 +61,15 @@ class ContainedObject<T> implements Contained<T> {
 
   get(args?: any[]): T {
     if (typeof args !== "undefined") {
-      throw new Error("Passing instantiation arguments for objects is not supported!")
+      throw new Error("Passing instantiation arguments for objects is not supported!");
     }
     return this.instance;
   }
 
-  getClass(): { new(...args: any[]): T } {
+  getClass(): { new (...args: any[]): T } {
     throw new Error("Container doesn't have a class in the registry, only an instance");
   }
 }
-
 
 export default class DefaultContainer implements MigratableContainer {
   private readonly container: Map<string, Map<string, Contained<any>>>;
@@ -105,13 +103,13 @@ export default class DefaultContainer implements MigratableContainer {
       args = options.args;
     }
     let instance = this.resolve<T>(namespace, name).get(args);
-    if (typeof instance['_setOrbitDi'] === "function") {
+    if (typeof instance["_setOrbitDi"] === "function") {
       instance._setOrbitDi(this);
     }
     return instance;
   }
 
-  public getClass<T>(namespace: string, name: string): { new(): T } {
+  public getClass<T>(namespace: string, name: string): { new (): T } {
     return this.resolve<T>(namespace, name).getClass();
   }
 
@@ -128,12 +126,17 @@ export default class DefaultContainer implements MigratableContainer {
     namespaceMap.set(name, contained);
   }
 
-  public register<K = any>(namespace: string, name: string, klass: { new(): K }, options: { singleton: boolean } = { singleton: false }): void {
+  public register<K = any>(
+    namespace: string,
+    name: string,
+    klass: { new (): K },
+    options: { singleton: boolean } = { singleton: false }
+  ): void {
     let contained: Contained<K>;
     if (options.singleton) {
       contained = new ContainedSingletonClass(klass);
     } else {
-      contained = new ContainedSimpleClass(klass)
+      contained = new ContainedSimpleClass(klass);
     }
     this.setter(namespace, name, contained);
   }
@@ -142,28 +145,34 @@ export default class DefaultContainer implements MigratableContainer {
     this.setter(namespace, name, new ContainedObject(value));
   }
 
-  public registerInstantiatedSingleton<T = any>(namespace: string, name: string, klass: { new(): T }, instance: T): void {
+  public registerInstantiatedSingleton<T = any>(
+    namespace: string,
+    name: string,
+    klass: { new (): T },
+    instance: T
+  ): void {
     this.setter(namespace, name, new ContainedSingletonClass(klass, instance));
   }
-
 
   public migrateTo(other: MigratableContainer): void {
     for (let namespace of this.container.keys()) {
       let namespaceMap = this.container.get(namespace);
       if (namespaceMap === undefined) {
-        throw new Error("not happening!")
+        throw new Error("not happening!");
       }
       for (let name of namespaceMap.keys()) {
         let entry = namespaceMap.get(name);
         if (entry === undefined) {
-          throw new Error("not happening!")
+          throw new Error("not happening!");
         }
 
         if (entry instanceof ContainedSingletonClass) {
           if (entry.hasInstance()) {
             other.registerInstantiatedSingleton(namespace, name, entry.getClass(), entry.get());
           } else {
-            other.register(namespace, name, entry.getClass(), { singleton: true });
+            other.register(namespace, name, entry.getClass(), {
+              singleton: true
+            });
           }
         } else if (entry instanceof ContainedObject) {
           other.registerObject(namespace, name, entry.get());
@@ -173,5 +182,4 @@ export default class DefaultContainer implements MigratableContainer {
       }
     }
   }
-
 }

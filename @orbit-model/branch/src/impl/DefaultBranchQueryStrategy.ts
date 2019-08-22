@@ -20,8 +20,6 @@ export interface DefaultBranchQueryStrategyOptions {
 }
 
 export default class DefaultBranchQueryStrategy extends ConnectionStrategy {
-
-
   constructor(options: DefaultBranchQueryStrategyOptions) {
     super({
       source: options.source,
@@ -56,12 +54,11 @@ export default class DefaultBranchQueryStrategy extends ConnectionStrategy {
 
       Orbit.assert("query result is a promise", !!result && !!result.then);
       result.then(() => {
-        (this.source as Memory).rebase()
+        (this.source as Memory).rebase();
       });
 
       Orbit.assert("blocking is always true", this._blocking === true);
       return result;
     };
   }
-
 }

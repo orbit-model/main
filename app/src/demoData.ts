@@ -1,4 +1,4 @@
-import Memory from '@orbit/memory';
+import Memory from "@orbit/memory";
 import { Record } from "@orbit/data";
 
 export async function demoData(memory: Memory) {
@@ -6,7 +6,7 @@ export async function demoData(memory: Memory) {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-300000000000",
     keys: {
-      remoteId: "1",
+      remoteId: "1"
     },
     attributes: {
       name: "Earth"
@@ -16,7 +16,7 @@ export async function demoData(memory: Memory) {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-300000000001",
     keys: {
-      remoteId: "2",
+      remoteId: "2"
     },
     attributes: {
       name: "Mercury"
@@ -26,7 +26,7 @@ export async function demoData(memory: Memory) {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-300000000002",
     keys: {
-      remoteId: "3",
+      remoteId: "3"
     },
     attributes: {
       name: "Saturn"
@@ -36,7 +36,7 @@ export async function demoData(memory: Memory) {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-300000000003",
     keys: {
-      remoteId: "4",
+      remoteId: "4"
     },
     attributes: {
       name: "Mars"
@@ -46,7 +46,7 @@ export async function demoData(memory: Memory) {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-300000000004",
     keys: {
-      remoteId: "5",
+      remoteId: "5"
     },
     attributes: {
       name: "Jupiter"
@@ -56,7 +56,7 @@ export async function demoData(memory: Memory) {
     type: "solarSystem",
     id: "1208ed04-1f8b-4197-9f4f-200000000000",
     keys: {
-      remoteId: "1",
+      remoteId: "1"
     },
     attributes: {
       name: "Solar System"
@@ -85,7 +85,7 @@ export async function demoData(memory: Memory) {
             id: "1208ed04-1f8b-4197-9f4f-300000000004"
           }
         ]
-      },  // end of "planets"
+      }, // end of "planets"
       galaxy: {
         data: {
           type: "galaxy",
@@ -98,7 +98,7 @@ export async function demoData(memory: Memory) {
     type: "galaxy",
     id: "1208ed04-1f8b-4197-9f4f-100000000000",
     keys: {
-      remoteId: "1",
+      remoteId: "1"
     },
     attributes: {
       name: "Milky Way"

@@ -1,5 +1,4 @@
 export default interface Container {
-
   /**
    * This is the standard register method. Here a class is bound to the give `namespace` and `name` strings.
    *
@@ -8,7 +7,7 @@ export default interface Container {
    * @param klass
    * @param options
    */
-  register<K = any>(namespace: string, name: string, klass: { new(): K }, options?: { singleton: boolean }): void;
+  register<K = any>(namespace: string, name: string, klass: { new (): K }, options?: { singleton: boolean }): void;
 
   /**
    * This method allows you to register an instance (or rather any value) instead of a class.
@@ -39,7 +38,7 @@ export default interface Container {
    * @param namespace
    * @param name
    */
-  getClass<T>(namespace: string, name: string): { new(): T };
+  getClass<T>(namespace: string, name: string): { new (): T };
 
   /**
    * Returns an array of all `name` in the given `namespace`.

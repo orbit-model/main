@@ -5,14 +5,13 @@ export default class DefaultOrbitModelMeta implements OrbitModelMeta {
   readonly className: string;
   readonly orbitUUID: string;
   readonly ids: {
-    remoteId?: string
+    remoteId?: string;
   };
   readonly values: {
-    [p: string]: any
+    [p: string]: any;
   };
 
-
-  constructor(branch: Branch, className: string, orbitUUID: string, remoteId: string|undefined = undefined) {
+  constructor(branch: Branch, className: string, orbitUUID: string, remoteId: string | undefined = undefined) {
     this.branch = branch;
     this.className = className;
     this.orbitUUID = orbitUUID;

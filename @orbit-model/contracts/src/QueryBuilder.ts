@@ -37,12 +37,10 @@ export default interface QueryBuilder<M extends Model> {
   /**
    * Filter the list of models of type M by given related model/models of type R
    */
-  filterRelatedModel<R extends Model>(op: SetComparisonOperator, models: R | R[]): QueryBuilder<M>
+  filterRelatedModel<R extends Model>(op: SetComparisonOperator, models: R | R[]): QueryBuilder<M>;
 
   /**
    * Filter the list of models of type M by given related models of type R
    */
-  filterRelatedModels<R extends Model>(op: SetComparisonOperator, models: R[]): QueryBuilder<M>
-
-
+  filterRelatedModels<R extends Model>(op: SetComparisonOperator, models: R[]): QueryBuilder<M>;
 }

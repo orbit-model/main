@@ -1,4 +1,3 @@
-
 export default interface HasMany<T> {
   getAll(): Promise<T[]>;
 

@@ -9,8 +9,8 @@ import {
 
 interface RelationOptions {
   name?: string;
-  relatedName?: string
-  inverse?: string
+  relatedName?: string;
+  inverse?: string;
 }
 
 export default function hasOneGenerator(options: RelationOptions = {}) {
@@ -30,7 +30,7 @@ export default function hasOneGenerator(options: RelationOptions = {}) {
 
     // 2. create function
     target[attributeName] = function hasOneRelationship() {
-      return new DefaultHasOne(relationInfo.relatedName, this)
-    }
-  }
-};
+      return new DefaultHasOne(relationInfo.relatedName, this);
+    };
+  };
+}

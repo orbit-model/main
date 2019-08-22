@@ -16,9 +16,11 @@ interface AttrOptions {
 }
 
 function getSchemaType(target: any, key: string): string {
-  let meta = Reflect.getMetadata('design:type', target, key);
+  let meta = Reflect.getMetadata("design:type", target, key);
   if (typeof meta !== "function") {
-    throw new Error(`Was not able to get the reflection metadata of the property ${key} in class ${target.name}, please set the schema type parameter for this property`);
+    throw new Error(
+      `Was not able to get the reflection metadata of the property ${key} in class ${target.name}, please set the schema type parameter for this property`
+    );
   }
 
   switch (meta.name) {
@@ -29,7 +31,7 @@ function getSchemaType(target: any, key: string): string {
     case "Boolean":
       return "boolean";
     default:
-      throw new Error(`You have to define the schema type parameter for the property ${key} in class ${target.name}`)
+      throw new Error(`You have to define the schema type parameter for the property ${key} in class ${target.name}`);
   }
 }
 
@@ -43,21 +45,26 @@ export default function attrGenerator(options: AttrOptions = {}) {
       ModelMetaAccessor.setReflection(target.constructor, reflection);
     }
 
-    let attrInfo = new DefaultAttributeInfo(key, diName, options.defaultValue, options.schemaType || getSchemaType(target, key));
+    let attrInfo = new DefaultAttributeInfo(
+      key,
+      diName,
+      options.defaultValue,
+      options.schemaType || getSchemaType(target, key)
+    );
     reflection.modelInfo.attributes[key] = attrInfo;
 
     Object.defineProperty(target, key, {
       get(): any {
         let meta = ModelMetaAccessor.getMeta(this);
         if (meta === undefined) {
-          throw new Error('Model has not been initialized yet!');
+          throw new Error("Model has not been initialized yet!");
         }
         return meta.values[attrInfo.name];
       },
       set(v: any): void {
-        let adapter = DI.get<Adapter>('system', 'Adapter');
+        let adapter = DI.get<Adapter>("system", "Adapter");
         adapter.setAttrValue(this, key, v);
       }
-    })
-  }
+    });
+  };
 }

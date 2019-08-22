@@ -1,7 +1,6 @@
 import BranchQuery from "./BranchQuery";
 import QueryBuilderZero from "./QueryBuilderZero";
-import Memory from '@orbit/memory';
-
+import Memory from "@orbit/memory";
 
 export default interface Branch {
   /**

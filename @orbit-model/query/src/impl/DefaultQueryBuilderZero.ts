@@ -4,7 +4,6 @@ import { Branch, Model, QueryBuilder, QueryBuilderZero } from "@orbit-model/cont
 import { Container } from "@orbit-model/di";
 
 export default class DefaultQueryBuilderZero implements QueryBuilderZero {
-
   private branch: Branch | null = null;
   private di: Container | null = null;
 
@@ -16,9 +15,9 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero {
     this.di = di;
   }
 
-  select<M extends Model>(klass: { new(): M } | string | any): QueryBuilder<M> {
+  select<M extends Model>(klass: { new (): M } | string | any): QueryBuilder<M> {
     let diName;
-    if (typeof klass === 'string') {
+    if (typeof klass === "string") {
       diName = klass;
     } else {
       diName = classToDiName(klass);
@@ -31,5 +30,4 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero {
     }
     return new DefaultQueryBuilder(this.branch, diName, this.di);
   }
-
 }

@@ -4,7 +4,7 @@ import { Dict } from "@orbit/utils";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 // @ts-ignore
-import { pluralize, singularize } from 'inflected';
+import { pluralize, singularize } from "inflected";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
   private di: Container | null = null;
@@ -37,12 +37,18 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
 
     let models: Dict<ModelDefinition> = {};
 
-    for (let diName of this.di.getNames('models')) {
-      let klass = this.di.getClass('models', diName);
+    for (let diName of this.di.getNames("models")) {
+      let klass = this.di.getClass("models", diName);
       let reflection = ModelMetaAccessor.getReflection(klass);
       if (reflection === undefined) {
-        throw new Error("Model '" + diName + "' with class name '" + klass.name + "' has not been initialized correctly: " +
-          "no reflection information found");
+        throw new Error(
+          "Model '" +
+            diName +
+            "' with class name '" +
+            klass.name +
+            "' has not been initialized correctly: " +
+            "no reflection information found"
+        );
       }
 
       let attributes: Dict<AttributeDefinition> = {};
@@ -79,7 +85,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
           remoteId: {}
         },
         attributes,
-        relationships,
+        relationships
       };
     }
 
@@ -90,5 +96,4 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       version: DefaultSchemaBuilder.version++
     });
   }
-
 }

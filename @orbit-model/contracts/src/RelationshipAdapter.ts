@@ -7,7 +7,6 @@ export default interface RelationshipAdapter extends Injectable {
 
   setRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void>;
 
-
   // hasMany relationship:
   getAllRelatedModels<T extends Model, R extends Model>(model: T, relationship: string): Promise<R[]>;
 

@@ -1,9 +1,9 @@
 import "@orbit-model/bootstrap"; // workaround
 import { SchemaBuilder } from "@orbit-model/model";
-import Memory from '@orbit/memory';
+import Memory from "@orbit/memory";
 import "./Planet"; // workaround
-import './SolarSystem'; // workaround
-import './Galaxy'; // workaround
+import "./SolarSystem"; // workaround
+import "./Galaxy"; // workaround
 import Orbit, { KeyMap } from "@orbit/data";
 import ApplicationBranch from "@orbit-model/branch";
 import { Branch } from "../../@orbit-model/contracts";
@@ -14,8 +14,8 @@ import Planet from "./Planet";
 import { Middleware } from "@orbit-model/middleware";
 
 // fail on unhandled promise exceptions
-process.on('unhandledRejection', up => {
-  throw up
+process.on("unhandledRejection", up => {
+  throw up;
 });
 
 (async function main() {
@@ -29,20 +29,22 @@ process.on('unhandledRejection', up => {
 
   await demoData(memory);
 
-  let theSolarSystem: SolarSystem = await workBranch.query().select<SolarSystem>(SolarSystem).find("1");
+  let theSolarSystem: SolarSystem = await workBranch
+    .query()
+    .select<SolarSystem>(SolarSystem)
+    .find("1");
   Orbit.assert("found solar system with id 1", theSolarSystem !== null);
-  console.log('our solar system', theSolarSystem);
-  console.log('JSON', JSON.stringify(theSolarSystem));
+  console.log("our solar system", theSolarSystem);
+  console.log("JSON", JSON.stringify(theSolarSystem));
 
   let planets = await theSolarSystem.planets().getAll();
   Orbit.assert("related planets result is array", Array.isArray(planets));
   Orbit.assert("found related planets", planets.length === 5);
-  console.log('planets', planets);
-  console.log('JSON', JSON.stringify(planets));
+  console.log("planets", planets);
+  console.log("JSON", JSON.stringify(planets));
 
   let theMilkyWay: Galaxy = await theSolarSystem.galaxy().get();
   Orbit.assert("found our home galaxy", theMilkyWay !== null);
-
 
   console.log("start adding own stuff to the universe...");
   let mySolarSystem = Middleware.create<SolarSystem>(SolarSystem, workBranch);
@@ -55,15 +57,16 @@ process.on('unhandledRejection', up => {
   myPlanet.solarSystem().set(theSolarSystem);
   console.log("added a Planet to my SolarSystem", myPlanet);
 
-  let planetsPlus = await workBranch.query().select<Planet>(Planet).get();
+  let planetsPlus = await workBranch
+    .query()
+    .select<Planet>(Planet)
+    .get();
   Orbit.assert("one more planet:", Array.isArray(planetsPlus));
   Orbit.assert("one more planet:", planetsPlus.length === 6);
-
 })();
 
-
 function waitFor(milliseconds: number) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(resolve, milliseconds);
   });
 }

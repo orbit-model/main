@@ -6,8 +6,12 @@ export default class DefaultAttributeInfo implements AttributeInfo {
   name: string;
   schemaType: string;
 
-
-  constructor(attributeName: string, name: string, defaultValue: number | string | boolean | undefined, schemaType: string) {
+  constructor(
+    attributeName: string,
+    name: string,
+    defaultValue: number | string | boolean | undefined,
+    schemaType: string
+  ) {
     this.attributeName = attributeName;
     this.defaultValue = defaultValue;
     this.name = name;

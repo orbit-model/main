@@ -7,12 +7,12 @@ import {
   ModelMetaAccessor
 } from "@orbit-model/meta";
 // @ts-ignore
-import { singularize } from 'inflected';
+import { singularize } from "inflected";
 
 interface RelationOptions {
-  name?: string;  // name of the relatationship
-  relatedName?: string  // name of the related model
-  inverse?: string  // name of the inverse model
+  name?: string; // name of the relatationship
+  relatedName?: string; // name of the related model
+  inverse?: string; // name of the inverse model
 }
 
 export default function hasManyGenerator(options: RelationOptions = {}) {
@@ -32,7 +32,7 @@ export default function hasManyGenerator(options: RelationOptions = {}) {
 
     // 2. create function
     target[attributeName] = function hasManyRelationship() {
-      return new DefaultHasMany(diName, this)
-    }
-  }
+      return new DefaultHasMany(diName, this);
+    };
+  };
 }

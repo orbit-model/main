@@ -1,8 +1,4 @@
-import Coordinator, {
-  EventLoggingStrategy,
-  LogLevel,
-  LogTruncationStrategy,
-} from '@orbit/coordinator';
+import Coordinator, { EventLoggingStrategy, LogLevel, LogTruncationStrategy } from "@orbit/coordinator";
 import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
 import { Branch, BranchQuery, QueryBuilderZero } from "../../../contracts";
@@ -10,7 +6,6 @@ import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
 import { DI } from "@orbit-model/di";
 
 export default class DefaultBranch implements Branch {
-
   private readonly memorySource: Memory;
   private readonly parent: Memory;
   private readonly coordinator: Coordinator;
@@ -23,20 +18,22 @@ export default class DefaultBranch implements Branch {
     this.coordinator = new Coordinator({
       sources: [this.memorySource, this.parent],
       defaultActivationOptions: {
-    //    logLevel: LogLevel.Info
+        //    logLevel: LogLevel.Info
       }
     });
     this.coordinator.addStrategy(new LogTruncationStrategy());
     // this.coordinator.addStrategy(new EventLoggingStrategy({
     //   logLevel: LogLevel.Info
     // }));
-    this.coordinator.addStrategy(new DefaultBranchQueryStrategy({
-      source: this.memorySource.name,
-      target: this.parent.name,
-      catch(...args: any[]){
-        console.error("error while running DefaultBranchQueryStrategy: ", ...args);
-      }
-    }));
+    this.coordinator.addStrategy(
+      new DefaultBranchQueryStrategy({
+        source: this.memorySource.name,
+        target: this.parent.name,
+        catch(...args: any[]) {
+          console.error("error while running DefaultBranchQueryStrategy: ", ...args);
+        }
+      })
+    );
     // this.coordinator.addStrategy(new RequestStrategy({
     //   source: this.memorySource.name,
     //   on: 'beforeQuery',
@@ -93,7 +90,6 @@ export default class DefaultBranch implements Branch {
     return b;
   }
 
-
   getMemorySource(): Memory {
     return this.memorySource;
   }
@@ -118,5 +114,4 @@ export default class DefaultBranch implements Branch {
     }
     return qb;
   }
-
 }

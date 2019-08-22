@@ -1,8 +1,6 @@
 import { MetaDataModel, ModelMetaAccessor, OrbitModelMeta, OrbitModelReflection } from "../../../contracts";
 
-
 export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
-
   /**
    * Returns the models meta data by accessing a hidden static property on a models class.
    *
@@ -11,7 +9,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    * @param klass
    */
   getReflection(klass: any): OrbitModelReflection | undefined {
-    return klass["__orbitModelReflection"] as OrbitModelReflection || undefined;
+    return (klass["__orbitModelReflection"] as OrbitModelReflection) || undefined;
   }
 
   /**
@@ -43,10 +41,9 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    * @param meta
    */
   setMeta<M extends MetaDataModel>(model: M, meta: OrbitModelMeta): void {
-    Object.defineProperty(
-      model, "__orbitModelMeta",
-      { enumerable: false, value: meta }
-    );
+    Object.defineProperty(model, "__orbitModelMeta", {
+      enumerable: false,
+      value: meta
+    });
   }
-
 }

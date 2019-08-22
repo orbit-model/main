@@ -5,5 +5,5 @@ export default function registerClassGenerator(namespace: string, options: { nam
   return function registerClass(target: any) {
     let diName = options.name || camelize(target.name);
     DI.register(namespace, diName, target);
-  }
+  };
 }

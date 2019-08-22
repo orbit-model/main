@@ -3,7 +3,6 @@ import Memory from "@orbit/memory";
 import { Branch } from "../../contracts";
 
 export default class ApplicationBranch {
-
   private static memorySource: Memory;
 
   public static setup(memorySource: Memory): void {

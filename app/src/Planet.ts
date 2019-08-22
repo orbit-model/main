@@ -4,11 +4,9 @@ import SolarSystem from "./SolarSystem";
 
 @model()
 export default class Planet extends ModelMixin() {
-
   @attr()
   name: string;
 
   @hasOne()
   solarSystem: () => HasOne<SolarSystem>;
 }
-

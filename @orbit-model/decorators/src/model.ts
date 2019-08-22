@@ -1,12 +1,7 @@
 import { camelize } from "@orbit/utils";
 import { DI } from "@orbit-model/di";
-import {
-  ModelMetaAccessor,
-  DefaultOrbitModelReflection,
-  DefaultModelInfo
-} from "@orbit-model/meta";
+import { ModelMetaAccessor, DefaultOrbitModelReflection, DefaultModelInfo } from "@orbit-model/meta";
 import { ModelInfo } from "../../contracts";
-
 
 export default function modelGenerator(options: { name?: string } = {}) {
   return function model(target: any) {
@@ -22,7 +17,5 @@ export default function modelGenerator(options: { name?: string } = {}) {
     let modelInfo: ModelInfo = reflection.modelInfo;
     modelInfo.className = target.name;
     modelInfo.name = diName;
-  }
+  };
 }
-
-

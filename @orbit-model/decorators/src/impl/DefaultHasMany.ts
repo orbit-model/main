@@ -3,7 +3,6 @@ import { Model, RelationshipAdapter } from "../../../contracts";
 import { DI } from "@orbit-model/di";
 
 export default class DefaultHasMany<Own extends Model, Related extends Model> implements HasMany<Model> {
-
   private readonly relationship: string;
   private readonly ownModel: Own;
 
@@ -16,7 +15,6 @@ export default class DefaultHasMany<Own extends Model, Related extends Model> im
     this.relationship = relationship;
     this.ownModel = ownModel;
   }
-
 
   getAll(): Promise<Model[]> {
     return this.getRelationshipAdapter().getAllRelatedModels(this.ownModel, this.relationship);
@@ -38,8 +36,7 @@ export default class DefaultHasMany<Own extends Model, Related extends Model> im
     return this.getRelationshipAdapter().syncRelatedModels(this.ownModel, models, this.relationship);
   }
 
-
   private getRelationshipAdapter(): RelationshipAdapter {
-    return DI.get('system', 'RelationshipAdapter');
+    return DI.get("system", "RelationshipAdapter");
   }
 }

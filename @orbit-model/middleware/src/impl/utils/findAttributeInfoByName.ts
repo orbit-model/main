@@ -6,11 +6,14 @@ import { AttributeInfo, OrbitModelReflection } from "../../../../contracts";
  * @param reflection {OrbitModelReflection} the reflection data to search
  * @param name {string} the name of the attribute of a `Record` within the orbit internals
  */
-export default function findAttributeInfoByName(reflection: OrbitModelReflection, name: string): AttributeInfo | undefined {
+export default function findAttributeInfoByName(
+  reflection: OrbitModelReflection,
+  name: string
+): AttributeInfo | undefined {
   let attrs = reflection.modelInfo.attributes;
   // try fast track (attributeName === name)
 
-  if (typeof attrs[name] === 'object' && attrs[name].name === name) {
+  if (typeof attrs[name] === "object" && attrs[name].name === name) {
     return attrs[name];
   }
 

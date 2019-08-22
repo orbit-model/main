@@ -3,10 +3,9 @@ import { DI } from "@orbit-model/di";
 import { Adapter, Branch, Model, ModelClass, ModelClassOptions, OrbitModelMeta } from "@orbit-model/contracts";
 import { camelize } from "@orbit/utils";
 
-class Base {
-}
+class Base {}
 
-export default function ModelMixin(base: { new(...args: any[]): any } = Base): ModelClass {
+export default function ModelMixin(base: { new (...args: any[]): any } = Base): ModelClass {
   class ModelMixinClass extends base implements Model {
     __orbitModelMeta: OrbitModelMeta;
 
@@ -24,7 +23,11 @@ export default function ModelMixin(base: { new(...args: any[]): any } = Base): M
 
       let branch: Branch, uuid: string, remoteId: string | undefined;
 
-      if (branchOrOptions.hasOwnProperty("branch") && branchOrOptions.hasOwnProperty("uuid") && branchOrOptions.hasOwnProperty("ids")) {
+      if (
+        branchOrOptions.hasOwnProperty("branch") &&
+        branchOrOptions.hasOwnProperty("uuid") &&
+        branchOrOptions.hasOwnProperty("ids")
+      ) {
         let options = branchOrOptions as ModelClassOptions;
         branch = options.branch;
         uuid = options.uuid;
@@ -55,15 +58,14 @@ export default function ModelMixin(base: { new(...args: any[]): any } = Base): M
     public get type(): string {
       let reflection = ModelMetaAccessor.getReflection(this.constructor);
       if (reflection === undefined) {
-        throw new Error("Object is not a valid model: no reflection information found")
+        throw new Error("Object is not a valid model: no reflection information found");
       }
       let name = reflection.modelInfo.name;
       if (name === undefined) {
-        throw new Error("Object is not a valid model: reflection information is not complete")
+        throw new Error("Object is not a valid model: reflection information is not complete");
       }
       return name;
     }
-
 
     public $destroy(): Promise<void> {
       let adapter: Adapter = DI.get<Adapter>("system", "Adapter");
@@ -87,7 +89,7 @@ export default function ModelMixin(base: { new(...args: any[]): any } = Base): M
       if (meta) {
         for (let attr in meta.values) {
           if (meta.values.hasOwnProperty(attr)) {
-            json[attr] = meta.values[attr]
+            json[attr] = meta.values[attr];
           }
         }
       }
