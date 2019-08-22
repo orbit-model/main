@@ -1,27 +1,55 @@
-import { Adapter, Model, OrbitModelMeta } from "../../contracts";
-import { ModelMetaAccessor } from "@orbit-model/meta";
+import { DefaultOrbitModelMeta, ModelMetaAccessor } from "@orbit-model/meta";
 import { DI } from "@orbit-model/di";
+import { Adapter, Branch, Model, ModelClass, ModelClassOptions, OrbitModelMeta } from "@orbit-model/contracts";
+import { camelize } from "@orbit/utils";
 
 class Base {
-
 }
 
-export default function ModelMixin(base: any = Base): { new(): Model } {
+export default function ModelMixin(base: { new(...args: any[]): any } = Base): ModelClass {
   class ModelMixinClass extends base implements Model {
-    __orbitModelMeta: OrbitModelMeta | null = null;
+    __orbitModelMeta: OrbitModelMeta;
+
+    constructor(branchOrOptions: Branch | ModelClassOptions, ...args: any[]) {
+      super(...args);
+
+      let klass = this.constructor;
+      let type;
+      let meta = ModelMetaAccessor.getReflection(klass);
+      if (meta && meta.modelInfo.name) {
+        type = meta.modelInfo.name;
+      } else {
+        type = camelize(klass.name);
+      }
+
+      let branch: Branch, uuid: string, remoteId: string | undefined;
+
+      if (branchOrOptions.hasOwnProperty("branch") && branchOrOptions.hasOwnProperty("uuid") && branchOrOptions.hasOwnProperty("ids")) {
+        let options = branchOrOptions as ModelClassOptions;
+        branch = options.branch;
+        uuid = options.uuid;
+        remoteId = options.ids.remoteId;
+      } else {
+        branch = branchOrOptions as Branch;
+        uuid = branch.getMemorySource().schema.generateId(type);
+        remoteId = undefined;
+      }
+
+      this.__orbitModelMeta = new DefaultOrbitModelMeta(branch, type, uuid, remoteId);
+    }
 
     public get id(): string | undefined {
       if (!this.__orbitModelMeta) {
         return undefined;
       }
-      return this.__orbitModelMeta.id.remoteId;
+      return this.__orbitModelMeta.ids.remoteId;
     }
 
     public set id(value) {
       if (!this.__orbitModelMeta) {
         throw new Error("Orbit-Model meta data object has not been initialized yet.");
       }
-      this.__orbitModelMeta.id.remoteId = value;
+      this.__orbitModelMeta.ids.remoteId = value;
     }
 
     public get type(): string {
@@ -37,7 +65,7 @@ export default function ModelMixin(base: any = Base): { new(): Model } {
     }
 
 
-    public destroy(): Promise<void> {
+    public $destroy(): Promise<void> {
       let adapter: Adapter = DI.get<Adapter>("system", "Adapter");
       return adapter.destroy(this);
     }

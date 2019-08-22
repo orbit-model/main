@@ -1,22 +1,24 @@
 import { Branch, OrbitModelMeta } from "@orbit-model/contracts";
 
 export default class DefaultOrbitModelMeta implements OrbitModelMeta {
-  branch: Branch;
-  className: string;
-  orbitUUID: string;
-  ids: {
+  readonly branch: Branch;
+  readonly className: string;
+  readonly orbitUUID: string;
+  readonly ids: {
     remoteId?: string
   };
-  values: {
+  readonly values: {
     [p: string]: any
   };
 
 
-  constructor(branch: Branch, className: string, orbitUUID: string) {
+  constructor(branch: Branch, className: string, orbitUUID: string, remoteId: string|undefined = undefined) {
     this.branch = branch;
     this.className = className;
     this.orbitUUID = orbitUUID;
-    this.ids = {};
+    this.ids = {
+      remoteId
+    };
     this.values = {};
   }
 }

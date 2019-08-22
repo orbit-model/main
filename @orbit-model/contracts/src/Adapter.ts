@@ -9,12 +9,12 @@ export default interface Adapter extends Injectable {
   /**
    * create a new model instance on the given branch
    */
-  create<M extends Model>(modelName: string | Function | { new(): M }, branch: Branch): M;
+  create<M extends Model>(modelName: string | Function | { new(): M }, branch: Branch, options?: { args?: any[] }): M;
 
   /**
    * create a new model instance on the given branch and set the data form the record
    */
-  createFromRecord<M extends Model>(record: Record, branch: Branch): M;
+  createFromRecord<M extends Model>(record: Record, branch: Branch, options?: { args?: any[] }): M;
 
   /**
    * update the (cached) data of a model

@@ -2,55 +2,63 @@ import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
 import { Record } from '@orbit/data';
 import { Container } from "@orbit-model/di";
-import { DefaultOrbitModelMeta, ModelMetaAccessor } from "@orbit-model/meta";
-import classFunctionToDiName from "./utils/classFunctionToDiName";
-import { Adapter, Branch, Model, ModelClass } from "@orbit-model/contracts";
+import { ModelMetaAccessor } from "@orbit-model/meta";
+import { Adapter, Branch, Model, ModelClass, ModelClassOptions } from "@orbit-model/contracts";
 
 
 export default class DefaultAdapter implements Adapter {
 
   private di: Container | null = null;
 
-  create<M extends Model>(modelName: string | ModelClass, branch: Branch): M {
+  create<M extends Model>(nameOrClass: string | ModelClass<M>, branch: Branch, options?: { args?: any[] }): M {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
 
-    let type: string;
-    if (typeof modelName === "string") {
-      type = modelName;
-    } else {
-      type = classFunctionToDiName<M>(modelName);
+    let args: any[] = [];
+    if (options && options.args) {
+      args = options.args;
     }
 
-    let model: M = this.di.get<M>("models", type, { args: [branch] });
-    let orbitUUID = branch.getMemorySource().schema.generateId(type);
-    let meta = new DefaultOrbitModelMeta(branch, type, orbitUUID);
+    if (typeof nameOrClass === "string") {
+      let className = nameOrClass as string;
+      return this.di.get<M>("models", className, { args: [branch, ...args] });
+    }
 
-    ModelMetaAccessor.setMeta(model, meta);
-    return model;
+    let klass = nameOrClass as ModelClass<M>;
+    return new klass(branch, ...args);
   }
 
-  createFromRecord<M extends Model>(record: Record, branch: Branch): M {
+  createFromRecord<M extends Model>(record: Record, branch: Branch, options?: { args?: any[] }): M {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
+    }
+
+    let args: any[] = [];
+    if (options && options.args) {
+      args = options.args;
     }
 
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
     let recordType = recordSerializer.getType(record);
 
-    let model: M = this.di.get<M>("models", recordType);
-
-    let meta = new DefaultOrbitModelMeta(branch, recordType, recordSerializer.getID(record));
-    meta.ids.remoteId = recordSerializer.getRemoteId(record);
-    ModelMetaAccessor.setMeta(model, meta);
+    let model: M = this.di.get<M>("models", recordType, {
+      args: [
+        {
+          branch,
+          uuid: recordSerializer.getID(record),
+          ids: {
+            remoteId: recordSerializer.getRemoteId(record)
+          }
+        } as ModelClassOptions,
+        ...args
+      ]
+    });
 
     // fill the model's attributes with values
     let attrs = recordSerializer.getAttributeValues(record);
-
     modelSerializer.setAttributeValues(model, attrs);
-
     return model;
   }
 
@@ -87,7 +95,6 @@ export default class DefaultAdapter implements Adapter {
     let attrOrbitName = reflection.modelInfo.attributes[attribute].name;
     await meta.branch.getMemorySource().update(t => t.replaceKey(recordId, attrOrbitName, value))
   }
-
 
   async save<M extends Model>(model: M): Promise<void> {
     if (this.di === null) {
