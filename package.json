@@ -14,18 +14,21 @@
   "repository": "https://github.com/bernhard---h/orbit-model",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "@orbit-model/*"
+  ],
   "scripts": {
     "clean": "rimraf ./@orbit-model/*/node_modules ./app/node_modules",
     "build": "lerna run build",
-    "build:clean": "npm run clean && npm install && npm run build",
+    "build:clean": "yarn run clean && yarn install && yarn run build",
     "build:watch": "lerna run --stream --no-sort --concurrency=99 build:watch",
     "test": "lerna run test",
-    "init": "echo \"#! /bin/sh\n\nexec npm run build\" > .git/hooks/pre-push && chmod +x .git/hooks/pre-commit",
-    "postinstall": "lerna bootstrap --reject-cycles && cd app && npm install --no-package-lock",
-    "publish:release": "npm run build:clean && lerna version --no-push && lerna publish from-git --dist-tag latest --no-git-reset",
-    "publish:release:fix": "npm run build:clean && lerna publish from-package --dist-tag latest --no-git-reset",
-    "publish:beta": "npm run build:clean && lerna version --preid=beta --no-push && lerna publish from-git --preid=beta --dist-tag beta --no-git-reset",
-    "publish:canary": "npm run build:clean && lerna publish --canary --preid=alpha --dist-tag canary --no-git-reset"
+    "init": "echo \"#! /bin/sh\n\nexec yarn run build\" > .git/hooks/pre-push && chmod +x .git/hooks/pre-commit",
+    "postinstall": "lerna bootstrap --reject-cycles && cd app && yarn install --no-lockfile",
+    "publish:release": "yarn run build:clean && lerna version --no-push && lerna publish from-git --dist-tag latest --no-git-reset",
+    "publish:beta": "yarn run build:clean && lerna version --preid=beta --no-push && lerna publish from-git --preid=beta --dist-tag beta --no-git-reset",
+    "publish:canary": "yarn run build:clean && lerna publish --canary --preid=alpha --dist-tag canary --no-git-reset",
+    "prettier": "prettier --config .prettierrc.yaml --list-different --write \"@orbit-model/**/*.{ts,md}\" \"app/**/*.{ts,md}\""
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -35,6 +38,7 @@
     "mocha": "^6.2.0",
     "rimraf": "2.6.3",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "prettier": "1.18.2"
   }
 }
