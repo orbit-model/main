@@ -3,9 +3,10 @@ node_js:
   - "lts/*"
 cache: npm
 before_script:
-  - npm ci
+  - yarn ci
 script:
-  - npm run build
-  - npm test
+  - yarn run prettier:check
+  - yarn run build
+  - yarn run test
   - cd app && npm run build
   - cd dist && node ./index.js

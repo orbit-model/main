@@ -28,7 +28,12 @@
     "publish:release": "yarn run build:clean && lerna version --no-push && lerna publish from-git --dist-tag latest --no-git-reset",
     "publish:beta": "yarn run build:clean && lerna version --preid=beta --no-push && lerna publish from-git --preid=beta --dist-tag beta --no-git-reset",
     "publish:canary": "yarn run build:clean && lerna publish --canary --preid=alpha --dist-tag canary --no-git-reset",
-    "prettier": "prettier --config .prettierrc.yaml --list-different --write \"@orbit-model/**/*.{ts,md}\" \"app/**/*.{ts,md}\""
+    "prettier": "yarn run prettier:lerna && yarn run prettier:app",
+    "prettier:check": "yarn run prettier:lerna:check && yarn run prettier:app:check",
+    "prettier:lerna": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yaml --list-different --write \"{src,tests}/**/*.{ts,md}\"",
+    "prettier:lerna:check": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yaml --check \"{src,tests}/**/*.{ts,md}\"",
+    "prettier:app": "prettier --config .prettierrc.yaml --list-different --write \"app/src/**/*.{ts,md}\"",
+    "prettier:app:check": "prettier --config .prettierrc.yaml --check \"app/src/**/*.{ts,md}\""
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
