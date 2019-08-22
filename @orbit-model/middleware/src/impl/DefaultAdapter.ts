@@ -1,17 +1,17 @@
 import ModelSerializer from "../ModelSerializer";
 import RecordSerializer from "../RecordSerializer";
 import { Record } from '@orbit/data';
-import { Adapter, Branch, Model } from "../../../contracts";
 import { Container } from "@orbit-model/di";
-import { ModelMetaAccessor, DefaultOrbitModelMeta } from "@orbit-model/meta";
+import { DefaultOrbitModelMeta, ModelMetaAccessor } from "@orbit-model/meta";
 import classFunctionToDiName from "./utils/classFunctionToDiName";
+import { Adapter, Branch, Model, ModelClass } from "@orbit-model/contracts";
 
 
 export default class DefaultAdapter implements Adapter {
 
   private di: Container | null = null;
 
-  create<M extends Model>(modelName: string | Function | { new(): M }, branch: Branch): M {
+  create<M extends Model>(modelName: string | ModelClass, branch: Branch): M {
     if (this.di === null) {
       throw new Error("the DefaultAdapter has to be instantiated through a DI container");
     }
@@ -23,7 +23,7 @@ export default class DefaultAdapter implements Adapter {
       type = classFunctionToDiName<M>(modelName);
     }
 
-    let model: M = this.di.get<M>("models", type);
+    let model: M = this.di.get<M>("models", type, { args: [branch] });
     let orbitUUID = branch.getMemorySource().schema.generateId(type);
     let meta = new DefaultOrbitModelMeta(branch, type, orbitUUID);
 
