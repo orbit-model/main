@@ -3,7 +3,7 @@ node_js:
   - "lts/*"
 cache: npm
 before_script:
-  - yarn ci
+  - yarn install --frozen-lockfile --non-interactive
 script:
   - yarn run prettier:check
   - yarn run build
