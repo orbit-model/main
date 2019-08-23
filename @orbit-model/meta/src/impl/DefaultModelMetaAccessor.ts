@@ -30,8 +30,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    * @param model
    */
   getMeta<M extends MetaDataModel>(model: M): OrbitModelMeta | undefined {
-    // @ts-ignore
-    return model["__orbitModelMeta"];
+    return model["__orbitModelMeta"] as OrbitModelMeta;
   }
 
   /**

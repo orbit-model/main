@@ -6,6 +6,7 @@ import {
   DefaultRelationInfo,
   ModelMetaAccessor
 } from "@orbit-model/meta";
+import HasOne from "./contracts/HasOne";
 
 interface RelationOptions {
   name?: string;
@@ -14,7 +15,7 @@ interface RelationOptions {
 }
 
 export default function hasOneGenerator(options: RelationOptions = {}) {
-  return function hasOne(target: any, attributeName: string) {
+  return function hasOne(target: any, attributeName: string): void {
     // 1. gather meta data
     let diName = options.name || camelize(attributeName);
 
@@ -29,7 +30,7 @@ export default function hasOneGenerator(options: RelationOptions = {}) {
     reflection.modelInfo.relationships[attributeName] = relationInfo;
 
     // 2. create function
-    target[attributeName] = function hasOneRelationship() {
+    target[attributeName] = function hasOneRelationship(): HasOne<any> {
       return new DefaultHasOne(relationInfo.relatedName, this);
     };
   };

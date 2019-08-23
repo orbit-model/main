@@ -5,6 +5,10 @@ import { camelize } from "@orbit/utils";
 
 class Base {}
 
+interface Json {
+  [key: string]: any;
+}
+
 export default function ModelMixin(base: { new (...args: any[]): any } = Base): ModelClass {
   class ModelMixinClass extends base implements Model {
     __orbitModelMeta: OrbitModelMeta;
@@ -22,12 +26,9 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
       }
 
       let branch: Branch, uuid: string, remoteId: string | undefined;
+      let branchHasOwnProperty = Object.prototype.hasOwnProperty.bind(branchOrOptions);
 
-      if (
-        branchOrOptions.hasOwnProperty("branch") &&
-        branchOrOptions.hasOwnProperty("uuid") &&
-        branchOrOptions.hasOwnProperty("ids")
-      ) {
+      if (branchHasOwnProperty("branch") && branchHasOwnProperty("uuid") && branchHasOwnProperty("ids")) {
         let options = branchOrOptions as ModelClassOptions;
         branch = options.branch;
         uuid = options.uuid;
@@ -72,12 +73,8 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
       return adapter.destroy(this);
     }
 
-    public toJSON() {
-      interface IJson {
-        [key: string]: any;
-      }
-
-      let json: IJson = {
+    public toJSON(): Json {
+      let json: Json = {
         type: this.type,
         id: this.id
       };
@@ -88,7 +85,7 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
       let meta = ModelMetaAccessor.getMeta(this);
       if (meta) {
         for (let attr in meta.values) {
-          if (meta.values.hasOwnProperty(attr)) {
+          if (Object.prototype.hasOwnProperty.call(meta.values, attr)) {
             json[attr] = meta.values[attr];
           }
         }

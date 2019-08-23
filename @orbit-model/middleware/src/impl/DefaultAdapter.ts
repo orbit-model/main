@@ -19,14 +19,12 @@ export default class DefaultAdapter implements Adapter {
     }
 
     if (typeof nameOrClass === "string") {
-      let className = nameOrClass as string;
-      return this.di.get<M>("models", className, {
+      return this.di.get<M>("models", nameOrClass, {
         args: [branch, ...args]
       });
     }
 
-    let klass = nameOrClass as ModelClass<M>;
-    return new klass(branch, ...args);
+    return new nameOrClass(branch, ...args);
   }
 
   createFromRecord<M extends Model>(record: Record, branch: Branch, options?: { args?: any[] }): M {

@@ -53,7 +53,7 @@ export default class DefaultModelSerializer implements ModelSerializer {
     }
 
     for (let name in attributes) {
-      if (attributes.hasOwnProperty(name)) {
+      if (Object.prototype.hasOwnProperty.call(attributes, name)) {
         let attributeInfo = findAttributeInfoByName(reflection, name);
 
         if (attributeInfo !== undefined) {

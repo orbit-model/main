@@ -4,7 +4,7 @@ import { ModelMetaAccessor, DefaultOrbitModelReflection, DefaultModelInfo } from
 import { ModelInfo } from "../../contracts";
 
 export default function modelGenerator(options: { name?: string } = {}) {
-  return function model(target: any) {
+  return function model(target: any): void {
     let diName = options.name || camelize(target.name);
     DI.register("models", diName, target);
 

@@ -18,7 +18,7 @@ process.on("unhandledRejection", up => {
   throw up;
 });
 
-(async function main() {
+(async function main(): Promise<void> {
   let schema = SchemaBuilder.createSchema();
   let keyMap = new KeyMap();
 
@@ -65,8 +65,8 @@ process.on("unhandledRejection", up => {
   Orbit.assert("one more planet:", planetsPlus.length === 6);
 })();
 
-function waitFor(milliseconds: number) {
-  return new Promise(resolve => {
-    setTimeout(resolve, milliseconds);
-  });
-}
+// function waitFor(milliseconds: number): Promise<void> {
+//   return new Promise(resolve => {
+//     setTimeout(resolve, milliseconds);
+//   });
+// }

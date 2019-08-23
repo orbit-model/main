@@ -29,6 +29,8 @@ module.exports = {
   "rules": {
     "@typescript-eslint/generic-type-naming": ["error", "^[A-Z]+$"],
     "@typescript-eslint/no-require-imports": "error",
-    "@typescript-eslint/no-parameter-properties": "error"
+    "@typescript-eslint/no-parameter-properties": "error",
+    "prefer-const": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 };

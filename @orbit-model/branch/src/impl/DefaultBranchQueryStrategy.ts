@@ -46,12 +46,16 @@ export default class DefaultBranchQueryStrategy extends ConnectionStrategy {
       Orbit.assert("action is always query", this._action === "query");
       result = target.query(data);
 
+      // copy from core orbit
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       if (this._catch && result && result.catch) {
         result = result.catch((e: Error) => {
           return this._catch(e, data);
         });
       }
 
+      // copy from core orbit
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/unbound-method
       Orbit.assert("query result is a promise", !!result && !!result.then);
       result.then(() => {
         (this.source as Memory).rebase();

@@ -3,6 +3,8 @@ import { AttributeDefinition, ModelDefinition, RelationshipDefinition, Schema } 
 import { Dict } from "@orbit/utils";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
+// this is a plain JS lib without TS support
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import { pluralize, singularize } from "inflected";
 
@@ -61,7 +63,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
 
       let relationships: Dict<RelationshipDefinition> = {};
       for (let rel in reflection.modelInfo.relationships) {
-        if (reflection.modelInfo.relationships.hasOwnProperty(rel)) {
+        if (Object.prototype.hasOwnProperty.call(reflection.modelInfo.relationships, rel)) {
           let relInfo = reflection.modelInfo.relationships[rel];
           let inverse = relInfo.inverse;
           if (!inverse) {

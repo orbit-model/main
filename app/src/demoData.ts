@@ -1,7 +1,13 @@
 import Memory from "@orbit/memory";
 import { Record } from "@orbit/data";
 
-export async function demoData(memory: Memory) {
+async function add(memory: Memory, record: Record): Promise<void> {
+  let keyMap = memory.cache.keyMap;
+  keyMap.pushRecord(record);
+  await memory.update(t => t.addRecord(record));
+}
+
+export async function demoData(memory: Memory): Promise<void> {
   await add(memory, {
     type: "planet",
     id: "1208ed04-1f8b-4197-9f4f-300000000000",
@@ -104,10 +110,4 @@ export async function demoData(memory: Memory) {
       name: "Milky Way"
     }
   });
-}
-
-async function add(memory: Memory, record: Record) {
-  let keyMap = memory.cache.keyMap;
-  keyMap.pushRecord(record);
-  await memory.update(t => t.addRecord(record));
 }

@@ -6,8 +6,11 @@ import {
   DefaultRelationInfo,
   ModelMetaAccessor
 } from "@orbit-model/meta";
+// this is a plain JS lib without TS support
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import { singularize } from "inflected";
+import HasMany from "./contracts/HasMany";
 
 interface RelationOptions {
   name?: string; // name of the relatationship
@@ -16,7 +19,7 @@ interface RelationOptions {
 }
 
 export default function hasManyGenerator(options: RelationOptions = {}) {
-  return function hasMany(target: any, attributeName: string) {
+  return function hasMany(target: any, attributeName: string): void {
     // 1. gather meta data
     let diName = options.name || camelize(attributeName);
 
@@ -27,11 +30,16 @@ export default function hasManyGenerator(options: RelationOptions = {}) {
     }
 
     let relatedName = options.relatedName || singularize(diName);
-    let relationInfo = new DefaultRelationInfo(attributeName, diName, relatedName, "hasMany", options.inverse);
-    reflection.modelInfo.relationships[attributeName] = relationInfo;
+    reflection.modelInfo.relationships[attributeName] = new DefaultRelationInfo(
+      attributeName,
+      diName,
+      relatedName,
+      "hasMany",
+      options.inverse
+    );
 
     // 2. create function
-    target[attributeName] = function hasManyRelationship() {
+    target[attributeName] = function hasManyRelationship(): HasMany<any> {
       return new DefaultHasMany(diName, this);
     };
   };

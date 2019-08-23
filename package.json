@@ -23,8 +23,9 @@
     "build:watch": "lerna exec --stream --no-sort --concurrency=99 -- tsc -w",
     "eslint": "run-s eslint:*",
     "eslint:app": "cd app && eslint --config ../.eslintrc.js \"src/**/*.ts\" ",
-    "eslint:lerna": "lerna exec --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
+    "eslint:lerna": "lerna exec --no-bail --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
     "install:check": "yarn check && yarn check --integrety && yarn check --verify-tree",
+    "lint": "run-s eslint prettier",
     "postinstall": "lerna bootstrap --reject-cycles && cd app && yarn install --no-lockfile",
     "prettier": "run-p prettier:*:write",
     "prettier:check": "run-p prettier:*:check",
@@ -57,8 +58,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run prettier:check",
-      "pre-push": "run-p \"yarn run build && yarn run test\" \"cd app && yarn run build && yarn run \""
+      "pre-commit": "run-p prettier:check eslint",
+      "pre-push": "yarn run build && yarn run test && cd app && yarn run build && yarn run"
     }
   }
 }

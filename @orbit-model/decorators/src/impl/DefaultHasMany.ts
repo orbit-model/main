@@ -2,16 +2,16 @@ import HasMany from "../contracts/HasMany";
 import { Model, RelationshipAdapter } from "../../../contracts";
 import { DI } from "@orbit-model/di";
 
-export default class DefaultHasMany<Own extends Model, Related extends Model> implements HasMany<Model> {
+export default class DefaultHasMany<OWN extends Model, RELATED extends Model> implements HasMany<Model> {
   private readonly relationship: string;
-  private readonly ownModel: Own;
+  private readonly ownModel: OWN;
 
   /**
    * @private
    * @param relationship
    * @param ownModel
    */
-  constructor(relationship: string, ownModel: Own) {
+  constructor(relationship: string, ownModel: OWN) {
     this.relationship = relationship;
     this.ownModel = ownModel;
   }

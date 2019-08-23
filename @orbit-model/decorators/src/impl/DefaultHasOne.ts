@@ -2,25 +2,25 @@ import HasOne from "../contracts/HasOne";
 import { Model, RelationshipAdapter } from "../../../contracts";
 import { DI } from "@orbit-model/di";
 
-export default class DefaultHasOne<Own extends Model, Related extends Model> implements HasOne<Related> {
+export default class DefaultHasOne<OWN extends Model, RELATED extends Model> implements HasOne<RELATED> {
   private readonly relationship: string;
-  private readonly ownModel: Own;
+  private readonly ownModel: OWN;
 
   /**
    * @private
    * @param relationship
    * @param ownModel
    */
-  constructor(relationship: string, ownModel: Own) {
+  constructor(relationship: string, ownModel: OWN) {
     this.relationship = relationship;
     this.ownModel = ownModel;
   }
 
-  get(): Promise<Related> {
+  get(): Promise<RELATED> {
     return this.getRelationshipAdapter().getRelatedModel(this.ownModel, this.relationship);
   }
 
-  set(related: Related): Promise<void> {
+  set(related: RELATED): Promise<void> {
     return this.getRelationshipAdapter().setRelatedModel(this.ownModel, related, this.relationship);
   }
 

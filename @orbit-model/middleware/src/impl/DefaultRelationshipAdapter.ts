@@ -128,7 +128,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
     let current: RecordIdentity[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relName));
 
-    let valueIds: RecordIdentity[] = value.map(modelSerializer.getIdentity);
+    let valueIds: RecordIdentity[] = value.map(related => modelSerializer.getIdentity(related));
 
     // add all models not in relationship
     await Promise.all(

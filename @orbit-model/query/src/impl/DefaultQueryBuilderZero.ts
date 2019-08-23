@@ -7,7 +7,7 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero {
   private branch: Branch | null = null;
   private di: Container | null = null;
 
-  setBranch(branch: Branch) {
+  setBranch(branch: Branch): void {
     this.branch = branch;
   }
 

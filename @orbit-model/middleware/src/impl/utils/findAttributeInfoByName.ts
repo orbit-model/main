@@ -18,7 +18,7 @@ export default function findAttributeInfoByName(
   }
 
   for (let attr in attrs) {
-    if (attrs.hasOwnProperty(attr)) {
+    if (Object.prototype.hasOwnProperty.call(attrs, attr)) {
       if (attrs[attr].name === name) {
         return attrs[attr];
       }

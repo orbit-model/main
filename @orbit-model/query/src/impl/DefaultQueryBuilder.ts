@@ -102,7 +102,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
 
     let id = meta.orbitUUID;
     if (id === undefined) {
-      let remoteId = meta.id.remoteId;
+      let remoteId = meta.ids.remoteId;
       if (remoteId === undefined) {
         throw new Error("Model has not been assigned an ID yet!");
       }
@@ -116,7 +116,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
 
   //## builder methods ####################################
 
-  private pushFilter(filter: FilterSpecifier) {
+  private pushFilter(filter: FilterSpecifier): void {
     if (this.queryFilter === undefined) {
       this.queryFilter = [];
     }
@@ -140,7 +140,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   filterRelatedModel<R extends Model>(op: SetComparisonOperator, model: R | R[]): QueryBuilder<M> {
     let record: RecordIdentity | RecordIdentity[];
     if (Array.isArray(model)) {
-      record = model.map(this.modelToRecordID);
+      record = model.map(related => this.modelToRecordID(related));
     } else {
       record = this.modelToRecordID(model);
     }
@@ -153,7 +153,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   }
 
   filterRelatedModels<R extends Model>(op: SetComparisonOperator, models: R[]): QueryBuilder<M> {
-    let records = models.map(this.modelToRecordID);
+    let records = models.map(related => this.modelToRecordID(related));
     this.pushFilter({
       kind: "relatedRecord",
       op,
@@ -172,7 +172,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     return this;
   }
 
-  private sortImpl(order: SortOrder, attrs: string[]) {
+  private sortImpl(order: SortOrder, attrs: string[]): void {
     if (this.querySort === undefined) {
       this.querySort = [];
     }

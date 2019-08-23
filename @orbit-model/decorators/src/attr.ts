@@ -36,7 +36,7 @@ function getSchemaType(target: any, key: string): string {
 }
 
 export default function attrGenerator(options: AttrOptions = {}) {
-  return function attr(target: any, key: string) {
+  return function attr(target: any, key: string): void {
     let diName = options.name || camelize(key);
 
     let reflection = ModelMetaAccessor.getReflection(target.constructor);

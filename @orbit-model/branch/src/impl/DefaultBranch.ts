@@ -29,7 +29,7 @@ export default class DefaultBranch implements Branch {
       new DefaultBranchQueryStrategy({
         source: this.memorySource.name,
         target: this.parent.name,
-        catch(...args: any[]) {
+        catch(...args: any[]): void {
           console.error("error while running DefaultBranchQueryStrategy: ", ...args);
         }
       })
@@ -107,7 +107,7 @@ export default class DefaultBranch implements Branch {
     this.coordinator.deactivate();
   }
 
-  query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder: string = "QueryBuilder"): Q {
+  query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder = "QueryBuilder"): Q {
     let qb = DI.get<Q>("system", queryBuilder);
     if (typeof qb["setBranch"] === "function") {
       qb["setBranch"](this);
