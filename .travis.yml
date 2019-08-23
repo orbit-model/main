@@ -1,11 +1,10 @@
 language: node_js
 node_js:
   - "lts/*"
-cache: npm
+cache: yarn
 before_script:
   - yarn install --frozen-lockfile --non-interactive
 script:
-  - yarn run prettier:check
   - yarn run build
   - yarn run test
   - cd app && npm run build
