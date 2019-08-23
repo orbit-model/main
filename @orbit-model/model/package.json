@@ -26,10 +26,6 @@
     "type": "git",
     "url": "git+https://github.com/orbit-model/main.git"
   },
-  "scripts": {
-    "build": "rimraf dist && tsc",
-    "build:watch": "tsc -w"
-  },
   "bugs": {
     "url": "https://github.com/orbit-model/main/issues"
   },
