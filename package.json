@@ -33,11 +33,12 @@
     "prettier:app:check": "prettier --config .prettierrc.yaml --check \"app/src/**/*.{ts,md}\"",
     "prettier:lerna:write": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yaml --list-different --write \"{src,tests}/**/*.{ts,md}\"",
     "prettier:lerna:check": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yaml --check \"{src,tests}/**/*.{ts,md}\"",
+    "pre-push": "yarn run build && yarn run test && cd app && yarn run build && yarn run",
     "publish:release": "yarn run build:checked && lerna version --no-push && lerna publish from-git --dist-tag latest --no-git-reset",
     "publish:beta": "yarn run build:checked && lerna version --preid=beta --no-push && lerna publish from-git --preid=beta --dist-tag beta --no-git-reset",
     "publish:canary": "yarn run build:checked && lerna publish --canary --preid=alpha --dist-tag canary --no-git-reset",
     "test": "run-p eslint prettier:check unit",
-    "unit": "lerna exec --concurrency=1 -- \"mocha -r ts-node/register tests/**/*.spec.ts\""
+    "unit": "lerna exec --concurrency=1 --scope \"*/di\" -- \"mocha -r ts-node/register tests/**/*.spec.ts\""
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -58,8 +59,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-p prettier:check eslint",
-      "pre-push": "yarn run build && yarn run test && cd app && yarn run build && yarn run"
+      "pre-commit": "yarn run test",
+      "pre-push": "yarn run pre-push"
     }
   }
 }
