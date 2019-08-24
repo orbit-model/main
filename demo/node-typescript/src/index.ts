@@ -38,8 +38,7 @@ process.on("unhandledRejection", up => {
   console.log("JSON", JSON.stringify(theSolarSystem));
 
   let planets = await theSolarSystem.planets().getAll();
-  Orbit.assert("related planets result is array", Array.isArray(planets));
-  Orbit.assert("found related planets", planets.length === 5);
+  Orbit.assert("found related planets", Array.isArray(planets) && planets.length === 5);
   console.log("planets", planets);
   console.log("JSON", JSON.stringify(planets));
 
@@ -61,8 +60,21 @@ process.on("unhandledRejection", up => {
     .query()
     .select<Planet>(Planet)
     .get();
-  Orbit.assert("one more planet:", Array.isArray(planetsPlus));
-  Orbit.assert("one more planet:", planetsPlus.length === 6);
+  Orbit.assert("one more planet:", Array.isArray(planetsPlus) && planetsPlus.length === 6);
+
+  let testPlanet = new Planet(workBranch);
+  let planetsPlusPlus = await workBranch
+    .query()
+    .select<Planet>(Planet)
+    .get();
+  Orbit.assert("one more planet:", Array.isArray(planetsPlusPlus) && planetsPlusPlus.length === 6);
+
+  await testPlanet.$save();
+  planetsPlusPlus = await workBranch
+    .query()
+    .select<Planet>(Planet)
+    .get();
+  Orbit.assert("one more planet:", Array.isArray(planetsPlusPlus) && planetsPlusPlus.length === 7);
 })();
 
 // function waitFor(milliseconds: number): Promise<void> {

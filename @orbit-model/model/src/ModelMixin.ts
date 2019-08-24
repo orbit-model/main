@@ -1,7 +1,7 @@
 import { DefaultOrbitModelMeta, ModelMetaAccessor } from "@orbit-model/meta";
-import { DI } from "@orbit-model/di";
-import { Adapter, Branch, Model, ModelClass, ModelClassOptions, OrbitModelMeta } from "@orbit-model/contracts";
+import { Branch, Model, ModelClass, ModelClassOptions, OrbitModelMeta } from "@orbit-model/contracts";
 import { camelize } from "@orbit/utils";
+import { Adapter } from "@orbit-model/middleware";
 
 class Base {}
 
@@ -39,20 +39,15 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
         remoteId = undefined;
       }
 
-      this.__orbitModelMeta = new DefaultOrbitModelMeta(branch, type, uuid, remoteId);
+      this.__orbitModelMeta = new DefaultOrbitModelMeta(branch, type, uuid, remoteId); // workaround
+      ModelMetaAccessor.setMeta(this, this.__orbitModelMeta);
     }
 
     public get id(): string | undefined {
-      if (!this.__orbitModelMeta) {
-        return undefined;
-      }
       return this.__orbitModelMeta.ids.remoteId;
     }
 
     public set id(value) {
-      if (!this.__orbitModelMeta) {
-        throw new Error("Orbit-Model meta data object has not been initialized yet.");
-      }
       this.__orbitModelMeta.ids.remoteId = value;
     }
 
@@ -69,8 +64,11 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
     }
 
     public $destroy(): Promise<void> {
-      let adapter: Adapter = DI.get<Adapter>("system", "Adapter");
-      return adapter.destroy(this);
+      return Adapter.destroy(this);
+    }
+
+    public $save(): Promise<void> {
+      return Adapter.save(this);
     }
 
     public toJSON(): Json {

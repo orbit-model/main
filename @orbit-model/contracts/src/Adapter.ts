@@ -2,12 +2,13 @@ import Branch from "./Branch";
 import Model from "./Model";
 import { Record } from "@orbit/data";
 import { Injectable } from "@orbit-model/di";
+import ModelClass from "./ModelClass";
 
 export default interface Adapter extends Injectable {
   /**
    * create a new model instance on the given branch
    */
-  create<M extends Model>(modelName: string | Function | { new (): M }, branch: Branch, options?: { args?: any[] }): M;
+  create<M extends Model>(modelName: string | Function | ModelClass<M>, branch: Branch, options?: { args?: any[] }): M;
 
   /**
    * create a new model instance on the given branch and set the data form the record

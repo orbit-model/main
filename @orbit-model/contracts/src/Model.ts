@@ -5,4 +5,5 @@ export default interface Model extends MetaDataModel {
   id: string | undefined;
 
   $destroy(): Promise<void>;
+  $save(): Promise<void>;
 }

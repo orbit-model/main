@@ -114,14 +114,28 @@ export default class DefaultAdapter implements Adapter {
       throw new Error("The object handed to DefaultAdapter.save() is not a valid model: no reflection info found");
     }
     let attributeInfos = reflection.modelInfo.attributes;
-    let promises: Promise<any>[] = [];
+    let record: Record = modelSerializer.getIdentity(model);
+    record["attributes"] = {};
     for (let attribute in attributeInfos) {
       let value = meta.values[attribute];
-      let recordId = modelSerializer.getIdentity(model);
       let attrOrbitName = attributeInfos[attribute].name;
-      promises.push(store.update(t => t.replaceKey(recordId, attrOrbitName, value)));
+      record.attributes[attrOrbitName] = value;
     }
-    await Promise.all(promises);
+
+    // do save
+    if (typeof meta.ids.remoteId === "undefined") {
+      let tmpRecord = store.cache.getRecordSync(record);
+      if (tmpRecord === undefined) {
+        await store.update(t => t.addRecord(record));
+      } else {
+        await store.update(t => t.updateRecord(record));
+      }
+    } else {
+      record["keys"] = {
+        remoteId: meta.ids.remoteId
+      };
+      await store.update(t => t.updateRecord(record));
+    }
   }
 
   async destroy<M extends Model>(model: M): Promise<void> {
