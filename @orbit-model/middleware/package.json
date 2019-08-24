@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/middleware",
-  "version": "0.0.2-beta.0",
+  "version": "0.0.2-beta.1",
   "description": "The middleware package contains the main abstractions to core orbit.js",
   "keywords": [
     "orbit",
@@ -30,9 +30,9 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/contracts": "^0.0.2-beta.0",
-    "@orbit-model/di": "^0.0.2-beta.0",
-    "@orbit-model/meta": "^0.0.2-beta.0",
+    "@orbit-model/contracts": "^0.0.2-beta.1",
+    "@orbit-model/di": "^0.0.2-beta.1",
+    "@orbit-model/meta": "^0.0.2-beta.1",
     "@orbit/data": "^0.16.1",
     "@orbit/memory": "0.16.1",
     "@orbit/utils": "^0.16.1"

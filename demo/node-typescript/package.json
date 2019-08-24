@@ -1,6 +1,6 @@
 {
   "name": "orbit-model-node-typescript-test-app",
-  "version": "0.0.1",
+  "version": "0.0.2-beta.1",
   "description": "Test App for obit models",
   "main": "src/index.ts",
   "author": "Bernhard Halbartschlager <halbart.bernhard+npm@gmail.com>",
@@ -15,13 +15,13 @@
   },
   "homepage": "https://github.com/orbit-model/main",
   "dependencies": {
-    "@orbit-model/branch": "^0.0.2-beta.0",
-    "@orbit-model/contracts": "^0.0.2-beta.0",
-    "@orbit-model/decorators": "^0.0.2-beta.0",
-    "@orbit-model/bootstrap": "^0.0.2-beta.0",
-    "@orbit-model/middleware": "^0.0.2-beta.0",
-    "@orbit-model/model": "^0.0.2-beta.0",
-    "@orbit/memory": "^0.16.1",
-    "@orbit/data": "^0.16.1"
+    "@orbit-model/bootstrap": "^0.0.2-beta.1",
+    "@orbit-model/branch": "^0.0.2-beta.1",
+    "@orbit-model/contracts": "^0.0.2-beta.1",
+    "@orbit-model/decorators": "^0.0.2-beta.1",
+    "@orbit-model/middleware": "^0.0.2-beta.1",
+    "@orbit-model/model": "^0.0.2-beta.1",
+    "@orbit/data": "^0.16.1",
+    "@orbit/memory": "^0.16.1"
   }
 }

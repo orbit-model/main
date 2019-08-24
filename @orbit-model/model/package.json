@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/model",
-  "version": "0.0.2-beta.0",
+  "version": "0.0.2-beta.1",
   "description": "The model of orbit-model",
   "keywords": [
     "orbit",
@@ -30,9 +30,9 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/contracts": "^0.0.2-beta.0",
-    "@orbit-model/di": "^0.0.2-beta.0",
-    "@orbit-model/meta": "^0.0.2-beta.0",
+    "@orbit-model/contracts": "^0.0.2-beta.1",
+    "@orbit-model/di": "^0.0.2-beta.1",
+    "@orbit-model/meta": "^0.0.2-beta.1",
     "@orbit/data": "^0.16.1",
     "@orbit/utils": "^0.16.1",
     "inflected": "^2.0.4"

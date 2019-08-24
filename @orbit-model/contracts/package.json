@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/contracts",
-  "version": "0.0.2-beta.0",
+  "version": "0.0.2-beta.1",
   "description": "Mostly TypeScript types and contracts",
   "keywords": [
     "orbit",
@@ -29,7 +29,7 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/di": "^0.0.2-beta.0",
+    "@orbit-model/di": "^0.0.2-beta.1",
     "@orbit/coordinator": "^0.16.1",
     "@orbit/core": "^0.16.1",
     "@orbit/data": "^0.16.1",
