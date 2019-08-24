@@ -1,5 +1,5 @@
 {
-  "name": "orbit-model-node-typescript-test-app",
+  "name": "node-typescript-test-app",
   "version": "0.0.2-beta.1",
   "description": "Test App for obit models",
   "main": "src/index.ts",
