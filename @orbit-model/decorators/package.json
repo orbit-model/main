@@ -36,8 +36,8 @@
     "@orbit-model/meta": "^0.0.2-beta.0",
     "@orbit-model/middleware": "^0.0.2-beta.0",
     "@orbit-model/model": "^0.0.2-beta.0",
-    "@orbit/data": "^0.16.0",
-    "@orbit/utils": "^0.16.0",
+    "@orbit/data": "^0.16.1",
+    "@orbit/utils": "^0.16.1",
     "inflected": "^2.0.4",
     "reflect-metadata": "^0.1.13"
   },

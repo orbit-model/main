@@ -7,5 +7,3 @@ before_script:
 script:
   - yarn run build
   - yarn run test
-  - cd app && npm run build
-  - cd dist && node ./index.js
