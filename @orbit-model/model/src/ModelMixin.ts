@@ -9,7 +9,7 @@ interface Json {
   [key: string]: any;
 }
 
-export default function ModelMixin(base: { new (...args: any[]): any } = Base): ModelClass {
+export default function ModelMixin(base: { new (...args: any[]): any } = Base): ModelClass<Model> {
   class ModelMixinClass extends base implements Model {
     __orbitModelMeta: OrbitModelMeta;
 
