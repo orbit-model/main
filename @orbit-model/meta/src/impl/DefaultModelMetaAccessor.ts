@@ -1,4 +1,4 @@
-import { MetaDataModel, ModelMetaAccessor, OrbitModelMeta, OrbitModelReflection } from "../../../contracts";
+import { MetaDataModel, ModelMetaAccessor, OrbitModelMeta, OrbitModelReflection } from "@orbit-model/contracts";
 
 export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
   /**
@@ -29,7 +29,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
    *
    * @param model
    */
-  getMeta<M extends MetaDataModel>(model: M): OrbitModelMeta | undefined {
+  getMeta<M extends MetaDataModel>(model: M): OrbitModelMeta {
     return model["__orbitModelMeta"] as OrbitModelMeta;
   }
 

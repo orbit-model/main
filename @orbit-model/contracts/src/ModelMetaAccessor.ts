@@ -20,7 +20,7 @@ export default interface ModelMetaAccessor {
    *
    * This method may return undefined, in case no meta data could be found
    */
-  getMeta<M extends MetaDataModel>(model: M): OrbitModelMeta | undefined;
+  getMeta<M extends MetaDataModel>(model: M): OrbitModelMeta;
 
   /**
    * Sets a new meta data pojo onto a hidden static property of the given model class.
