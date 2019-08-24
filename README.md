@@ -1,5 +1,6 @@
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Build Status](https://travis-ci.com/orbit-model/main.svg?branch=develop)](https://travis-ci.com/orbit-model/main)
+[![Greenkeeper badge](https://badges.greenkeeper.io/orbit-model/main.svg)](https://greenkeeper.io/)
 
 # orbit-model
 
