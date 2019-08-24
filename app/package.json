@@ -18,9 +18,9 @@
     "@orbit-model/bootstrap": "../@orbit-model/bootstrap",
     "@orbit-model/middleware": "../@orbit-model/middleware",
     "@orbit-model/model": "../@orbit-model/model",
-    "@orbit/memory": "0.16.0",
+    "@orbit/memory": "0.16.1",
     "@orbit/data": "^0.16.0",
-    "rimraf": "2.6.3",
+    "rimraf": "3.0.0",
     "typescript": "^3.5.3"
   }
 }
