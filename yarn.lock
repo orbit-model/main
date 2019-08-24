@@ -862,23 +862,23 @@
     "@orbit/core" "^0.16.1"
     "@orbit/utils" "^0.16.1"
 
-"@orbit/immutable@^0.16.0":
+"@orbit/immutable@^0.16.1":
   version "0.16.1"
   resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.16.1.tgz#888458cd99d62704701cf685e059bebaa38837c4"
   integrity sha512-IqwhSM2VRcg1FIZI+8oTvsjk6FKDGo5v54dNpqBb9Gr1mhpcPdjFbroiwnFWTEiNqyd7vUvWhqEul4UNUTJ3Kw==
 
-"@orbit/memory@0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@orbit/memory/-/memory-0.16.0.tgz#b39671aace4a695595129c2c52c1e5c9cac74aa0"
-  integrity sha512-yc3Xb6Y2eq3HqVzOGVX81abVHCdG8ul0vr/OX8OukBYL4yvsXN25b9X2IlvJ2PqbvWZ03SJSUrao/7PwlTNPqQ==
+"@orbit/memory@0.16.1":
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/@orbit/memory/-/memory-0.16.1.tgz#4e09561ba4b8d22016306c964a3b84f51ab0aa13"
+  integrity sha512-FXuwiPkKFQtkfUWVeoPW6l/vRIvkCl5cGKFIsFywGRe2QUlUuQqa6D6q5noG9WCsYxp9kKHtejw4KHjG8NGfYA==
   dependencies:
-    "@orbit/core" "^0.16.0"
-    "@orbit/data" "^0.16.0"
-    "@orbit/immutable" "^0.16.0"
-    "@orbit/record-cache" "^0.16.0"
-    "@orbit/utils" "^0.16.0"
+    "@orbit/core" "^0.16.1"
+    "@orbit/data" "^0.16.1"
+    "@orbit/immutable" "^0.16.1"
+    "@orbit/record-cache" "^0.16.1"
+    "@orbit/utils" "^0.16.1"
 
-"@orbit/record-cache@^0.16.0":
+"@orbit/record-cache@^0.16.1":
   version "0.16.1"
   resolved "https://registry.yarnpkg.com/@orbit/record-cache/-/record-cache-0.16.1.tgz#476ca43e196f83070c2aee3d6ca2937d9cc2b800"
   integrity sha512-/PyCOd/FtWmAtlkZ5JdAkdcYGT634SlfT91JkdZceeO9tYbID2O29MdNzzaiGpFC+4G57/pNN6Ow9pqYHMpvxg==
@@ -4406,10 +4406,10 @@ rimraf@2, rimraf@^2.5.4, rimraf@^2.6.2, rimraf@^2.6.3:
   dependencies:
     glob "^7.1.3"
 
-rimraf@2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.3.tgz#b2d104fe0d8fb27cf9e0a1cda8262dd3833c6cab"
-  integrity sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==
+rimraf@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.0.tgz#614176d4b3010b75e5c390eb0ee96f6dc0cebb9b"
+  integrity sha512-NDGVxTsjqfunkds7CqsOiEnxln4Bo7Nddl3XhS4pXg5OzwkLqJ971ZVAAnB+DDLnF76N+VnDEiBHaVV8I06SUg==
   dependencies:
     glob "^7.1.3"
 
