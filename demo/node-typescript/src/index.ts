@@ -13,7 +13,7 @@ import Galaxy from "./Galaxy";
 import Planet from "./Planet";
 import { Middleware } from "@orbit-model/middleware";
 
-// fail on unhandled promise exceptions
+// fail on unhandled promise error
 process.on("unhandledRejection", up => {
   throw up;
 });

@@ -12,12 +12,12 @@
     "build:watch": "tsc -w"
   },
   "dependencies": {
-    "@orbit-model/branch": "../@orbit-model/branch",
-    "@orbit-model/contracts": "../@orbit-model/contracts",
-    "@orbit-model/decorators": "../@orbit-model/decorators",
-    "@orbit-model/bootstrap": "../@orbit-model/bootstrap",
-    "@orbit-model/middleware": "../@orbit-model/middleware",
-    "@orbit-model/model": "../@orbit-model/model",
+    "@orbit-model/branch": "^0.0.2-beta.0",
+    "@orbit-model/contracts": "^0.0.2-beta.0",
+    "@orbit-model/decorators": "^0.0.2-beta.0",
+    "@orbit-model/bootstrap": "^0.0.2-beta.0",
+    "@orbit-model/middleware": "^0.0.2-beta.0",
+    "@orbit-model/model": "^0.0.2-beta.0",
     "@orbit/memory": "0.16.0",
     "@orbit/data": "^0.16.0",
     "rimraf": "2.6.3",
