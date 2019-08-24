@@ -15,30 +15,28 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "@orbit-model/*"
+    "@orbit-model/*",
+    "demo/*"
   ],
   "scripts": {
     "build": "lerna exec --concurrency=99 -- \"rimraf dist && tsc\" ",
     "build:checked": "yarn run install:check && yarn run build",
     "build:watch": "lerna exec --stream --no-sort --concurrency=99 -- tsc -w",
     "eslint": "run-s eslint:*",
-    "eslint:app": "cd app && eslint --config ../.eslintrc.js \"src/**/*.ts\" ",
-    "eslint:lerna": "lerna exec --no-bail --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
+    "eslint:apps": "lerna exec --scope \"demo/*\" --no-bail --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
+    "eslint:lib": "lerna exec --scope \"@orbit-model/*\" --no-bail --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
     "install:check": "yarn check && yarn check --integrety && yarn check --verify-tree",
     "lint": "run-s eslint prettier",
-    "postinstall": "lerna bootstrap --reject-cycles && cd app && yarn install --no-lockfile",
-    "prettier": "run-p prettier:*:write",
-    "prettier:check": "run-p prettier:*:check",
-    "prettier:app:write": "prettier --config .prettierrc.yaml --list-different --write \"app/src/**/*.{ts,md}\"",
-    "prettier:app:check": "prettier --config .prettierrc.yaml --check \"app/src/**/*.{ts,md}\"",
-    "prettier:lerna:write": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yaml --list-different --write \"{src,tests}/**/*.{ts,md}\"",
-    "prettier:lerna:check": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yaml --check \"{src,tests}/**/*.{ts,md}\"",
-    "pre-push": "yarn run build && yarn run test && cd app && yarn run build && yarn run",
-    "publish:release": "yarn run build:checked && lerna version --no-push && lerna publish from-git --dist-tag latest --no-git-reset",
-    "publish:beta": "yarn run build:checked && lerna version --preid=beta --no-push && lerna publish from-git --preid=beta --dist-tag beta --no-git-reset",
-    "publish:canary": "yarn run build:checked && lerna publish --canary --preid=alpha --dist-tag canary --no-git-reset",
-    "test": "run-p eslint prettier:check unit",
-    "unit": "lerna exec --concurrency=1 --scope \"*/di\" -- \"mocha -r ts-node/register tests/**/*.spec.ts\""
+    "postinstall": "lerna bootstrap --reject-cycles",
+    "prettier": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yml --list-different --write \"{src,tests}/**/*.ts\" \"/**/*.md\"",
+    "prettier:check": "lerna exec --concurrency=99 -- prettier --config ../../.prettierrc.yml --check \"{src,tests}/**/*.ts\" \"/**/*.md\"",
+    "pre-push": "yarn run build && yarn run test && cd demo/node-typescript/dist && node ./index.js",
+
+    "publish:release": "yarn run build:checked && lerna version --scope \"@orbit-model/*\" --no-push && lerna publish from-git --scope \"@orbit-model/*\" --dist-tag latest --no-git-reset",
+    "publish:beta": "yarn run build:checked && lerna version --scope \"@orbit-model/*\" --preid=beta --no-push && lerna publish from-git --scope \"@orbit-model/*\" --preid=beta --dist-tag beta --no-git-reset",
+    "publish:canary": "yarn run build:checked && lerna publish --scope \"@orbit-model/*\" --canary --preid=alpha --dist-tag canary --no-git-reset",
+    "test": "run-s eslint prettier:check unit",
+    "unit": "lerna exec --concurrency=1 --scope \"@orbit-model/di\" -- mocha -r ts-node/register \"tests/**/*.spec.ts\""
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",

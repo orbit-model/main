@@ -22,7 +22,8 @@
     "**/*.json"
   ],
   "packages": [
-    "@orbit-model/*"
+    "@orbit-model/*",
+    "demo/*"
   ],
   "version": "0.0.2-beta.0"
 }
