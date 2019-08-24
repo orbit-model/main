@@ -22,9 +22,8 @@ module.exports = {
     "ecmaVersion": 2018,
     "sourceType": "module",
     "project": [
-      "./tsconfig.json",
-    ],
-    //"tsconfigRootDir": "../../",
+      "./tsconfig.json"
+    ]
   },
   "rules": {
     "@typescript-eslint/generic-type-naming": ["error", "^[A-Z]+$"],
@@ -32,5 +31,6 @@ module.exports = {
     "@typescript-eslint/no-parameter-properties": "error",
     "prefer-const": "off",
     "@typescript-eslint/no-explicit-any": "off"
-  }
+  },
+  "root": true
 };
