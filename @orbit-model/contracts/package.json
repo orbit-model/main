@@ -37,7 +37,7 @@
     "@orbit/coordinator": "^0.16.0",
     "@orbit/core": "^0.16.0",
     "@orbit/data": "^0.16.0",
-    "@orbit/memory": "0.16.0"
+    "@orbit/memory": "0.16.1"
   },
   "gitHead": "08a9739c83cdfe7f0335aa894c8ee13048c7b7f9"
 }
