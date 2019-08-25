@@ -22,7 +22,7 @@
     "build": "lerna exec --concurrency=99 -- \"rimraf dist && tsc\" ",
     "build:checked": "yarn run install:check && yarn run build",
     "build:watch": "lerna exec --stream --no-sort --concurrency=99 -- tsc -w",
-    "eslint": "lerna exec --no-bail --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
+    "eslint": "lerna exec --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
     "install:check": "yarn check && yarn check --integrety && yarn check --verify-tree",
     "lint": "run-s eslint prettier",
     "postinstall": "lerna bootstrap --reject-cycles",

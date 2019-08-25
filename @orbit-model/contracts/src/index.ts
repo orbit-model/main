@@ -13,6 +13,6 @@ export { default as QueryBuilderZero } from "./QueryBuilderZero";
 export { default as RelationshipAdapter } from "./RelationshipAdapter";
 export { default as SchemaBuilder } from "./SchemaBuilder";
 
-export { default as OrbitFactorySources } from "./bootOrbit/OrbitFactorySources";
+export { default as OrbitFactorySources, OrbitKlass } from "./bootOrbit/OrbitFactorySources";
 export { default as OrbitFactoryStrategies } from "./bootOrbit/OrbitFactoryStrategies";
 export { default as OrbitSystem } from "./bootOrbit/OrbitSystem";
