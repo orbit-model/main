@@ -5,7 +5,7 @@ export interface ModelClassOptions {
   branch: Branch;
   uuid: string;
   ids: {
-    remoteId: string;
+    remoteId?: string;
   };
 }
 

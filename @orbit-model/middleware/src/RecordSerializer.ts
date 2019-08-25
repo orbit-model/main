@@ -6,7 +6,7 @@ export default interface RecordSerializer {
 
   getID(record: Record): string;
 
-  getRemoteId(record: Record): string;
+  getRemoteId(record: Record): string | undefined;
 
   getAttributeValues(record: Record): Dict<any>;
 }

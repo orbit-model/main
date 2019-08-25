@@ -11,12 +11,9 @@ export default class DefaultRecordSerializer implements RecordSerializer {
     return record.id;
   }
 
-  getRemoteId(record: Record): string {
+  getRemoteId(record: Record): string | undefined {
     if (record.keys === undefined) {
-      throw new Error(
-        "Your store is probably setup with the wrong schema: " +
-          "the given record must contain a keys object with a remoteId property"
-      );
+      return undefined;
     }
     return record.keys.remoteId;
   }

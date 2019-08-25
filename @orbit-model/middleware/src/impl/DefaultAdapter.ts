@@ -41,17 +41,18 @@ export default class DefaultAdapter implements Adapter {
     let modelSerializer = this.getModelSerializer();
     let recordType = recordSerializer.getType(record);
 
+    let modelClassOptions: ModelClassOptions = {
+      branch,
+      uuid: recordSerializer.getID(record),
+      ids: {}
+    };
+    let remoteId = recordSerializer.getRemoteId(record);
+    if (remoteId) {
+      modelClassOptions.ids.remoteId = remoteId;
+    }
+
     let model: M = this.di.get<M>("models", recordType, {
-      args: [
-        {
-          branch,
-          uuid: recordSerializer.getID(record),
-          ids: {
-            remoteId: recordSerializer.getRemoteId(record)
-          }
-        } as ModelClassOptions,
-        ...args
-      ]
+      args: [modelClassOptions, ...args]
     });
 
     // fill the model's attributes with values
