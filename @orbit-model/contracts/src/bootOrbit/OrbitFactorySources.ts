@@ -3,19 +3,23 @@ import { Bucket, BucketSettings } from "@orbit/core";
 import OrbitFactoryStrategies from "./OrbitFactoryStrategies";
 import { Source, SourceSettings } from "@orbit/data";
 
+export interface OrbitKlass<INSTANCE, SETTINGS> {
+  new (arg?: SETTINGS): INSTANCE;
+}
+
 export default interface OrbitFactorySources {
   setBucket<BUCKET extends Bucket, SETTINGS extends BucketSettings>(
-    klass: { new (arg?: SETTINGS): BUCKET },
+    klass: OrbitKlass<BUCKET, SETTINGS>,
     settings?: SETTINGS
   ): void;
 
   setMemorySource<SOURCE extends MemorySource, SETTINGS extends MemorySourceSettings>(
-    klass: { new (arg?: SETTINGS): SOURCE },
+    klass: OrbitKlass<SOURCE, SETTINGS>,
     settings?: SETTINGS
   ): void;
 
   setBackupSource<SOURCE extends Source, SETTINGS extends SourceSettings>(
-    klass: { new (arg?: SETTINGS): SOURCE },
+    klass: OrbitKlass<SOURCE, SETTINGS>,
     settings?: SETTINGS
   ): void;
 
@@ -24,7 +28,7 @@ export default interface OrbitFactorySources {
    * @return string An ID/name/key which identifies the remote source for later use (in stage two of the factory).
    */
   addRemoteSource<SOURCE extends Source, SETTINGS extends SourceSettings>(
-    klass: { new (arg?: SETTINGS): SOURCE },
+    klass: OrbitKlass<SOURCE, SETTINGS>,
     settings?: SETTINGS
   ): string;
 
