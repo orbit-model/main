@@ -36,20 +36,20 @@
     "unit": "lerna exec --concurrency=1 --scope \"@orbit-model/di\" -- mocha -r ts-node/register \"tests/**/*.spec.ts\""
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
+    "@types/chai": "^4.2.3",
     "@types/mocha": "^5.2.7",
-    "@typescript-eslint/parser": "^2.0.0",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "eslint": "^6.2.1",
-    "eslint-config-prettier": "^6.1.0",
+    "@typescript-eslint/parser": "^2.3.1",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
     "chai": "^4.2.0",
     "lerna": "^3.16.4",
     "mocha": "^6.2.0",
     "rimraf": "3.0.0",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.3",
+    "typescript": "^3.6.3",
     "prettier": "1.18.2",
-    "husky": "^3.0.4",
+    "husky": "^3.0.7",
     "npm-run-all": "^4.1.5"
   },
   "husky": {
