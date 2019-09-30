@@ -30,10 +30,10 @@
   },
   "dependencies": {
     "@orbit-model/di": "^0.0.2-beta.1",
-    "@orbit/coordinator": "^0.16.1",
-    "@orbit/core": "^0.16.1",
-    "@orbit/data": "^0.16.1",
-    "@orbit/memory": "^0.16.1"
+    "@orbit/coordinator": "^0.16.3",
+    "@orbit/core": "^0.16.3",
+    "@orbit/data": "^0.16.3",
+    "@orbit/memory": "^0.16.3"
   },
   "gitHead": "58b8103895e9a154875fada1f5250519eda01152"
 }
