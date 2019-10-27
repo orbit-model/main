@@ -1,6 +1,5 @@
 import { ConnectionStrategy, ConnectionStrategyOptions } from "@orbit/coordinator";
 import Orbit, { Listener } from "@orbit/core";
-import Memory from "@orbit/memory";
 
 export interface BaseStrategyOptions extends ConnectionStrategyOptions {
   /**

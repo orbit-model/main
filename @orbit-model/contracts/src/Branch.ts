@@ -15,6 +15,11 @@ export default interface Branch {
   fork(): Promise<Branch>;
 
   /**
+   * whether or not the Branch has already been marked as destroyed or abandoned
+   */
+  isActive(): boolean;
+
+  /**
    * persist all the changes made since this `Branch` has been created
    */
   mergeAndDestroy(): Promise<void>;

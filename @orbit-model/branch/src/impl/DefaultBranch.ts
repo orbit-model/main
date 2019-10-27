@@ -8,28 +8,41 @@ import { ModelSerializer } from "@orbit-model/middleware";
 import BaseStrategy from "./BaseStrategy";
 import ModelLogTruncationStrategy from "./ModelLogTruncationStrategy";
 
+enum BranchState {
+  ACTIVE,
+  DESTROYED
+}
+
 export default class DefaultBranch implements Branch {
+  private branchState: BranchState;
+  private readonly parent: null | Branch;
   private readonly memorySource: Memory;
-  private readonly parent: Memory;
+  private readonly parentMemorySource: Memory;
   private readonly coordinator: Coordinator;
   private readonly modelsMap: IdentityModelMapTypeMap = new IdentityModelMapTypeMap();
 
-  private constructor(parent: Memory) {
-    this.memorySource = parent.fork({
+  private constructor(parent: null | Branch, parentMemorySource: Memory) {
+    this.parent = parent;
+    this.parentMemorySource = parentMemorySource;
+    this.memorySource = this.parentMemorySource.fork({
       name: `branch-${uuid()}`
     });
-    this.parent = parent;
+    this.branchState = BranchState.ACTIVE;
     this.coordinator = new Coordinator({
-      sources: [this.memorySource, this.parent]
+      sources: [this.memorySource, this.parentMemorySource]
     });
 
+    this.setupCoordinator();
+  }
+
+  private setupCoordinator(): void {
     // auto cleanup logs
     this.coordinator.addStrategy(new ModelLogTruncationStrategy());
     // enable querying for data
     this.coordinator.addStrategy(
       new BaseStrategy({
         source: this.memorySource.name,
-        target: this.parent.name,
+        target: this.parentMemorySource.name,
         on: "beforeQuery",
         action: "query",
         catch(...args: any[]): void {
@@ -43,7 +56,7 @@ export default class DefaultBranch implements Branch {
     // enable auto syncing data
     this.coordinator.addStrategy(
       new BaseStrategy({
-        source: this.parent.name,
+        source: this.parentMemorySource.name,
         target: this.memorySource.name,
         on: "transform",
         action: "sync",
@@ -57,8 +70,8 @@ export default class DefaultBranch implements Branch {
     );
   }
 
-  public static async factory(parent: Memory): Promise<DefaultBranch> {
-    let b = new DefaultBranch(parent);
+  public static async factory(parent: null | Branch, memorySource: Memory): Promise<DefaultBranch> {
+    let b = new DefaultBranch(parent, memorySource);
     await b.coordinator.activate();
     return b;
   }
@@ -68,20 +81,41 @@ export default class DefaultBranch implements Branch {
   }
 
   fork(): Promise<Branch> {
-    return DefaultBranch.factory(this.memorySource);
+    if (this.isActive()) {
+      throw new Error("Branch has been deactivated!");
+    }
+    return DefaultBranch.factory(this, this.memorySource);
+  }
+
+  isActive(): boolean {
+    if (this.branchState === BranchState.ACTIVE) {
+      return true;
+    }
+    if (this.parent !== null) {
+      return this.parent.isActive();
+    }
+    return false;
   }
 
   async mergeAndDestroy(): Promise<void> {
-    await this.coordinator.deactivate();
-    await this.parent.merge(this.memorySource);
+    if (this.isActive()) {
+      throw new Error("Branch has been deactivated!");
+    }
+    await this.parentMemorySource.merge(this.memorySource);
+    this.abandon();
   }
 
   abandon(): void {
     this.modelsMap.clear();
     this.coordinator.deactivate();
+    this.memorySource.deactivate();
+    this.branchState = BranchState.DESTROYED;
   }
 
   registerModel<MODEL extends Model>(model: MODEL): void {
+    if (this.isActive()) {
+      throw new Error("Branch has been deactivated!");
+    }
     this.modelsMap.set(ModelSerializer.getIdentity(model), model);
   }
 

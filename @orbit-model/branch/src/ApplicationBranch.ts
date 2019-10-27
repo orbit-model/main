@@ -10,6 +10,6 @@ export default class ApplicationBranch {
   }
 
   public static fork(): Promise<Branch> {
-    return DefaultBranch.factory(ApplicationBranch.memorySource);
+    return DefaultBranch.factory(null, ApplicationBranch.memorySource);
   }
 }
