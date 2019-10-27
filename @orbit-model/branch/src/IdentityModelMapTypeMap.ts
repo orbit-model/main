@@ -67,6 +67,9 @@ export default class IdentityModelMapTypeMap implements Map<RecordIdentity, Mode
   }
 
   clear(): void {
+    this._map.forEach(map => {
+      map.clear();
+    });
     this._map.clear();
   }
 

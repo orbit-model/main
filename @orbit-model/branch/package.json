@@ -35,6 +35,7 @@
   "dependencies": {
     "@orbit-model/contracts": "^0.0.2-beta.1",
     "@orbit-model/di": "^0.0.2-beta.1",
+    "@orbit-model/middleware": "^0.0.2-beta.1",
     "@orbit-model/query": "^0.0.2-beta.1",
     "@orbit/coordinator": "^0.16.3",
     "@orbit/data": "^0.16.3",

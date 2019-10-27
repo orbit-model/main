@@ -1,10 +1,11 @@
 import Coordinator, { LogTruncationStrategy } from "@orbit/coordinator";
 import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
-import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
 import { DI } from "@orbit-model/di";
 import { Branch, BranchQuery, Model, QueryBuilderZero } from "@orbit-model/contracts";
 import IdentityModelMapTypeMap from "../IdentityModelMapTypeMap";
+import { ModelSerializer } from "@orbit-model/middleware";
+import BaseStrategy from "./BaseStrategy";
 
 export default class DefaultBranch implements Branch {
   private readonly memorySource: Memory;
@@ -20,13 +21,30 @@ export default class DefaultBranch implements Branch {
     this.coordinator = new Coordinator({
       sources: [this.memorySource, this.parent]
     });
+
+    // auto cleanup logs
     this.coordinator.addStrategy(new LogTruncationStrategy());
+    // enable querying for data
     this.coordinator.addStrategy(
-      new DefaultBranchQueryStrategy({
+      new BaseStrategy({
         source: this.memorySource.name,
         target: this.parent.name,
+        on: "beforeQuery",
+        action: "query",
         catch(...args: any[]): void {
-          console.error("error while running DefaultBranchQueryStrategy: ", ...args);
+          console.error("error while running BaseStrategy for querying: ", ...args);
+        }
+      })
+    );
+    // enable auto syncing data
+    this.coordinator.addStrategy(
+      new BaseStrategy({
+        source: this.memorySource.name,
+        target: this.parent.name,
+        on: "transform",
+        action: "sync",
+        catch(...args: any[]): void {
+          console.error("error while running BaseStrategy for synchronizing: ", ...args);
         }
       })
     );
@@ -52,16 +70,16 @@ export default class DefaultBranch implements Branch {
   }
 
   abandon(): void {
+    this.modelsMap.clear();
     this.coordinator.deactivate();
   }
 
   registerModel<MODEL extends Model>(model: MODEL): void {
-    // todo: implement
-    // this.modelsMap.set()
+    this.modelsMap.set(ModelSerializer.getIdentity(model), model);
   }
 
   unregisterModel<MODEL extends Model>(model: MODEL): void {
-    // todo: implement
+    this.modelsMap.delete(ModelSerializer.getIdentity(model));
   }
 
   query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder = "QueryBuilder"): Q {
