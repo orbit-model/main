@@ -1,14 +1,16 @@
-import Coordinator, { /*EventLoggingStrategy, LogLevel,*/ LogTruncationStrategy } from "@orbit/coordinator";
+import Coordinator, { LogTruncationStrategy } from "@orbit/coordinator";
 import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
-import { Branch, BranchQuery, QueryBuilderZero } from "../../../contracts";
 import DefaultBranchQueryStrategy from "./DefaultBranchQueryStrategy";
 import { DI } from "@orbit-model/di";
+import { Branch, BranchQuery, Model, QueryBuilderZero } from "@orbit-model/contracts";
+import IdentityModelMapTypeMap from "../IdentityModelMapTypeMap";
 
 export default class DefaultBranch implements Branch {
   private readonly memorySource: Memory;
   private readonly parent: Memory;
   private readonly coordinator: Coordinator;
+  private readonly modelsMap: IdentityModelMapTypeMap = new IdentityModelMapTypeMap();
 
   private constructor(parent: Memory) {
     this.memorySource = parent.fork({
@@ -16,15 +18,9 @@ export default class DefaultBranch implements Branch {
     });
     this.parent = parent;
     this.coordinator = new Coordinator({
-      sources: [this.memorySource, this.parent],
-      defaultActivationOptions: {
-        //    logLevel: LogLevel.Info
-      }
+      sources: [this.memorySource, this.parent]
     });
     this.coordinator.addStrategy(new LogTruncationStrategy());
-    // this.coordinator.addStrategy(new EventLoggingStrategy({
-    //   logLevel: LogLevel.Info
-    // }));
     this.coordinator.addStrategy(
       new DefaultBranchQueryStrategy({
         source: this.memorySource.name,
@@ -34,54 +30,6 @@ export default class DefaultBranch implements Branch {
         }
       })
     );
-    // this.coordinator.addStrategy(new RequestStrategy({
-    //   source: this.memorySource.name,
-    //   on: 'beforeQuery',
-    //
-    //   target: this.parent.name,
-    //   action: 'query',
-    //   // action: async function (data: any) {
-    //   //   try {
-    //   //     // @ts-ignore
-    //   //     let result = await this.target.query(data);
-    //   //     // @ts-ignore
-    //   //     console.log("result: ", result);
-    //   //     return result;
-    //   //     // @ts-ignore
-    //   //     //this.hints['data'] = result;
-    //   //     // console.log("source: ", this.source.update);
-    //   //     // if (Array.isArray(result)) {
-    //   //     //   // @ts-ignore
-    //   //     //   await this.source.update(t => result.map(r => t.updateRecord(r)));
-    //   //     // } else {
-    //   //     //   // @ts-ignore
-    //   //     //   await this.source.update(t => t.updateRecord(result));
-    //   //     // }
-    //   //     // @ts-ignore
-    //   //     // console.log("result2: ", this.source.query);
-    //   //     // @ts-ignore
-    //   //     // await this.source.merge(this.target).then(() => {
-    //   //     //   console.log("TEST");
-    //   //     //   throw new Error("TEST");
-    //   //     // });
-    //   //   } catch (e) {
-    //   //     console.log("ERROR! ", e.message);
-    //   //   }
-    //   // },
-    //
-    //   passHints: true,
-    //   blocking: true,
-    //
-    //   catch(...args: any[]) {
-    //     console.log('caught an error: ', ...args);
-    //   }
-    // }));
-    // Sync all changes received from the remote server to the memorySource
-    // this.coordinator.addStrategy(new SyncStrategy({
-    //   source: this.parent.name,
-    //   target: this.memorySource.name,
-    //   blocking: true
-    // }));
   }
 
   public static async factory(parent: Memory): Promise<DefaultBranch> {
@@ -105,6 +53,15 @@ export default class DefaultBranch implements Branch {
 
   abandon(): void {
     this.coordinator.deactivate();
+  }
+
+  registerModel<MODEL extends Model>(model: MODEL): void {
+    // todo: implement
+    // this.modelsMap.set()
+  }
+
+  unregisterModel<MODEL extends Model>(model: MODEL): void {
+    // todo: implement
   }
 
   query<Q extends BranchQuery = QueryBuilderZero>(queryBuilder = "QueryBuilder"): Q {

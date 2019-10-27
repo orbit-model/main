@@ -39,8 +39,10 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
         remoteId = undefined;
       }
 
-      this.__orbitModelMeta = new DefaultOrbitModelMeta(branch, type, uuid, remoteId); // workaround
+      this.__orbitModelMeta = new DefaultOrbitModelMeta(branch, type, uuid, remoteId);
       ModelMetaAccessor.setMeta(this, this.__orbitModelMeta);
+
+      branch.registerModel(this);
     }
 
     public get id(): string | undefined {

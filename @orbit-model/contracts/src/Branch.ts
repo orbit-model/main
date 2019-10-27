@@ -1,6 +1,7 @@
 import BranchQuery from "./BranchQuery";
 import QueryBuilderZero from "./QueryBuilderZero";
 import Memory from "@orbit/memory";
+import Model from "./Model";
 
 export default interface Branch {
   /**
@@ -22,6 +23,16 @@ export default interface Branch {
    * clean up event handlers to allow garbage collection to work
    */
   abandon(): void;
+
+  /**
+   * register model with branch for auto updating
+   */
+  registerModel<MODEL extends Model>(model: MODEL): void;
+
+  /**
+   * unregister model from auto updating (model has been deleted)
+   */
+  unregisterModel<MODEL extends Model>(model: MODEL): void;
 
   /**
    * @param queryBuilder defaults to "QueryBuilder"
