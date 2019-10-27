@@ -13,15 +13,20 @@ class KlassSettingsPair<INSTANCE, SETTINGS> {
   }
 }
 
+type SingleArgClass<INSTANCE, SETTINGS> = { new (arg?: SETTINGS): INSTANCE };
+
 export default class BasicOrbitFactorySource implements OrbitFactorySources {
   private bucket: KlassSettingsPair<Bucket, BucketSettings> | null = null;
+  private memorySource: KlassSettingsPair<MemorySource, MemorySourceSettings> | null = null;
+  private backupSource: KlassSettingsPair<Source, SourceSettings> | null = null;
+  private remoteSource: KlassSettingsPair<Source, SourceSettings>[] = [];
 
   setBucket<BUCKET extends Bucket, SETTINGS extends BucketSettings>(
     klass: OrbitKlass<BUCKET, SETTINGS>,
     settings?: SETTINGS
   ): void {
     this.bucket = new KlassSettingsPair<Bucket, BucketSettings>(
-      klass as { new (arg?: BucketSettings): Bucket },
+      klass as SingleArgClass<Bucket, BucketSettings>,
       settings
     );
   }
@@ -30,29 +35,40 @@ export default class BasicOrbitFactorySource implements OrbitFactorySources {
     klass: OrbitKlass<SOURCE, SETTINGS>,
     settings?: SETTINGS
   ): void {
-    // todo: implement
+    this.memorySource = new KlassSettingsPair<MemorySource, MemorySourceSettings>(
+      klass as SingleArgClass<MemorySource, MemorySourceSettings>,
+      settings
+    );
   }
 
   setBackupSource<SOURCE extends Source, SETTINGS extends SourceSettings>(
     klass: OrbitKlass<SOURCE, SETTINGS>,
     settings?: SETTINGS
   ): void {
-    // todo: implement
+    this.backupSource = new KlassSettingsPair<Source, SourceSettings>(
+      klass as SingleArgClass<Source, SourceSettings>,
+      settings
+    );
   }
 
   addRemoteSource<SOURCE extends Source, SETTINGS extends SourceSettings>(
     klass: OrbitKlass<SOURCE, SETTINGS>,
     settings?: SETTINGS
   ): string {
-    return "";
+    return (
+      "" +
+      this.remoteSource.push(
+        new KlassSettingsPair<Source, SourceSettings>(klass as SingleArgClass<Source, SourceSettings>, settings)
+      )
+    );
   }
 
   clearRemoteSources(): void {
-    // todo: implement
+    this.remoteSource = [];
   }
 
   createOrbit(): OrbitFactoryStrategies {
+    // todo: implement
     throw new Error("not implemented");
-    // return undefined;
   }
 }

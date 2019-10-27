@@ -3,9 +3,7 @@ import { Bucket, BucketSettings } from "@orbit/core";
 import OrbitFactoryStrategies from "./OrbitFactoryStrategies";
 import { Source, SourceSettings } from "@orbit/data";
 
-export interface OrbitKlass<INSTANCE, SETTINGS> {
-  new (arg?: SETTINGS): INSTANCE;
-}
+export type OrbitKlass<INSTANCE, SETTINGS> = { new (arg?: SETTINGS): INSTANCE };
 
 export default interface OrbitFactorySources {
   setBucket<BUCKET extends Bucket, SETTINGS extends BucketSettings>(
