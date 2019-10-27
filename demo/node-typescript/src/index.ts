@@ -75,6 +75,28 @@ process.on("unhandledRejection", up => {
     .select<Planet>(Planet)
     .get();
   Orbit.assert("one more planet:", Array.isArray(planetsPlusPlus) && planetsPlusPlus.length === 7);
+
+  console.log("creating second (independent) fork");
+  let secondBranch: Branch = await ApplicationBranch.fork();
+
+  let secondBranchPlanets = await secondBranch
+    .query()
+    .select<Planet>(Planet)
+    .get();
+  Orbit.assert("still using demo data only", Array.isArray(secondBranchPlanets) && secondBranchPlanets.length === 5);
+  console.log("second fork only contains old data: ", secondBranchPlanets.length);
+
+  await workBranch.mergeAndDestroy();
+
+  secondBranchPlanets = await secondBranch
+    .query()
+    .select<Planet>(Planet)
+    .get();
+  Orbit.assert(
+    "now having access to additional data",
+    Array.isArray(secondBranchPlanets) && secondBranchPlanets.length === 7
+  );
+  console.log("second fork now contains new data from first work-branch: ", secondBranchPlanets.length);
 })();
 
 // function waitFor(milliseconds: number): Promise<void> {

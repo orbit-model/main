@@ -1,4 +1,4 @@
-import Coordinator, { LogTruncationStrategy } from "@orbit/coordinator";
+import Coordinator from "@orbit/coordinator";
 import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
 import { DI } from "@orbit-model/di";
@@ -6,6 +6,7 @@ import { Branch, BranchQuery, Model, QueryBuilderZero } from "@orbit-model/contr
 import IdentityModelMapTypeMap from "../IdentityModelMapTypeMap";
 import { ModelSerializer } from "@orbit-model/middleware";
 import BaseStrategy from "./BaseStrategy";
+import ModelLogTruncationStrategy from "./ModelLogTruncationStrategy";
 
 export default class DefaultBranch implements Branch {
   private readonly memorySource: Memory;
@@ -23,7 +24,7 @@ export default class DefaultBranch implements Branch {
     });
 
     // auto cleanup logs
-    this.coordinator.addStrategy(new LogTruncationStrategy());
+    this.coordinator.addStrategy(new ModelLogTruncationStrategy());
     // enable querying for data
     this.coordinator.addStrategy(
       new BaseStrategy({
@@ -33,18 +34,24 @@ export default class DefaultBranch implements Branch {
         action: "query",
         catch(...args: any[]): void {
           console.error("error while running BaseStrategy for querying: ", ...args);
+        },
+        afterListenerResult(): void {
+          (this.source as Memory).rebase();
         }
       })
     );
     // enable auto syncing data
     this.coordinator.addStrategy(
       new BaseStrategy({
-        source: this.memorySource.name,
-        target: this.parent.name,
+        source: this.parent.name,
+        target: this.memorySource.name,
         on: "transform",
         action: "sync",
         catch(...args: any[]): void {
           console.error("error while running BaseStrategy for synchronizing: ", ...args);
+        },
+        afterListenerResult(): void {
+          (this.target as Memory).rebase();
         }
       })
     );

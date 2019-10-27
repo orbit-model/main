@@ -14,6 +14,10 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "homepage": "https://github.com/orbit-model/main",
+  "scripts": {
+    "run": "cd dist && node index.js",
+    "test": "yarn run run"
+  },
   "dependencies": {
     "@orbit-model/bootstrap": "^0.0.2-beta.1",
     "@orbit-model/branch": "^0.0.2-beta.1",
