@@ -1,4 +1,4 @@
-import Coordinator, { EventLoggingStrategy, LogLevel, LogTruncationStrategy } from "@orbit/coordinator";
+import Coordinator, { /*EventLoggingStrategy, LogLevel,*/ LogTruncationStrategy } from "@orbit/coordinator";
 import Memory from "@orbit/memory";
 import { uuid } from "@orbit/utils";
 import { Branch, BranchQuery, QueryBuilderZero } from "../../../contracts";

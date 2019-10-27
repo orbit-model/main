@@ -844,6 +844,11 @@
     "@orbit/core" "^0.16.3"
     "@orbit/utils" "^0.16.3"
 
+"@orbit/identity-map@^0.16.3":
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/@orbit/identity-map/-/identity-map-0.16.3.tgz#f9b8d50333089e356449064a23e7103f2c07c274"
+  integrity sha512-uUQ1E1+svi13MKYsgWyRrlwBDmtC5AbwfBsfu75OaBDnKTlAnQx5SLswBZSZC2COm9iRvKtSlAcjpz0DJaCdZQ==
+
 "@orbit/immutable@^0.16.3":
   version "0.16.3"
   resolved "https://registry.yarnpkg.com/@orbit/immutable/-/immutable-0.16.3.tgz#b85658ccab4b05fee75772efaa84c67e5114d89b"
