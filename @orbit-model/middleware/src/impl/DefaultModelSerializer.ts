@@ -1,4 +1,4 @@
-import ModelSerializer from "../ModelSerializer";
+import ModelSerializer from "@orbit-model/contracts/dist/middelware/ModelSerializer";
 import findAttributeInfoByName from "./utils/findAttributeInfoByName";
 import { RecordIdentity } from "@orbit/data";
 import { Dict } from "@orbit/utils";

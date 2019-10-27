@@ -1,8 +1,8 @@
-import Branch from "./Branch";
-import Model from "./Model";
+import Branch from "../Branch";
+import Model from "../Model";
 import { Record } from "@orbit/data";
 import { Injectable } from "@orbit-model/di";
-import ModelClass from "./ModelClass";
+import ModelClass from "../ModelClass";
 
 export default interface Adapter extends Injectable {
   /**

@@ -1,4 +1,4 @@
-import RecordSerializer from "../RecordSerializer";
+import RecordSerializer from "@orbit-model/contracts/dist/middelware/RecordSerializer";
 import { Record } from "@orbit/data";
 import { Dict } from "@orbit/utils";
 

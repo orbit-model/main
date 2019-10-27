@@ -1,9 +1,15 @@
-import ModelSerializer from "../ModelSerializer";
-import RecordSerializer from "../RecordSerializer";
 import { Record } from "@orbit/data";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
-import { Adapter, Branch, Model, ModelClass, ModelClassOptions } from "@orbit-model/contracts";
+import {
+  Adapter,
+  Branch,
+  Model,
+  ModelClass,
+  ModelClassOptions,
+  ModelSerializer,
+  RecordSerializer
+} from "@orbit-model/contracts";
 
 export default class DefaultAdapter implements Adapter {
   private di: Container | null = null;

@@ -1,9 +1,8 @@
 export { Adapter } from "./facades/Adapter";
 export { RelationshipAdapter } from "./facades/RelationshipAdapter";
 export { MiddlewareInterface, Middleware } from "./facades/Middleware";
-
-export { default as ModelSerializer } from "./ModelSerializer";
-export { default as RecordSerializer } from "./RecordSerializer";
+export { ModelSerializer } from "./facades/ModelSerializer";
+export { RecordSerializer } from "./facades/RecordSerializer";
 
 export { default as DefaultAdapter } from "./impl/DefaultAdapter";
 export { default as DefaultModelSerializer } from "./impl/DefaultModelSerializer";

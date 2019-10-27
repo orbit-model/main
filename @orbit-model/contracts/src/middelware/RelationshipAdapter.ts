@@ -1,5 +1,5 @@
 import { Injectable } from "@orbit-model/di";
-import Model from "./Model";
+import Model from "../Model";
 
 export default interface RelationshipAdapter extends Injectable {
   // hasOne relationship:
