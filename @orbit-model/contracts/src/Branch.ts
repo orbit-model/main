@@ -27,7 +27,7 @@ export default interface Branch {
   /**
    * clean up event handlers to allow garbage collection to work
    */
-  abandon(): void;
+  abandon(): Promise<void>;
 
   /**
    * register model with branch for auto updating

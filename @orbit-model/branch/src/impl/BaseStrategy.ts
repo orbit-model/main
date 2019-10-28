@@ -39,6 +39,7 @@ export default class BaseStrategy extends ConnectionStrategy {
 
   async deactivate(): Promise<void> {
     await super.deactivate();
+    // todo: remove workaround
     for (let source of this._sources) {
       await source.activate();
     }

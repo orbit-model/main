@@ -88,8 +88,8 @@ export default class DefaultBranch implements Branch {
   }
 
   isActive(): boolean {
-    if (this.branchState === BranchState.ACTIVE) {
-      return true;
+    if (this.branchState !== BranchState.ACTIVE) {
+      return false;
     }
     if (this.parent !== null) {
       return this.parent.isActive();
@@ -102,13 +102,13 @@ export default class DefaultBranch implements Branch {
       throw new Error("Branch has been deactivated!");
     }
     await this.parentMemorySource.merge(this.memorySource);
-    this.abandon();
+    await this.abandon();
   }
 
-  abandon(): void {
+  async abandon(): Promise<void> {
     this.modelsMap.clear();
-    this.coordinator.deactivate();
-    this.memorySource.deactivate();
+    await this.coordinator.deactivate();
+    await this.memorySource.deactivate();
     this.branchState = BranchState.DESTROYED;
   }
 
