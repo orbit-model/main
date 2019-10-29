@@ -1,6 +1,8 @@
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Build Status](https://travis-ci.com/orbit-model/main.svg?branch=develop)](https://travis-ci.com/orbit-model/main)
 [![Greenkeeper badge](https://badges.greenkeeper.io/orbit-model/main.svg)](https://greenkeeper.io/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/orbit-model/main.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/orbit-model/main/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/orbit-model/main.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/orbit-model/main/context:javascript)
 
 # orbit-model
 
