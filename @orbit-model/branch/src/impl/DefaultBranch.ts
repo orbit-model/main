@@ -7,6 +7,7 @@ import IdentityModelMapTypeMap from "../IdentityModelMapTypeMap";
 import { ModelSerializer } from "@orbit-model/middleware";
 import BaseStrategy from "./BaseStrategy";
 import ModelLogTruncationStrategy from "./ModelLogTruncationStrategy";
+import UpdateModelsStrategy from "./UpdateModelsStrategy";
 
 enum BranchState {
   ACTIVE,
@@ -60,6 +61,15 @@ export default class DefaultBranch implements Branch {
         target: this.memorySource.name,
         on: "transform",
         action: "rebase",
+        catch(...args: any[]): void {
+          console.error("error while running BaseStrategy for synchronizing: ", ...args);
+        }
+      })
+    );
+    // enable auto syncing data
+    this.coordinator.addStrategy(
+      new UpdateModelsStrategy(this, {
+        source: this.memorySource.name,
         catch(...args: any[]): void {
           console.error("error while running BaseStrategy for synchronizing: ", ...args);
         }
@@ -126,5 +136,13 @@ export default class DefaultBranch implements Branch {
       qb["setBranch"](this);
     }
     return qb;
+  }
+
+  /**
+   * Only allow the UpdateModelStrategy class access to this property
+   * @private
+   */
+  getModelMap(): IdentityModelMapTypeMap {
+    return this.modelsMap;
   }
 }
