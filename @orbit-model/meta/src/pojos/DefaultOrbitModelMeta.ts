@@ -4,6 +4,8 @@ export default class DefaultOrbitModelMeta implements OrbitModelMeta {
   readonly branch: Branch;
   readonly className: string;
   readonly orbitUUID: string;
+  isDeleted = false;
+  isDestroyed = false;
   readonly ids: {
     remoteId?: string;
   };

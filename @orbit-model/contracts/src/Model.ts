@@ -6,4 +6,9 @@ export default interface Model extends MetaDataModel {
 
   $destroy(): Promise<void>;
   $save(): Promise<void>;
+
+  /**
+   * either model has been deleted from the parent branch and possibly the server
+   */
+  $isDeleted(): boolean;
 }

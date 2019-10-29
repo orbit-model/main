@@ -68,10 +68,6 @@ export default class DefaultAdapter implements Adapter {
   }
 
   updateModel<M extends Model>(record: Record, model: M): void {
-    if (this.di === null) {
-      throw new Error("the DefaultAdapter has to be instantiated through a DI container");
-    }
-
     let recordSerializer = this.getRecordSerializer();
     let modelSerializer = this.getModelSerializer();
 
@@ -80,16 +76,9 @@ export default class DefaultAdapter implements Adapter {
   }
 
   async setAttrValue<M extends Model>(model: M, attribute: string, value: any): Promise<void> {
-    if (this.di === null) {
-      throw new Error("the DefaultAdapter has to be instantiated through a DI container");
-    }
-
     let modelSerializer = this.getModelSerializer();
 
     let meta = ModelMetaAccessor.getMeta(model);
-    if (meta === undefined) {
-      throw new Error("Model has not been initialized yet!");
-    }
     meta.values[attribute] = value;
 
     let recordId = modelSerializer.getIdentity(model);
@@ -104,16 +93,9 @@ export default class DefaultAdapter implements Adapter {
   }
 
   async save<M extends Model>(model: M): Promise<void> {
-    if (this.di === null) {
-      throw new Error("the DefaultAdapter has to be instantiated through a DI container");
-    }
-
     let modelSerializer = this.getModelSerializer();
 
     let meta = ModelMetaAccessor.getMeta(model);
-    if (meta === undefined) {
-      throw new Error("Model has not been initialized yet!");
-    }
     let store = meta.branch.getMemorySource();
 
     let reflection = ModelMetaAccessor.getReflection(model.constructor);
@@ -146,14 +128,12 @@ export default class DefaultAdapter implements Adapter {
   }
 
   async destroy<M extends Model>(model: M): Promise<void> {
-    if (this.di === null) {
-      throw new Error("the DefaultAdapter has to be instantiated through a DI container");
-    }
+    let meta = ModelMetaAccessor.getMeta(model);
+    meta.isDestroyed = true;
 
     let modelSerializer = this.getModelSerializer();
-    let meta = ModelMetaAccessor.getMeta(model);
-    if (meta === undefined) {
-      throw new Error("Model has not been initialized yet!");
+    if (!meta.branch.isActive()) {
+      throw new Error("Model is bound to inactive branch!");
     }
     let store = meta.branch.getMemorySource();
 

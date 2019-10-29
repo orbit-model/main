@@ -73,6 +73,10 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
       return Adapter.save(this);
     }
 
+    $isDeleted(): boolean {
+      return this.__orbitModelMeta.isDeleted;
+    }
+
     public toJSON(): Json {
       let json: Json = {
         type: this.type,
