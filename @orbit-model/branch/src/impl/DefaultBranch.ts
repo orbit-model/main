@@ -59,12 +59,9 @@ export default class DefaultBranch implements Branch {
         source: this.parentMemorySource.name,
         target: this.memorySource.name,
         on: "transform",
-        action: "sync",
+        action: "rebase",
         catch(...args: any[]): void {
           console.error("error while running BaseStrategy for synchronizing: ", ...args);
-        },
-        afterListenerResult(): void {
-          (this.target as Memory).rebase();
         }
       })
     );
