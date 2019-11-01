@@ -89,7 +89,7 @@ export default class DefaultAdapter implements Adapter {
       );
     }
     let attrOrbitName = reflection.modelInfo.attributes[attribute].name;
-    await meta.branch.getMemorySource().update(t => t.replaceKey(recordId, attrOrbitName, value));
+    await meta.branch.getMemorySource().update(t => t.replaceAttribute(recordId, attrOrbitName, value));
   }
 
   async save<M extends Model>(model: M): Promise<void> {

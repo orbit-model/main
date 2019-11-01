@@ -17,6 +17,7 @@ export default class IdentityModelMapTypeMap implements Map<RecordIdentity, Mode
     let imMap = this._map.get(identity.type);
     if (imMap === undefined) {
       imMap = new IdentityModelMap<M>(identity.type);
+      this._map.set(identity.type, imMap);
     }
     imMap.set(identity, record);
     return this;

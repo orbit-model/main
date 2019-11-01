@@ -56,9 +56,6 @@ export default function attrGenerator(options: AttrOptions = {}) {
     Object.defineProperty(target, key, {
       get(): any {
         let meta = ModelMetaAccessor.getMeta(this);
-        if (meta === undefined) {
-          throw new Error("Model has not been initialized yet!");
-        }
         return meta.values[attrInfo.name];
       },
       set(v: any): void {

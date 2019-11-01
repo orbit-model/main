@@ -66,12 +66,13 @@ export default class DefaultBranch implements Branch {
         }
       })
     );
-    // enable auto syncing data
+    // enable auto updating models
     this.coordinator.addStrategy(
       new UpdateModelsStrategy(this, {
-        source: this.memorySource.name,
+        // source: this.memorySource.name,
+        source: this.parentMemorySource.name, // todo: remove workaround
         catch(...args: any[]): void {
-          console.error("error while running BaseStrategy for synchronizing: ", ...args);
+          console.error("error while running UpdateModelsStrategy for synchronizing: ", ...args);
         }
       })
     );

@@ -5,6 +5,7 @@ import { Operation, Transform } from "@orbit/data";
 import OperationProcessor from "./operationProcessors/OperationProcessor";
 import UpdateRecord from "./operationProcessors/UpdateRecord";
 import MemorySource from "@orbit/memory";
+import ReplaceAttribute from "./operationProcessors/ReplaceAttribute";
 
 export interface UpdateModelsStrategyOptions {
   /**
@@ -20,13 +21,14 @@ export interface UpdateModelsStrategyOptions {
 
 export default class UpdateModelsStrategy extends ConnectionStrategy {
   protected readonly branch: DefaultBranch;
-  protected readonly operationProcessors: OperationProcessor[] = [new UpdateRecord()];
+  protected readonly operationProcessors: OperationProcessor[] = [new UpdateRecord(), new ReplaceAttribute()];
 
   constructor(branch: DefaultBranch, options: UpdateModelsStrategyOptions) {
     super({
       source: options.source,
       on: "transform",
-      action: (): void => {}
+      action: (): void => {},
+      catch: options.catch
     } as ConnectionStrategyOptions);
     this.branch = branch;
   }
@@ -49,10 +51,10 @@ export default class UpdateModelsStrategy extends ConnectionStrategy {
     let processor = this.operationProcessors.find((op: OperationProcessor): boolean => {
       return op.getOpCodes().includes(operation.op);
     });
-
     if (!processor) {
       return Promise.resolve();
     }
+    console.log("running processor: ", processor.getOpCodes());
     return processor.run(operation, this.branch, this.source as MemorySource);
   }
 }

@@ -11,6 +11,7 @@ import queryAndCreateModels from "./demos/01_queryAndCreateModels";
 import multipleBranches from "./demos/02_multipleBranches";
 import multipleBranches2 from "./demos/03_multipleBranches2";
 import modificationPriority from "./demos/04_modificationPriority";
+import autoUpdate from "./demos/05_autoUpdate";
 
 // fail on unhandled promise error
 process.on("unhandledRejection", up => {
@@ -24,7 +25,8 @@ process.on("unhandledRejection", up => {
     queryAndCreateModels,
     multipleBranches,
     multipleBranches2,
-    modificationPriority
+    modificationPriority,
+    autoUpdate
   ];
 
   for (let f of functions) {
@@ -36,7 +38,11 @@ process.on("unhandledRejection", up => {
     ApplicationBranch.setup(memory);
     await demoData(memory);
 
-    await f();
+    try {
+      await f();
+    } catch (e) {
+      console.error("funktion ", f.name, " has thrown an exception: ", e);
+    }
 
     console.log("### END of function:", f.name, "##############################");
   }
