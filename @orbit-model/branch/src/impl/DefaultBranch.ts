@@ -21,6 +21,7 @@ export default class DefaultBranch implements Branch {
   private readonly parentMemorySource: Memory;
   private readonly coordinator: Coordinator;
   private readonly modelsMap: IdentityModelMapTypeMap = new IdentityModelMapTypeMap();
+  private promiseChain: undefined | Promise<any>;
 
   private constructor(parent: null | Branch, parentMemorySource: Memory) {
     this.parent = parent;
@@ -105,10 +106,26 @@ export default class DefaultBranch implements Branch {
     return false;
   }
 
+  _chain(promise: Promise<any>): void {
+    if (this.promiseChain === undefined) {
+      this.promiseChain = promise;
+    } else {
+      let temp = this.promiseChain;
+      this.promiseChain = promise;
+      promise.then(() => temp);
+    }
+  }
+
+  settle(): Promise<any> {
+    return this.promiseChain || Promise.resolve();
+  }
+
   async mergeAndDestroy(): Promise<void> {
     if (this.isActive()) {
       throw new Error("Branch has been deactivated!");
     }
+    this.branchState = BranchState.DESTROYED; // avoid concurrency issues
+    await this.settle();
     await this.parentMemorySource.merge(this.memorySource);
     await this.abandon();
   }

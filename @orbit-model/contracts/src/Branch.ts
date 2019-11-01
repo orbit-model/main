@@ -30,6 +30,18 @@ export default interface Branch {
   abandon(): Promise<void>;
 
   /**
+   * add a promise to the chain for this.settle()
+   * @private
+   */
+  _chain(promise: Promise<any>): void;
+
+  /**
+   * allow internal promises to settle before further processing occurs
+   * e.g. after model edits
+   */
+  settle(): Promise<any>;
+
+  /**
    * register model with branch for auto updating
    */
   registerModel<MODEL extends Model>(model: MODEL): void;

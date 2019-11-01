@@ -31,7 +31,6 @@ export default async function autoUpdate(): Promise<void> {
 
   // setting a new name for planet Earth
   firstEarth.name = "Big Earth";
-  await waitFor(100); // todo: remove workaround
   console.log("first branch earth name: ", firstEarth.name);
   console.log("second branch earth name: ", secondEarth.name);
   Orbit.assert("found earth with new name", secondEarth.name === "Earth");

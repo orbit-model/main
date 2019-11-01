@@ -60,7 +60,8 @@ export default function attrGenerator(options: AttrOptions = {}) {
       },
       set(v: any): void {
         let adapter = DI.get<Adapter>("system", "Adapter");
-        adapter.setAttrValue(this, key, v);
+        let meta = ModelMetaAccessor.getMeta(this);
+        meta.branch._chain(adapter.setAttrValue(this, key, v));
       }
     });
   };
