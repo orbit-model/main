@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/contracts",
-  "version": "0.0.2-beta.1",
+  "version": "0.0.2-beta.2",
   "description": "Mostly TypeScript types and contracts",
   "keywords": [
     "orbit",
@@ -35,5 +35,5 @@
     "@orbit/data": "^0.16.3",
     "@orbit/memory": "^0.16.3"
   },
-  "gitHead": "58b8103895e9a154875fada1f5250519eda01152"
+  "gitHead": "349844b78f2fc91bf2d7ad04e7a01d936623c79d"
 }

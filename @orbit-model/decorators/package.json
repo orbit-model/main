@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/decorators",
-  "version": "0.0.2-beta.1",
+  "version": "0.0.2-beta.2",
   "description": "Decorators: an easy way to setup your model classes",
   "keywords": [
     "orbit",
@@ -31,15 +31,15 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/contracts": "^0.0.2-beta.1",
+    "@orbit-model/contracts": "^0.0.2-beta.2",
     "@orbit-model/di": "^0.0.2-beta.1",
-    "@orbit-model/meta": "^0.0.2-beta.1",
-    "@orbit-model/middleware": "^0.0.2-beta.1",
-    "@orbit-model/model": "^0.0.2-beta.1",
+    "@orbit-model/meta": "^0.0.2-beta.2",
+    "@orbit-model/middleware": "^0.0.2-beta.2",
+    "@orbit-model/model": "^0.0.2-beta.2",
     "@orbit/data": "^0.16.3",
     "@orbit/utils": "^0.16.3",
     "inflected": "^2.0.4",
     "reflect-metadata": "^0.1.13"
   },
-  "gitHead": "58b8103895e9a154875fada1f5250519eda01152"
+  "gitHead": "349844b78f2fc91bf2d7ad04e7a01d936623c79d"
 }
