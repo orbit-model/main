@@ -3,12 +3,6 @@ import ApplicationBranch from "@orbit-model/branch";
 import Orbit from "@orbit/core";
 import Planet from "../Planet";
 
-function waitFor(milliseconds: number): Promise<void> {
-  return new Promise(resolve => {
-    setTimeout(resolve, milliseconds);
-  });
-}
-
 export default async function autoUpdate(): Promise<void> {
   console.log("creating first fork");
   let first: Branch = await ApplicationBranch.fork();
