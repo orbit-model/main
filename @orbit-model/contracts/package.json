@@ -1,6 +1,6 @@
 {
   "name": "@orbit-model/contracts",
-  "version": "0.0.2-beta.1",
+  "version": "0.0.2-beta.2",
   "description": "Mostly TypeScript types and contracts",
   "keywords": [
     "orbit",
