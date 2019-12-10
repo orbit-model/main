@@ -38,7 +38,7 @@
     "@orbit-model/middleware": "^0.0.2-beta.2",
     "@orbit-model/query": "^0.0.2-beta.2",
     "@orbit/coordinator": "^0.16.3",
-    "@orbit/data": "^0.16.3",
+    "@orbit/data": "^0.16.4",
     "@orbit/identity-map": "^0.16.3",
     "@orbit/memory": "^0.16.3",
     "@orbit/utils": "^0.16.3"
