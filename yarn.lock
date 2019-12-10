@@ -844,6 +844,14 @@
     "@orbit/core" "^0.16.3"
     "@orbit/utils" "^0.16.3"
 
+"@orbit/data@^0.16.4":
+  version "0.16.4"
+  resolved "https://registry.yarnpkg.com/@orbit/data/-/data-0.16.4.tgz#463ea07b4e01468c140d4b51a60a3a4cbcd64268"
+  integrity sha512-vZq4hJ9fg7UADuclgBJRPkUlKcAgEkLhNbWBlzvEwOfdU0BQRPVjUp57arXIPKQy4BDxZLxRIxUjLnc/+OS4gw==
+  dependencies:
+    "@orbit/core" "^0.16.3"
+    "@orbit/utils" "^0.16.3"
+
 "@orbit/identity-map@^0.16.3":
   version "0.16.3"
   resolved "https://registry.yarnpkg.com/@orbit/identity-map/-/identity-map-0.16.3.tgz#f9b8d50333089e356449064a23e7103f2c07c274"
