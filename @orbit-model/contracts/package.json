@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@orbit-model/di": "^0.0.2-beta.1",
-    "@orbit/coordinator": "^0.16.3",
+    "@orbit/coordinator": "^0.16.5",
     "@orbit/core": "^0.16.3",
     "@orbit/data": "^0.16.3",
     "@orbit/memory": "^0.16.3"
