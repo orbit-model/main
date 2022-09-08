@@ -1,5 +1,5 @@
 import ModelSerializer from "@orbit-model/contracts/dist/middelware/ModelSerializer";
-import { RecordIdentity, Record } from "@orbit/data";
+import { RecordIdentity, Record } from "@orbit/records";
 import Memory from "@orbit/memory";
 import { dasherize } from "@orbit/utils";
 import { Container } from "@orbit-model/di";

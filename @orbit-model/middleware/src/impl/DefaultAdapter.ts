@@ -1,4 +1,4 @@
-import { Record } from "@orbit/data";
+import { Record } from "@orbit/records";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 import {

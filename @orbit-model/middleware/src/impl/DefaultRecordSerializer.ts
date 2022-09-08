@@ -1,5 +1,5 @@
 import RecordSerializer from "@orbit-model/contracts/dist/middelware/RecordSerializer";
-import { Record } from "@orbit/data";
+import { Record } from "@orbit/records";
 import { Dict } from "@orbit/utils";
 
 export default class DefaultRecordSerializer implements RecordSerializer {

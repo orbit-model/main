@@ -1,4 +1,4 @@
-import { RecordIdentity } from "@orbit/data";
+import { RecordIdentity } from "@orbit/records";
 import { Dict } from "@orbit/utils";
 import { Injectable } from "@orbit-model/di";
 import Model from "../Model";
