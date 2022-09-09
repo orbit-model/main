@@ -1,12 +1,12 @@
 import "@orbit-model/bootstrap"; // workaround
-import { SchemaBuilder } from "@orbit-model/model";
+import {SchemaBuilder} from "@orbit-model/model";
 import Memory from "@orbit/memory";
 import "./Planet"; // workaround
 import "./SolarSystem"; // workaround
 import "./Galaxy"; // workaround
-import { KeyMap } from "@orbit/data";
+import {RecordKeyMap} from "@orbit/records";
 import ApplicationBranch from "@orbit-model/branch";
-import { demoData } from "./demoData";
+import {demoData} from "./demoData";
 import queryAndCreateModels from "./demos/01_queryAndCreateModels";
 import multipleBranches from "./demos/02_multipleBranches";
 import multipleBranches2 from "./demos/03_multipleBranches2";
@@ -33,8 +33,8 @@ process.on("unhandledRejection", up => {
     console.log();
     console.log("### START running function:", f.name, "#######################");
     // setup application
-    let keyMap = new KeyMap();
-    let memory = new Memory({ schema, keyMap });
+    let keyMap = new RecordKeyMap();
+    let memory = new Memory({schema, keyMap});
     ApplicationBranch.setup(memory);
     await demoData(memory);
 
