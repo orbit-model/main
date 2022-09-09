@@ -1577,6 +1577,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^18.7.16":
+  version: 18.7.16
+  resolution: "@types/node@npm:18.7.16"
+  checksum: 01a3d35c764a3f0e7370b56e1ad4203731131883c65784e020009014171b3f53c4649cde6c7aa4f1026b907ee87ef6ae6ece2bc518151dc7b81100fe8b1db3ad
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.0
   resolution: "@types/normalize-package-data@npm:2.4.0"
@@ -4906,6 +4913,7 @@ __metadata:
     "@orbit-model/model": ^0.0.2-beta.2
     "@orbit/memory": ^0.17.2
     "@orbit/records": ^0.17.0
+    "@types/node": ^18.7.16
   languageName: unknown
   linkType: soft
 

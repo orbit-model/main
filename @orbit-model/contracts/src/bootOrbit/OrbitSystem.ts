@@ -1,6 +1,6 @@
-import MemorySource from "@orbit/memory";
-import { Bucket } from "@orbit/core";
-import { Source } from "@orbit/data";
+import {MemorySource} from "@orbit/memory";
+import {Bucket} from "@orbit/core";
+import {Source} from "@orbit/data";
 import Coordinator from "@orbit/coordinator";
 
 export default interface OrbitSystem {

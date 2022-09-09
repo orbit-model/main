@@ -26,6 +26,7 @@
     "@orbit-model/middleware": "^0.0.2-beta.2",
     "@orbit-model/model": "^0.0.2-beta.2",
     "@orbit/memory": "^0.17.2",
-    "@orbit/records": "^0.17.0"
+    "@orbit/records": "^0.17.0",
+    "@types/node": "^18.7.16"
   }
 }

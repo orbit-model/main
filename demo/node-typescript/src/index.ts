@@ -1,6 +1,6 @@
 import "@orbit-model/bootstrap"; // workaround
 import {SchemaBuilder} from "@orbit-model/model";
-import Memory from "@orbit/memory";
+import {MemorySource} from "@orbit/memory";
 import "./Planet"; // workaround
 import "./SolarSystem"; // workaround
 import "./Galaxy"; // workaround
@@ -34,7 +34,7 @@ process.on("unhandledRejection", up => {
     console.log("### START running function:", f.name, "#######################");
     // setup application
     let keyMap = new RecordKeyMap();
-    let memory = new Memory({schema, keyMap});
+    let memory = new MemorySource({schema, keyMap});
     ApplicationBranch.setup(memory);
     await demoData(memory);
 

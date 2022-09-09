@@ -1,11 +1,11 @@
 import DefaultBranch from "./impl/DefaultBranch";
-import Memory from "@orbit/memory";
-import { Branch } from "@orbit-model/contracts";
+import {MemorySource} from "@orbit/memory";
+import {Branch} from "@orbit-model/contracts";
 
 export default class ApplicationBranch {
-  private static memorySource: Memory;
+  private static memorySource: MemorySource;
 
-  public static setup(memorySource: Memory): void {
+  public static setup(memorySource: MemorySource): void {
     ApplicationBranch.memorySource = memorySource;
   }
 
