@@ -43,7 +43,7 @@ export default class DefaultBranch implements Branch {
     // enable querying for data
     this.coordinator.addStrategy(
       new BaseStrategy({
-        source: this.memorySource.name,
+        source: this.memorySource.name || `branch-${uuid()}`, // todo: remove fallback
         target: this.parentMemorySource.name,
         on: "beforeQuery",
         action: "query",
@@ -58,7 +58,7 @@ export default class DefaultBranch implements Branch {
     // enable auto syncing data
     this.coordinator.addStrategy(
       new BaseStrategy({
-        source: this.parentMemorySource.name,
+        source: this.parentMemorySource.name || `branch-${uuid()}`, // todo: remove fallback
         target: this.memorySource.name,
         on: "transform",
         action: "rebase",
@@ -71,7 +71,7 @@ export default class DefaultBranch implements Branch {
     this.coordinator.addStrategy(
       new UpdateModelsStrategy(this, {
         // source: this.memorySource.name,
-        source: this.parentMemorySource.name, // todo: remove workaround
+        source: this.parentMemorySource.name || `branch-${uuid()}`, // todo: remove fallback // todo: remove workaround
         catch(...args: any[]): void {
           console.error("error while running UpdateModelsStrategy for synchronizing: ", ...args);
         }

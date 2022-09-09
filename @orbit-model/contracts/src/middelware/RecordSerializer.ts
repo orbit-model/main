@@ -1,4 +1,4 @@
-import { Record } from "@orbit/data";
+import { Record } from "@orbit/records";
 import { Dict } from "@orbit/utils";
 
 export default interface RecordSerializer {

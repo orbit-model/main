@@ -1,7 +1,7 @@
 import Memory from "@orbit/memory";
-import { Record } from "@orbit/data";
+import { InitializedRecord } from "@orbit/records";
 
-async function add(memory: Memory, record: Record): Promise<void> {
+async function add(memory: Memory, record: InitializedRecord): Promise<void> {
   let keyMap = memory.cache.keyMap;
   keyMap.pushRecord(record);
   await memory.update(t => t.addRecord(record));

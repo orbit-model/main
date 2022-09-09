@@ -1,5 +1,5 @@
 import ModelSerializer from "@orbit-model/contracts/dist/middelware/ModelSerializer";
-import { RecordIdentity, Record } from "@orbit/records";
+import {InitializedRecord, RecordIdentity} from "@orbit/records";
 import Memory from "@orbit/memory";
 import { dasherize } from "@orbit/utils";
 import { Container } from "@orbit-model/di";
@@ -55,7 +55,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
     let adapter = this.getAdapter();
     let branch = this.getMeta(model).branch;
-    return adapter.createFromRecord<R>(record, branch);
+    return adapter.createFromRecord<R>(record as InitializedRecord, branch);
   }
 
   setRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
@@ -65,7 +65,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
     return memorySource.update(t =>
       t.replaceRelatedRecord(modelSerializer.getIdentity(model), relName, modelSerializer.getIdentity(value))
-    );
+    ) as Promise<void>;
   }
 
   //## to many ########################################################
@@ -74,7 +74,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    let records: Record[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relationship));
+    let records: InitializedRecord[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relationship));
 
     let adapter = this.getAdapter();
     let branch = this.getMeta(model).branch;
@@ -88,7 +88,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
     return memorySource.update(t =>
       t.addToRelatedRecords(modelSerializer.getIdentity(model), relName, modelSerializer.getIdentity(value))
-    );
+    ) as Promise<void>;
   }
 
   removeRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
@@ -98,7 +98,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
 
     return memorySource.update(t =>
       t.removeFromRelatedRecords(modelSerializer.getIdentity(model), relName, modelSerializer.getIdentity(value))
-    );
+    ) as Promise<void>;
   }
 
   replaceRelatedModels<T extends Model, R extends Model>(model: T, value: R[], relationship?: string): Promise<void> {
@@ -112,7 +112,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
         relName,
         value.map(val => modelSerializer.getIdentity(val))
       )
-    );
+    ) as Promise<void>;
   }
 
   async syncRelatedModels<T extends Model, R extends Model>(

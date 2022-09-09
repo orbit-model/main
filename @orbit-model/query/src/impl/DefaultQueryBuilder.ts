@@ -2,17 +2,18 @@ import {
   AttributeSortSpecifier,
   FilterSpecifier,
   FindRecords,
-  KeyMap,
+  RecordKeyMap,
   PageSpecifier,
   RecordIdentity,
   SetComparisonOperator,
   SortOrder,
   SortSpecifier,
-  ValueComparisonOperator
-} from "@orbit/data";
-import { Adapter, Branch, Model, QueryBuilder } from "../../../contracts";
-import { Container } from "@orbit-model/di";
-import { ModelMetaAccessor } from "@orbit-model/meta";
+  ValueComparisonOperator,
+  InitializedRecord
+} from "@orbit/records";
+import {Adapter, Branch, Model, QueryBuilder} from "@orbit-model/contracts";
+import {Container} from "@orbit-model/di";
+import {ModelMetaAccessor} from "@orbit-model/meta";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
   private readonly branch: Branch;
@@ -36,8 +37,11 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     };
     let record = await this.branch.getMemorySource().query((q: any) => q.findRecord(rId));
 
+    if (record == null) {
+      return null
+    }
     let adapter = this.di.get<Adapter>("system", "Adapter");
-    return adapter.createFromRecord<M>(record, this.branch);
+    return adapter.createFromRecord<M>(record as InitializedRecord, this.branch);
   }
 
   async first(): Promise<M | null> {
@@ -69,7 +73,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     return records.map(record => adapter.createFromRecord(record, this.branch));
   }
 
-  private getKeyMap(): KeyMap {
+  private getKeyMap(): RecordKeyMap {
     let keyMap = this.branch.getMemorySource().cache.keyMap;
     if (keyMap === undefined) {
       throw new Error("You have to add a KeyMap to your StoreSettings!");

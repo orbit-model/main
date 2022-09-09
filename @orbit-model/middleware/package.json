@@ -35,8 +35,8 @@
     "@orbit-model/meta": "^0.0.2-beta.2",
     "@orbit/data": "^0.17.0",
     "@orbit/memory": "^0.17.2",
-    "@orbit/utils": "^0.17.0",
-    "@orbit/records": "^0.17.0"
+    "@orbit/records": "^0.17.0",
+    "@orbit/utils": "^0.17.0"
   },
   "gitHead": "349844b78f2fc91bf2d7ad04e7a01d936623c79d"
 }

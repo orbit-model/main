@@ -1,11 +1,11 @@
 import { Injectable } from "@orbit-model/di";
-import { Schema } from "@orbit/data";
+import { RecordSchema } from "@orbit/records";
 
 export default interface SchemaBuilder extends Injectable {
   /**
    * creates a schema based on the models in the DI
    */
-  createSchema(): Schema;
+  createSchema(): RecordSchema;
 
   /**
    * Function used to pluralize names.

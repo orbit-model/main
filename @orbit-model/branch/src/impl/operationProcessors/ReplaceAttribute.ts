@@ -1,5 +1,6 @@
 import OperationProcessor from "./OperationProcessor";
-import { Operation, ReplaceAttributeOperation } from "@orbit/data";
+import { Operation } from "@orbit/data";
+import { ReplaceAttributeOperation } from "@orbit/records";
 import DefaultBranch from "../DefaultBranch";
 import { ModelMetaAccessor } from "@orbit-model/meta";
 import { AttributeInfo, Model } from "@orbit-model/contracts";

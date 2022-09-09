@@ -34,12 +34,13 @@ export default class UpdateModelsStrategy extends ConnectionStrategy {
   }
 
   protected generateListener(): Listener {
-    return (transform: Transform): Promise<any> => {
+    return (transform: Transform<any>): Promise<any> => {
       let promises = transform.operations.map(this.processOperation.bind(this));
-      let result = Promise.all(promises);
+      let result: Promise<any> = Promise.all(promises);
 
       if (this._catch) {
         result = result.catch((e: Error) => {
+          // @ts-ignore
           return this._catch.apply(this, [e, transform]);
         });
       }

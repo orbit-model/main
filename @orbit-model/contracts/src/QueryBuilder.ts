@@ -1,4 +1,4 @@
-import { SetComparisonOperator, ValueComparisonOperator } from "@orbit/data";
+import { SetComparisonOperator, ValueComparisonOperator } from "@orbit/records";
 import Model from "./Model";
 
 export default interface QueryBuilder<M extends Model> {

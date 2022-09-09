@@ -1,7 +1,7 @@
 import Branch from "../Branch";
 import Model from "../Model";
-import { Record } from "@orbit/data";
-import { Injectable } from "@orbit-model/di";
+import {InitializedRecord} from "@orbit/records";
+import {Injectable} from "@orbit-model/di";
 import ModelClass from "../ModelClass";
 
 export default interface Adapter extends Injectable {
@@ -13,12 +13,12 @@ export default interface Adapter extends Injectable {
   /**
    * create a new model instance on the given branch and set the data form the record
    */
-  createFromRecord<M extends Model>(record: Record, branch: Branch, options?: { args?: any[] }): M;
+  createFromRecord<M extends Model>(record: InitializedRecord, branch: Branch, options?: { args?: any[] }): M;
 
   /**
    * update the (cached) data of a model
    */
-  updateModel<M extends Model>(record: Record, model: M): void;
+  updateModel<M extends Model>(record: InitializedRecord, model: M): void;
 
   /**
    * sets an individual value on a model and propagates it to the memory source

@@ -1,4 +1,4 @@
-import { RecordIdentity } from "@orbit/data";
+import { RecordIdentity } from "@orbit/records";
 import { Model } from "@orbit-model/contracts";
 import IdentityModelMap from "./IdentityModelMap";
 

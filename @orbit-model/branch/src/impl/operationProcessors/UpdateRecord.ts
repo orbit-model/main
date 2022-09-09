@@ -1,5 +1,6 @@
 import OperationProcessor from "./OperationProcessor";
-import { Operation, UpdateRecordOperation } from "@orbit/data";
+import { Operation } from "@orbit/data";
+import { UpdateRecordOperation } from "@orbit/records";
 import DefaultBranch from "../DefaultBranch";
 import { Middleware } from "@orbit-model/middleware";
 

@@ -1,6 +1,7 @@
 import IdentityMap, { IdentitySerializer } from "@orbit/identity-map";
 import { Model } from "@orbit-model/contracts";
-import Orbit, { RecordIdentity } from "@orbit/data";
+import Orbit from "@orbit/core";
+import { RecordIdentity } from "@orbit/records";
 
 export class Serializer implements IdentitySerializer<RecordIdentity> {
   private readonly type: string;

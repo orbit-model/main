@@ -1,5 +1,5 @@
 import { SchemaBuilder } from "@orbit-model/contracts";
-import { AttributeDefinition, ModelDefinition, RelationshipDefinition, Schema } from "@orbit/data";
+import { AttributeDefinition, ModelDefinition, RelationshipDefinition, RecordSchema } from "@orbit/records";
 import { Dict } from "@orbit/utils";
 import { Container } from "@orbit-model/di";
 import { ModelMetaAccessor } from "@orbit-model/meta";
@@ -32,7 +32,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
     this.singularize = f;
   }
 
-  createSchema(): Schema {
+  createSchema(): RecordSchema {
     if (this.di === null) {
       throw new Error("the DefaultSchemaBuilder has to be instantiated through a DI container");
     }
@@ -75,7 +75,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
           }
 
           relationships[relInfo.name] = {
-            type: relInfo.type,
+            kind: relInfo.type,
             model: relInfo.relatedName,
             inverse
           };
@@ -91,7 +91,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       };
     }
 
-    return new Schema({
+    return new RecordSchema({
       models,
       singularize: this.singularize,
       pluralize: this.pluralize,
