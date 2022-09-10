@@ -30,9 +30,9 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/contracts": "^0.0.2-beta.2",
-    "@orbit-model/di": "^0.0.2-beta.1",
-    "@orbit-model/meta": "^0.0.2-beta.2",
+    "@orbit-model/contracts": "workspace:^",
+    "@orbit-model/di": "workspace:^",
+    "@orbit-model/meta": "workspace:^",
     "@orbit/data": "^0.17.0",
     "@orbit/memory": "^0.17.2",
     "@orbit/records": "^0.17.0",

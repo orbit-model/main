@@ -26,7 +26,7 @@ export default class OrbitModelSetupBuilder implements SetupBuilder {
     this._di = di || AppDI.getDI();
   }
 
-  build(): SetupUpdater {
+  async build(): Promise<SetupUpdater> {
     this._built = true;
 
     let schemaBuilder: SchemaBuilder = this._di.get("system", "SchemaBuilder")
@@ -41,7 +41,7 @@ export default class OrbitModelSetupBuilder implements SetupBuilder {
     return this;
   }
 
-  primaryMemorySource(sourceBuilder: SourceBuilderFN<MemorySourceSettings, MemorySource, {}, Bucket<any>>): SetupBuilder {
+  primaryMemorySource(sourceBuilder: SourceBuilderFN<MemorySourceSettings, MemorySource>): SetupBuilder {
     Orbit.assert("Don't reuse the setup builder object", !this._built)
 
     let builder = new OrbitModelSourceBuilder();

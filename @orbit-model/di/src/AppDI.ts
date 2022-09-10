@@ -22,7 +22,7 @@ export default class AppDI {
   public static migrateTo(di: MigratableContainer): void {
     if (AppDI.di !== null) {
       AppDI.di.migrateTo(di);
-      return
+      return;
     }
     AppDI.di = di;
   }

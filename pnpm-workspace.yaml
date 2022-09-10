@@ -1,0 +1,4 @@
+packages:
+    - '@orbit-model/*'
+    - 'demo/*'
+prefer-workspace-packages: true

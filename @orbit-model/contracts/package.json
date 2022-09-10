@@ -29,7 +29,7 @@
     "url": "https://github.com/orbit-model/main/issues"
   },
   "dependencies": {
-    "@orbit-model/di": "^0.0.2-beta.1",
+    "@orbit-model/di": "workspace:^",
     "@orbit/coordinator": "^0.17.0",
     "@orbit/core": "^0.17.0",
     "@orbit/data": "^0.17.0",

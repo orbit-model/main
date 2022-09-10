@@ -16,15 +16,15 @@
   "homepage": "https://github.com/orbit-model/main",
   "scripts": {
     "run": "cd dist && node index.js",
-    "test": "yarn run run"
+    "test": "pnpm run run"
   },
   "dependencies": {
-    "@orbit-model/bootstrap": "^0.0.2-beta.2",
-    "@orbit-model/branch": "^0.0.2-beta.2",
-    "@orbit-model/contracts": "^0.0.2-beta.2",
-    "@orbit-model/decorators": "^0.0.2-beta.2",
-    "@orbit-model/middleware": "^0.0.2-beta.2",
-    "@orbit-model/model": "^0.0.2-beta.2",
+    "@orbit-model/bootstrap": "workspace:^",
+    "@orbit-model/branch": "workspace:^",
+    "@orbit-model/contracts": "workspace:^",
+    "@orbit-model/decorators": "workspace:^",
+    "@orbit-model/middleware": "workspace:^",
+    "@orbit-model/model": "workspace:^",
     "@orbit/memory": "^0.17.2",
     "@orbit/records": "^0.17.0",
     "@types/node": "^18.7.16"
