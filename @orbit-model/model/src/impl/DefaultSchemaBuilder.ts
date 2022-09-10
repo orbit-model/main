@@ -1,12 +1,12 @@
-import { SchemaBuilder } from "@orbit-model/contracts";
-import { AttributeDefinition, ModelDefinition, RelationshipDefinition, RecordSchema } from "@orbit/records";
-import { Dict } from "@orbit/utils";
-import { Container } from "@orbit-model/di";
-import { ModelMetaAccessor } from "@orbit-model/meta";
+import {SchemaBuilder} from "@orbit-model/contracts";
+import {AttributeDefinition, ModelDefinition, RecordSchema, RelationshipDefinition} from "@orbit/records";
+import {Dict} from "@orbit/utils";
+import {Container} from "@orbit-model/di";
+import {ModelMetaAccessor} from "@orbit-model/meta";
 // this is a plain JS lib without TS support
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-import { pluralize, singularize } from "inflected";
+import {pluralize, singularize} from "inflected";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
   private di: Container | null = null;
@@ -32,7 +32,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
     this.singularize = f;
   }
 
-  createSchema(): RecordSchema {
+  createSchema(version?: number): RecordSchema {
     if (this.di === null) {
       throw new Error("the DefaultSchemaBuilder has to be instantiated through a DI container");
     }
@@ -44,12 +44,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       let reflection = ModelMetaAccessor.getReflection(klass);
       if (reflection === undefined) {
         throw new Error(
-          "Model '" +
-            diName +
-            "' with class name '" +
-            klass.name +
-            "' has not been initialized correctly: " +
-            "no reflection information found"
+          `Model '${diName}' with class name '${klass.name}' has not been initialized correctly: no reflection information found`
         );
       }
 
@@ -95,7 +90,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       models,
       singularize: this.singularize,
       pluralize: this.pluralize,
-      version: DefaultSchemaBuilder.version++
+      version: version || DefaultSchemaBuilder.version++
     });
   }
 }

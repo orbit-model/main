@@ -1377,7 +1377,7 @@ __metadata:
     "@orbit-model/middleware": ^0.0.2-beta.2
     "@orbit/data": ^0.17.0
     "@orbit/utils": ^0.17.0
-    inflected: ^2.0.4
+    inflected: ^2.1.0
   languageName: unknown
   linkType: soft
 
@@ -3817,6 +3817,13 @@ __metadata:
   version: 2.0.4
   resolution: "inflected@npm:2.0.4"
   checksum: 5baddd84026892e48abe63e0cfcb8d885a24866837360b4f31e3d30cafcbe1c16b0482cabff4871b151ca7cfe9f878dbc0c0f53472cb8d082c7ac0aad03bc946
+  languageName: node
+  linkType: hard
+
+"inflected@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "inflected@npm:2.1.0"
+  checksum: 1e3fb2d24ec6c774977dd5ed884c6097b6525f66edecfdca0845ab4023d35f02af1057de50cd69cdc5829d0bd5ba69fd7fb41d4d8abdf85ee243bf2bbf65995d
   languageName: node
   linkType: hard
 

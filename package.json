@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "build": "lerna exec --concurrency=99 -- \"rimraf dist && tsc\" ",
+    "build:contracts": "cd @orbit-model/contracts && rimraf dist && tsc",
     "build:checked": "yarn run install:check && yarn run build",
     "build:watch": "lerna exec --stream --no-sort --concurrency=99 -- tsc -w",
     "eslint": "lerna exec --concurrency=1 -- eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",

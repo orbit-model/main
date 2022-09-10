@@ -1,7 +1,7 @@
 import { OrbitFactorySources, OrbitFactoryStrategies, OrbitKlass } from "@orbit-model/contracts";
 import { Source, SourceSettings } from "@orbit/data";
 import { Bucket, BucketSettings } from "@orbit/core";
-import MemorySource, { MemorySourceSettings } from "@orbit/memory";
+import { MemorySource, MemorySourceSettings } from "@orbit/memory";
 
 class KlassSettingsPair<INSTANCE, SETTINGS> {
   readonly klass: OrbitKlass<INSTANCE, SETTINGS>;

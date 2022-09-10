@@ -1,13 +1,13 @@
 import BranchQuery from "./BranchQuery";
 import QueryBuilderZero from "./QueryBuilderZero";
-import Memory from "@orbit/memory";
+import {MemorySource} from "@orbit/memory";
 import Model from "./Model";
 
 export default interface Branch {
   /**
    * get the current fork of the store
    */
-  getMemorySource(): Memory;
+  getMemorySource(): MemorySource;
 
   /**
    * create a sub branch of the current branch by forking the store
@@ -31,7 +31,6 @@ export default interface Branch {
 
   /**
    * add a promise to the chain for this.settle()
-   * @private
    */
   _chain(promise: Promise<any>): void;
 
