@@ -1,6 +1,3 @@
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-[![Build Status](https://travis-ci.com/orbit-model/main.svg?branch=develop)](https://travis-ci.com/orbit-model/main)
-[![Greenkeeper badge](https://badges.greenkeeper.io/orbit-model/main.svg)](https://greenkeeper.io/)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/orbit-model/main.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/orbit-model/main/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/orbit-model/main.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/orbit-model/main/context:javascript)
 
@@ -10,7 +7,7 @@ This is the playground for creating a first version of a model based abstraction
 
 ## RFCs
 
-For more details of what we want to create here, please read the related RFCs posted as issues 
+For more details of what we want to create here, please read the related RFCs posted as issues
 on the [orbit.js monorepo](https://github.com/orbitjs/orbit):
 
 
@@ -19,9 +16,7 @@ on the [orbit.js monorepo](https://github.com/orbitjs/orbit):
 
 ## Contributing
 
-This repository is a so called "monorepo", managed by `lerna` - don't worry, you won't need to know `lerna` to contribute, the scripts defined in the `package.json` should take care of everything for you.
 
-This project requires `yarn`! Please do not use it with `npm`.
 
 ### project tl;dr
 
@@ -29,16 +24,16 @@ In the project root directory you can run these (and more) commands:
 
 ```bash
 # installs everything for every project and links them
-yarn install
+pnpm install
 
 # after code changes
-yarn run lint
+pnpm run lint
 
 # before committing (optional, will be run within git-hooks)
-yarn run test
+pnpm run test
 ```
 
 
 ## License
 
-Copyright 2018-2019 Bernhard Halbartschlager. MIT License (see LICENSE for details).
+Copyright 2018-2022 Bernhard Halbartschlager. MIT License (see LICENSE for details).0
