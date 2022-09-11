@@ -1,12 +1,12 @@
-import {SchemaBuilder} from "@orbit-model/contracts";
-import {AttributeDefinition, ModelDefinition, RecordSchema, RelationshipDefinition} from "@orbit/records";
-import {Dict} from "@orbit/utils";
-import {Container} from "@orbit-model/di";
-import {ModelMetaAccessor} from "@orbit-model/meta";
+import { SchemaBuilder } from "@orbit-model/contracts";
+import { AttributeDefinition, ModelDefinition, RecordSchema, RelationshipDefinition } from "@orbit/records";
+import { Dict } from "@orbit/utils";
+import { Container } from "@orbit-model/di";
+import { ModelMetaAccessor } from "@orbit-model/meta";
 // this is a plain JS lib without TS support
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-import {pluralize, singularize} from "inflected";
+import { pluralize, singularize } from "inflected";
 
 export default class DefaultSchemaBuilder implements SchemaBuilder {
   private di: Container | null = null;
@@ -52,7 +52,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       for (let attr in reflection.modelInfo.attributes) {
         let attrInfo = reflection.modelInfo.attributes[attr];
         attributes[attrInfo.name] = {
-          type: attrInfo.schemaType
+          type: attrInfo.schemaType,
         };
       }
 
@@ -72,17 +72,17 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
           relationships[relInfo.name] = {
             kind: relInfo.type,
             model: relInfo.relatedName,
-            inverse
+            inverse,
           };
         }
       }
 
       models[diName] = {
         keys: {
-          remoteId: {}
+          remoteId: {},
         },
         attributes,
-        relationships
+        relationships,
       };
     }
 
@@ -90,7 +90,7 @@ export default class DefaultSchemaBuilder implements SchemaBuilder {
       models,
       singularize: this.singularize,
       pluralize: this.pluralize,
-      version: version || DefaultSchemaBuilder.version++
+      version: version || DefaultSchemaBuilder.version++,
     });
   }
 }

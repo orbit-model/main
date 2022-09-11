@@ -1,18 +1,21 @@
-import {ModelClass, SetupUpdater, SourceWithBucketBuilderFN} from "@orbit-model/contracts";
-import {Bucket, BucketSettings} from "@orbit/core";
-import {Source, SourceSettings} from "@orbit/data";
+import { ModelClass, SetupUpdater, SourceWithBucketBuilderFN } from "@orbit-model/contracts";
+import { Bucket, BucketSettings } from "@orbit/core";
+import { Source, SourceSettings } from "@orbit/data";
 import RootBranch from "@orbit-model/contracts/dist/RootBranch";
-import {Coordinator} from "@orbit/coordinator";
-
+import { Coordinator } from "@orbit/coordinator";
 
 export default class OrbitModelSetupUpdater implements SetupUpdater {
-
   private readonly localBackupSource: Source;
   private readonly localBackupBucket: Bucket<BucketSettings>;
   private readonly localBackupCoordinator: Coordinator;
   private readonly rootBranch: RootBranch;
 
-  constructor(localBackupSource: Source, localBackupBucket: Bucket<BucketSettings>, localBackupCoordinator: Coordinator, rootBranch: RootBranch) {
+  constructor(
+    localBackupSource: Source,
+    localBackupBucket: Bucket<BucketSettings>,
+    localBackupCoordinator: Coordinator,
+    rootBranch: RootBranch
+  ) {
     this.localBackupSource = localBackupSource;
     this.localBackupBucket = localBackupBucket;
     this.localBackupCoordinator = localBackupCoordinator;
@@ -35,13 +38,14 @@ export default class OrbitModelSetupUpdater implements SetupUpdater {
     return this.rootBranch;
   }
 
-
   model(model: ModelClass): SetupUpdater {
     // todo: implement
     return this;
   }
 
-  remoteSource(sourceBuilder: SourceWithBucketBuilderFN<SourceSettings, Source, BucketSettings, Bucket<BucketSettings>>): SetupUpdater {
+  remoteSource(
+    sourceBuilder: SourceWithBucketBuilderFN<SourceSettings, Source, BucketSettings, Bucket<BucketSettings>>
+  ): SetupUpdater {
     // todo: implement
     return this;
   }
@@ -50,5 +54,4 @@ export default class OrbitModelSetupUpdater implements SetupUpdater {
     // todo: implement
     return this;
   }
-
 }

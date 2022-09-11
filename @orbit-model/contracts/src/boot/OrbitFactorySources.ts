@@ -1,9 +1,9 @@
-import {MemorySource, MemorySourceSettings} from "@orbit/memory";
-import {Bucket, BucketSettings} from "@orbit/core";
+import { MemorySource, MemorySourceSettings } from "@orbit/memory";
+import { Bucket, BucketSettings } from "@orbit/core";
 import OrbitFactoryStrategies from "./OrbitFactoryStrategies";
-import {Source, SourceSettings} from "@orbit/data";
+import { Source, SourceSettings } from "@orbit/data";
 
-export type OrbitKlass<INSTANCE, SETTINGS> = { new(arg?: SETTINGS): INSTANCE };
+export type OrbitKlass<INSTANCE, SETTINGS> = { new (arg?: SETTINGS): INSTANCE };
 
 /**
  * @deprecated

@@ -42,7 +42,7 @@ export default class DefaultModelMetaAccessor implements ModelMetaAccessor {
   setMeta<M extends MetaDataModel>(model: M, meta: OrbitModelMeta): void {
     Object.defineProperty(model, "__orbitModelMeta", {
       enumerable: false,
-      value: meta
+      value: meta,
     });
   }
 }

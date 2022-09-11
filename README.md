@@ -10,13 +10,10 @@ This is the playground for creating a first version of a model based abstraction
 For more details of what we want to create here, please read the related RFCs posted as issues
 on the [orbit.js monorepo](https://github.com/orbitjs/orbit):
 
-
-- [RFC: The Model](https://github.com/orbitjs/orbit/issues/529) (scroll to the end for related RFCs)
-- [more RFCs](https://github.com/orbitjs/orbit/issues?utf8=✓&q=is%3Aissue+label%3ARFC+model+layer)
+-   [RFC: The Model](https://github.com/orbitjs/orbit/issues/529) (scroll to the end for related RFCs)
+-   [more RFCs](https://github.com/orbitjs/orbit/issues?utf8=✓&q=is%3Aissue+label%3ARFC+model+layer)
 
 ## Contributing
-
-
 
 ### project tl;dr
 
@@ -32,7 +29,6 @@ pnpm run lint
 # before committing (optional, will be run within git-hooks)
 pnpm run test
 ```
-
 
 ## License
 

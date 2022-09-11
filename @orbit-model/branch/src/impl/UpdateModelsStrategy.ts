@@ -28,7 +28,7 @@ export default class UpdateModelsStrategy extends ConnectionStrategy {
       source: options.source,
       on: "transform",
       action: (): void => {},
-      catch: options.catch
+      catch: options.catch,
     } as ConnectionStrategyOptions);
     this.branch = branch;
   }

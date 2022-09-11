@@ -1,12 +1,11 @@
-import {MemorySource, MemorySourceSettings} from "@orbit/memory";
-import {Source, SourceSettings} from "@orbit/data";
-import {Bucket, BucketSettings} from "@orbit/core";
+import { MemorySource, MemorySourceSettings } from "@orbit/memory";
+import { Source, SourceSettings } from "@orbit/data";
+import { Bucket, BucketSettings } from "@orbit/core";
 import SetupUpdater from "./SetupUpdater";
-import {SourceFactory} from "./SourceFactory";
-import {BucketFactory} from "./BucketFactory";
+import { SourceFactory } from "./SourceFactory";
+import { BucketFactory } from "./BucketFactory";
 
 export default interface SetupBuilder {
-
   /**
    * Create/Build a new `MemorySource` instance from the package `@orbit/memory`
    */
@@ -33,5 +32,3 @@ export default interface SetupBuilder {
    */
   build(): Promise<SetupUpdater>;
 }
-
-

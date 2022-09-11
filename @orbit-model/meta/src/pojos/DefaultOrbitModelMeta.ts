@@ -18,7 +18,7 @@ export default class DefaultOrbitModelMeta implements OrbitModelMeta {
     this.className = className;
     this.orbitUUID = orbitUUID;
     this.ids = {
-      remoteId
+      remoteId,
     };
     this.values = {};
   }

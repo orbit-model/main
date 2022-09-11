@@ -8,7 +8,7 @@ import {
   ModelClass,
   ModelClassOptions,
   ModelSerializer,
-  RecordSerializer
+  RecordSerializer,
 } from "@orbit-model/contracts";
 
 export default class DefaultAdapter implements Adapter {
@@ -26,7 +26,7 @@ export default class DefaultAdapter implements Adapter {
 
     if (typeof nameOrClass === "string") {
       return this.di.get<M>("models", nameOrClass, {
-        args: [branch, ...args]
+        args: [branch, ...args],
       });
     }
 
@@ -50,7 +50,7 @@ export default class DefaultAdapter implements Adapter {
     let modelClassOptions: ModelClassOptions = {
       branch,
       uuid: recordSerializer.getID(record),
-      ids: {}
+      ids: {},
     };
     let remoteId = recordSerializer.getRemoteId(record);
     if (remoteId) {
@@ -58,7 +58,7 @@ export default class DefaultAdapter implements Adapter {
     }
 
     let model: M = this.di.get<M>("models", recordType, {
-      args: [modelClassOptions, ...args]
+      args: [modelClassOptions, ...args],
     });
 
     // fill the model's attributes with values
@@ -89,7 +89,7 @@ export default class DefaultAdapter implements Adapter {
       );
     }
     let attrOrbitName = reflection.modelInfo.attributes[attribute].name;
-    await meta.branch.getMemorySource().update(t => t.replaceAttribute(recordId, attrOrbitName, value));
+    await meta.branch.getMemorySource().update((t) => t.replaceAttribute(recordId, attrOrbitName, value));
   }
 
   async save<M extends Model>(model: M): Promise<void> {
@@ -115,15 +115,15 @@ export default class DefaultAdapter implements Adapter {
     if (typeof meta.ids.remoteId === "undefined") {
       let tmpRecord = store.cache.getRecordSync(record);
       if (tmpRecord === undefined) {
-        await store.update(t => t.addRecord(record));
+        await store.update((t) => t.addRecord(record));
       } else {
-        await store.update(t => t.updateRecord(record));
+        await store.update((t) => t.updateRecord(record));
       }
     } else {
       record["keys"] = {
-        remoteId: meta.ids.remoteId
+        remoteId: meta.ids.remoteId,
       };
-      await store.update(t => t.updateRecord(record));
+      await store.update((t) => t.updateRecord(record));
     }
   }
 
@@ -138,7 +138,7 @@ export default class DefaultAdapter implements Adapter {
     let store = meta.branch.getMemorySource();
 
     let recordId = modelSerializer.getIdentity(model);
-    await store.update(t => t.removeRecord(recordId));
+    await store.update((t) => t.removeRecord(recordId));
   }
 
   _setOrbitDi(di: Container): void {

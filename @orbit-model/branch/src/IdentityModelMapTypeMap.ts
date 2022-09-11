@@ -68,7 +68,7 @@ export default class IdentityModelMapTypeMap implements Map<RecordIdentity, Mode
   }
 
   clear(): void {
-    this._map.forEach(map => {
+    this._map.forEach((map) => {
       map.clear();
     });
     this._map.clear();
@@ -85,7 +85,7 @@ export default class IdentityModelMapTypeMap implements Map<RecordIdentity, Mode
 
   get size(): number {
     let sum = 0;
-    this._map.forEach(map => {
+    this._map.forEach((map) => {
       sum += map.size;
     });
     return sum;

@@ -7,7 +7,7 @@ export default function createFacadeFor<T>(namespace: string, name: string): T {
       get(target: {}, p: string | number | symbol): any {
         let instance: any = DI.get<T>(namespace, name);
         return instance[p];
-      }
+      },
     }
   ) as T;
 }

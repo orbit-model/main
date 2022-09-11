@@ -171,7 +171,7 @@ export default class DefaultContainer implements MigratableContainer {
             other.registerInstantiatedSingleton(namespace, name, entry.getClass(), entry.get());
           } else {
             other.register(namespace, name, entry.getClass(), {
-              singleton: true
+              singleton: true,
             });
           }
         } else if (entry instanceof ContainedObject) {

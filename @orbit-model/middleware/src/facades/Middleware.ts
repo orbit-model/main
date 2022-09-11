@@ -13,6 +13,6 @@ export const Middleware = new Proxy(
       }
       let relationshipAdapter: any = DI.get("system", "RelationshipAdapter");
       return relationshipAdapter[p];
-    }
+    },
   }
 ) as MiddlewareInterface;

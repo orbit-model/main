@@ -1,6 +1,6 @@
 import BranchQuery from "./BranchQuery";
 import QueryBuilderZero from "./QueryBuilderZero";
-import {MemorySource} from "@orbit/memory";
+import { MemorySource } from "@orbit/memory";
 import Model from "./Model";
 
 export default interface Branch {

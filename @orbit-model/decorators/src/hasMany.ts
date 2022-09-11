@@ -4,7 +4,7 @@ import {
   DefaultModelInfo,
   DefaultOrbitModelReflection,
   DefaultRelationInfo,
-  ModelMetaAccessor
+  ModelMetaAccessor,
 } from "@orbit-model/meta";
 // this is a plain JS lib without TS support
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore

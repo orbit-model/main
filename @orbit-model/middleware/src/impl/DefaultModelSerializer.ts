@@ -34,7 +34,7 @@ export default class DefaultModelSerializer implements ModelSerializer {
     }
     return {
       id: meta.orbitUUID,
-      type
+      type,
     };
   }
 

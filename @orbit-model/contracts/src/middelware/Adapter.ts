@@ -1,7 +1,7 @@
 import Branch from "../Branch";
 import Model from "../Model";
-import {InitializedRecord} from "@orbit/records";
-import {Injectable} from "@orbit-model/di";
+import { InitializedRecord } from "@orbit/records";
+import { Injectable } from "@orbit-model/di";
 import ModelClass from "../ModelClass";
 
 export default interface Adapter extends Injectable {

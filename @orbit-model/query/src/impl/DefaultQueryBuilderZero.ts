@@ -15,12 +15,12 @@ export default class DefaultQueryBuilderZero implements QueryBuilderZero {
     this.di = di;
   }
 
-  select<M extends Model>(klass: { new (): M } | string | any): QueryBuilder<M> {
-    let diName;
+  select<M extends Model>(klass: { new (): M } | string): QueryBuilder<M> {
+    let diName: string;
     if (typeof klass === "string") {
       diName = klass;
     } else {
-      diName = classToDiName(klass);
+      diName = classToDiName<M>(klass);
     }
     if (this.branch === null) {
       throw new Error("Please call DefaultQueryBuilderZero.setBranch() before using select()");

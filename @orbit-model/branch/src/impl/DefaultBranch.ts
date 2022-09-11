@@ -11,7 +11,7 @@ import UpdateModelsStrategy from "./UpdateModelsStrategy";
 
 enum BranchState {
   ACTIVE,
-  DESTROYED
+  DESTROYED,
 }
 
 export default class DefaultBranch implements Branch {
@@ -27,11 +27,11 @@ export default class DefaultBranch implements Branch {
     this.parent = parent;
     this.parentMemorySource = parentMemorySource;
     this.memorySource = this.parentMemorySource.fork({
-      name: `branch-${uuid()}`
+      name: `branch-${uuid()}`,
     });
     this.branchState = BranchState.ACTIVE;
     this.coordinator = new Coordinator({
-      sources: [this.memorySource, this.parentMemorySource]
+      sources: [this.memorySource, this.parentMemorySource],
     });
 
     this.setupCoordinator();
@@ -52,7 +52,7 @@ export default class DefaultBranch implements Branch {
         },
         afterListenerResult(): void {
           (this.source as Memory).rebase();
-        }
+        },
       })
     );
     // enable auto syncing data
@@ -64,7 +64,7 @@ export default class DefaultBranch implements Branch {
         action: "rebase",
         catch(...args: any[]): void {
           console.error("error while running BaseStrategy for synchronizing: ", ...args);
-        }
+        },
       })
     );
     // enable auto updating models
@@ -74,7 +74,7 @@ export default class DefaultBranch implements Branch {
         source: this.parentMemorySource.name || `branch-${uuid()}`, // todo: remove fallback // todo: remove workaround
         catch(...args: any[]): void {
           console.error("error while running UpdateModelsStrategy for synchronizing: ", ...args);
-        }
+        },
       })
     );
   }

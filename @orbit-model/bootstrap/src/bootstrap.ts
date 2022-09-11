@@ -4,7 +4,7 @@ import {
   DefaultAdapter,
   DefaultModelSerializer,
   DefaultRecordSerializer,
-  DefaultRelationshipAdapter
+  DefaultRelationshipAdapter,
 } from "@orbit-model/middleware";
 import { DefaultModelMetaAccessor } from "@orbit-model/meta";
 import { DefaultSchemaBuilder } from "@orbit-model/model";

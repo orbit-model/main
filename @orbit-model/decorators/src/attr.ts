@@ -4,7 +4,7 @@ import {
   ModelMetaAccessor,
   DefaultOrbitModelReflection,
   DefaultModelInfo,
-  DefaultAttributeInfo
+  DefaultAttributeInfo,
 } from "@orbit-model/meta";
 import "reflect-metadata";
 import { DI } from "@orbit-model/di";
@@ -62,7 +62,7 @@ export default function attrGenerator(options: AttrOptions = {}) {
         let adapter = DI.get<Adapter>("system", "Adapter");
         let meta = ModelMetaAccessor.getMeta(this);
         meta.branch._chain(adapter.setAttrValue(this, key, v));
-      }
+      },
     });
   };
 }

@@ -80,7 +80,7 @@ export default function ModelMixin(base: { new (...args: any[]): any } = Base): 
     public toJSON(): Json {
       let json: Json = {
         type: this.type,
-        id: this.id
+        id: this.id,
       };
       if (typeof super["toJSON"] === "function") {
         json["__super"] = super.toJSON();

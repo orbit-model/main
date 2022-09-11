@@ -13,7 +13,7 @@ export class Serializer implements IdentitySerializer<RecordIdentity> {
   deserialize(identifier: string): RecordIdentity {
     return {
       id: identifier,
-      type: this.type
+      type: this.type,
     };
   }
 
@@ -28,7 +28,7 @@ export default class IdentityModelMap<MODEL extends Model> extends IdentityMap<R
 
   constructor(type: string) {
     super({
-      serializer: new Serializer(type)
+      serializer: new Serializer(type),
     });
     this._type = type;
   }
@@ -40,7 +40,7 @@ export default class IdentityModelMap<MODEL extends Model> extends IdentityMap<R
   toArray(): [RecordIdentity, MODEL][] {
     return Array.from(this._map).map(([identifier, record]): [RecordIdentity, MODEL] => [
       this._serializer.deserialize(identifier),
-      record
+      record,
     ]);
   }
 }

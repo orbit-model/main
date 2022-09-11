@@ -1,5 +1,5 @@
 import ModelSerializer from "@orbit-model/contracts/dist/middelware/ModelSerializer";
-import {InitializedRecord, RecordIdentity} from "@orbit/records";
+import { InitializedRecord, RecordIdentity } from "@orbit/records";
 import Memory from "@orbit/memory";
 import { dasherize } from "@orbit/utils";
 import { Container } from "@orbit-model/di";
@@ -51,7 +51,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    let record = await memorySource.query(q => q.findRelatedRecord(recordIdentity, relationship));
+    let record = await memorySource.query((q) => q.findRelatedRecord(recordIdentity, relationship));
 
     let adapter = this.getAdapter();
     let branch = this.getMeta(model).branch;
@@ -63,7 +63,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    return memorySource.update(t =>
+    return memorySource.update((t) =>
       t.replaceRelatedRecord(modelSerializer.getIdentity(model), relName, modelSerializer.getIdentity(value))
     ) as Promise<void>;
   }
@@ -74,11 +74,13 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let memorySource: Memory = this.getMemorySource(model);
     let modelSerializer = this.getModelSerializer();
     let recordIdentity = modelSerializer.getIdentity(model);
-    let records: InitializedRecord[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relationship));
+    let records: InitializedRecord[] = await memorySource.query((q) =>
+      q.findRelatedRecords(recordIdentity, relationship)
+    );
 
     let adapter = this.getAdapter();
     let branch = this.getMeta(model).branch;
-    return records.map(record => adapter.createFromRecord<R>(record, branch));
+    return records.map((record) => adapter.createFromRecord<R>(record, branch));
   }
 
   addRelatedModel<T extends Model, R extends Model>(model: T, value: R, relationship?: string): Promise<void> {
@@ -86,7 +88,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    return memorySource.update(t =>
+    return memorySource.update((t) =>
       t.addToRelatedRecords(modelSerializer.getIdentity(model), relName, modelSerializer.getIdentity(value))
     ) as Promise<void>;
   }
@@ -96,7 +98,7 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value);
 
-    return memorySource.update(t =>
+    return memorySource.update((t) =>
       t.removeFromRelatedRecords(modelSerializer.getIdentity(model), relName, modelSerializer.getIdentity(value))
     ) as Promise<void>;
   }
@@ -106,11 +108,11 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let modelSerializer = this.getModelSerializer();
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value[0]);
 
-    return memorySource.update(t =>
+    return memorySource.update((t) =>
       t.replaceRelatedRecords(
         modelSerializer.getIdentity(model),
         relName,
-        value.map(val => modelSerializer.getIdentity(val))
+        value.map((val) => modelSerializer.getIdentity(val))
       )
     ) as Promise<void>;
   }
@@ -126,23 +128,23 @@ export default class DefaultRelationshipAdapter implements RelationshipAdapter {
     let recordIdentity = modelSerializer.getIdentity(model);
     let relName = relationship || DefaultRelationshipAdapter.getNameFromType(value[0]);
 
-    let current: RecordIdentity[] = await memorySource.query(q => q.findRelatedRecords(recordIdentity, relName));
+    let current: RecordIdentity[] = await memorySource.query((q) => q.findRelatedRecords(recordIdentity, relName));
 
-    let valueIds: RecordIdentity[] = value.map(related => modelSerializer.getIdentity(related));
+    let valueIds: RecordIdentity[] = value.map((related) => modelSerializer.getIdentity(related));
 
     // add all models not in relationship
     await Promise.all(
-      valueIds.map(async val => {
-        if (current.find(curr => curr.id == val.id) === undefined) {
-          await memorySource.update(t => t.addToRelatedRecords(recordIdentity, relName, val));
+      valueIds.map(async (val) => {
+        if (current.find((curr) => curr.id == val.id) === undefined) {
+          await memorySource.update((t) => t.addToRelatedRecords(recordIdentity, relName, val));
         }
       })
     );
     // remove models from relationship not in given model array
     await Promise.all(
-      current.map(async curr => {
-        if (valueIds.find(val => curr.id == val.id) === undefined) {
-          await memorySource.update(t => t.removeFromRelatedRecords(recordIdentity, relName, curr));
+      current.map(async (curr) => {
+        if (valueIds.find((val) => curr.id == val.id) === undefined) {
+          await memorySource.update((t) => t.removeFromRelatedRecords(recordIdentity, relName, curr));
         }
       })
     );

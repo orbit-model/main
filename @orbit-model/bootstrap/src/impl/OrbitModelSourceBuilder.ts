@@ -1,8 +1,9 @@
-import {OrbitKlass, SourceBuilder} from "@orbit-model/contracts";
-import {Source, SourceSettings} from "@orbit/data";
+import { OrbitKlass, SourceBuilder } from "@orbit-model/contracts";
+import { Source, SourceSettings } from "@orbit/data";
 
-export default class OrbitModelSourceBuilder<SOURCE_SETTINGS extends SourceSettings, SOURCE extends Source> implements SourceBuilder<SOURCE_SETTINGS, SOURCE> {
-
+export default class OrbitModelSourceBuilder<SOURCE_SETTINGS extends SourceSettings, SOURCE extends Source>
+  implements SourceBuilder<SOURCE_SETTINGS, SOURCE>
+{
   private _klass?: OrbitKlass<any, any>;
   private _name?: string;
 
@@ -14,14 +15,15 @@ export default class OrbitModelSourceBuilder<SOURCE_SETTINGS extends SourceSetti
     return this._name;
   }
 
-  klass<SS extends SOURCE_SETTINGS, S extends SOURCE>(klass: OrbitKlass<S, SS>): OrbitModelSourceBuilder<SOURCE_SETTINGS, SOURCE> {
+  klass<SS extends SOURCE_SETTINGS, S extends SOURCE>(
+    klass: OrbitKlass<S, SS>
+  ): OrbitModelSourceBuilder<SOURCE_SETTINGS, SOURCE> {
     this._klass = klass;
     return this;
   }
 
   name(name: string): OrbitModelSourceBuilder<SOURCE_SETTINGS, SOURCE> {
-    this._name = name
+    this._name = name;
     return this;
   }
-
 }

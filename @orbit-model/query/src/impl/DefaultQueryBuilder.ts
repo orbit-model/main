@@ -9,11 +9,11 @@ import {
   SortOrder,
   SortSpecifier,
   ValueComparisonOperator,
-  InitializedRecord
+  InitializedRecord,
 } from "@orbit/records";
-import {Adapter, Branch, Model, QueryBuilder} from "@orbit-model/contracts";
-import {Container} from "@orbit-model/di";
-import {ModelMetaAccessor} from "@orbit-model/meta";
+import { Adapter, Branch, Model, QueryBuilder } from "@orbit-model/contracts";
+import { Container } from "@orbit-model/di";
+import { ModelMetaAccessor } from "@orbit-model/meta";
 
 export default class DefaultQueryBuilder<M extends Model> implements QueryBuilder<M> {
   private readonly branch: Branch;
@@ -33,12 +33,12 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   async find(id: string): Promise<M | null> {
     let rId: RecordIdentity = {
       type: this.modelDiName,
-      id: this.getIdForKey(this.modelDiName, id)
+      id: this.getIdForKey(this.modelDiName, id),
     };
     let record = await this.branch.getMemorySource().query((q: any) => q.findRecord(rId));
 
     if (record == null) {
-      return null
+      return null;
     }
     let adapter = this.di.get<Adapter>("system", "Adapter");
     return adapter.createFromRecord<M>(record as InitializedRecord, this.branch);
@@ -49,7 +49,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
       this.queryPage = {
         kind: "offsetLimit",
         offset: 0,
-        limit: 1
+        limit: 1,
       };
     }
 
@@ -66,11 +66,11 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
       type: this.modelDiName,
       sort: this.querySort,
       filter: this.queryFilter,
-      page: this.queryPage
+      page: this.queryPage,
     } as FindRecords);
 
     let adapter = this.di.get<Adapter>("system", "Adapter");
-    return records.map(record => adapter.createFromRecord(record, this.branch));
+    return records.map((record) => adapter.createFromRecord(record, this.branch));
   }
 
   private getKeyMap(): RecordKeyMap {
@@ -91,8 +91,8 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
         type,
         id,
         keys: {
-          remoteId
-        }
+          remoteId,
+        },
       });
     }
     return id;
@@ -114,7 +114,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
     }
     return {
       type: meta.className,
-      id
+      id,
     };
   }
 
@@ -132,7 +132,7 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
       kind: "attribute",
       op,
       attribute,
-      value
+      value,
     });
     return this;
   }
@@ -144,24 +144,24 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
   filterRelatedModel<R extends Model>(op: SetComparisonOperator, model: R | R[]): QueryBuilder<M> {
     let record: RecordIdentity | RecordIdentity[];
     if (Array.isArray(model)) {
-      record = model.map(related => this.modelToRecordID(related));
+      record = model.map((related) => this.modelToRecordID(related));
     } else {
       record = this.modelToRecordID(model);
     }
     this.pushFilter({
       kind: "relatedRecord",
       op,
-      record
+      record,
     });
     return this;
   }
 
   filterRelatedModels<R extends Model>(op: SetComparisonOperator, models: R[]): QueryBuilder<M> {
-    let records = models.map(related => this.modelToRecordID(related));
+    let records = models.map((related) => this.modelToRecordID(related));
     this.pushFilter({
       kind: "relatedRecord",
       op,
-      records
+      records,
     });
     return this;
   }
@@ -181,11 +181,11 @@ export default class DefaultQueryBuilder<M extends Model> implements QueryBuilde
       this.querySort = [];
     }
     this.querySort.concat(
-      attrs.map(attr => {
+      attrs.map((attr) => {
         return {
           kind: "attribute",
           attribute: attr,
-          order: order
+          order: order,
         } as AttributeSortSpecifier;
       })
     );

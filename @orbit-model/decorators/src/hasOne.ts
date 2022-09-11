@@ -4,7 +4,7 @@ import {
   DefaultModelInfo,
   DefaultOrbitModelReflection,
   DefaultRelationInfo,
-  ModelMetaAccessor
+  ModelMetaAccessor,
 } from "@orbit-model/meta";
 import HasOne from "./contracts/HasOne";
 
