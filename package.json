@@ -21,15 +21,16 @@
     "build:demo": "glob-exec --foreach \"demo/*/tsconfig.json\" -- \"rimraf ./{{file.dir}}/dist && tsc --build ./{{file.dir}}\"",
     "build:demo:watch": "glob-exec \"demo/*/tsconfig.json\" -- \"tsc --build {{(function() { const Path = require('path'); return files.map(f => './'+Path.dirname(f) ).join(' '); })()}} --watch\"",
     "eslint": "eslint \"@orbit-model/*/src/**/*.ts\" ",
-    "postinstall": "husky install",
     "prettier": "prettier --list-different --write \"@orbit-model/*/src/**/*.ts\" \"@orbit-model/*/tests/**/*.ts\" \"**/*.md\"",
     "prettier:check": "prettier --check \"@orbit-model/*/src/**/*.ts\" \"@orbit-model/*/tests/**/*.ts\" \"**/*.md\"",
-    "pre-push": "pnpm run build && pnpm run test && cd demo/node-typescript/dist && node ./index.js",
+    "pre-push": "run-s build test unit test:integration",
     "publish:release": "pnpm run build && lerna version --no-push && lerna publish from-git --dist-tag latest --no-git-reset",
     "publish:beta": "pnpm run build && lerna version --preid=beta --no-push && lerna publish from-git --preid=beta --dist-tag beta --no-git-reset",
     "publish:canary": "pnpm run build && lerna publish --canary --preid=alpha --dist-tag canary --no-git-reset",
-    "test": "run-s eslint prettier:check unit",
-    "unit": "pnpm --recursive --filter=\"@orbit-model/di\" exec mocha -r ts-node/register \"tests/**/*.spec.ts\""
+    "test": "run-s eslint prettier:check",
+    "test:integration": "cd demo/node-typescript/dist && node ./index.js",
+    "unit": "pnpm --recursive --filter=\"@orbit-model/di\" exec mocha -r ts-node/register \"tests/**/*.spec.ts\"",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
