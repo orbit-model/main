@@ -4,6 +4,9 @@ import { Source } from "@orbit/data";
 import OrbitSystem from "./OrbitSystem";
 import { Strategy, StrategyOptions } from "@orbit/coordinator";
 
+/**
+ * @deprecated
+ */
 export default interface OrbitFactoryStrategies {
   getBucket(): Bucket;
 

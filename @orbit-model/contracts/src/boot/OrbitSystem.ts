@@ -3,6 +3,9 @@ import {Bucket} from "@orbit/core";
 import {Source} from "@orbit/data";
 import Coordinator from "@orbit/coordinator";
 
+/**
+ * @deprecated
+ */
 export default interface OrbitSystem {
   getMemorySource(): MemorySource;
 

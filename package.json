@@ -15,14 +15,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "pnpm --recursive --filter=@orbit-model/di exec tsc",
-    "build:checked": "pnpm run install:check && pnpm run build",
-    "build:watch": "pnpm --recursive --parallel --stream exec tsc -w",
-    "eslint": "pnpm --recursive exec eslint --config ../../.eslintrc.js \"src/**/*.ts\" ",
-    "lint": "run-s eslint prettier",
-    "postinstall": "husky install && pnpm multi install --filter=!root",
-    "prettier": "pnpm --recursive --parallel exec prettier --config ../../.prettierrc.yml --list-different --write \"src/**/*.ts\" \"tests/**/*.ts\" \"**/*.md\"",
-    "prettier:check": "pnpm --recursive --parallel exec prettier --config ../../.prettierrc.yml --check \"src/**/*.ts\" \"tests/**/*.ts\" \"**/*.md\"",
+    "build": "glob-exec --foreach \"@orbit-model/*/tsconfig.json\" -- \"rimraf ./{{file.dir}}/dist && tsc --build ./{{file.dir}}\"",
+    "build:watch": "glob-exec \"@orbit-model/*/tsconfig.json\" -- \"tsc --build {{(function() { const Path = require('path'); return files.map(f => './'+Path.dirname(f) ).join(' '); })()}} --watch\"",
+    "eslint": "pnpm -w exec eslint \"@orbit-model/*/src/**/*.ts\" ",
+    "postinstall": "husky install",
+    "prettier": "pnpm -w exec prettier --list-different --write \"@orbit-model/*/src/**/*.ts\" \"@orbit-model/*/tests/**/*.ts\" \"**/*.md\"",
+    "prettier:check": "pnpm -w exec prettier --check \"@orbit-model/*/src/**/*.ts\" \"@orbit-model/*/tests/**/*.ts\" \"**/*.md\"",
     "pre-push": "pnpm run build && pnpm run test && cd demo/node-typescript/dist && node ./index.js",
     "publish:release": "pnpm run build:checked && lerna version --no-push && lerna publish from-git --dist-tag latest --no-git-reset",
     "publish:beta": "pnpm run build:checked && lerna version --preid=beta --no-push && lerna publish from-git --preid=beta --dist-tag beta --no-git-reset",
@@ -47,12 +45,13 @@
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.3",
+    "glob-exec": "^0.1.1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run test",
-      "pre-push": "yarn run pre-push"
+      "pre-commit": "pnpm run test",
+      "pre-push": "pnpm run pre-push"
     }
   }
 }

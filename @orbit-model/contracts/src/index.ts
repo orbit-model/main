@@ -17,10 +17,10 @@ export {default as OrbitFactoryStrategies} from "./boot/OrbitFactoryStrategies";
 export {default as OrbitSystem} from "./boot/OrbitSystem";
 
 export {default as BucketBuilder, BucketBuilderFN} from "./boot/BucketBuilder";
-export {default as SourceBuilder, SourceBuilderFN} from "./boot/SourceBuilder";
+export {SourceFactory} from "../../bootstrap/src/SourceFactory";
 export {default as SetupBuilder} from "./boot/SetupBuilder";
-export {default as SetupUpdater} from "./boot/SetupUpdater";
-export {default as SourceWithBucketBuilder, SourceWithBucketBuilderFN} from './boot/SourceWithBucketBuilder';
+export {default as SetupUpdater} from "../../bootstrap/src/SetupUpdater";
+export {BucketFactory} from '../../bootstrap/src/BucketFactory';
 
 export {default as Adapter} from "./middelware/Adapter";
 export {default as ModelSerializer} from "./middelware/ModelSerializer";

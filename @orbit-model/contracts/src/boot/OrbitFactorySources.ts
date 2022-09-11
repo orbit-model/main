@@ -5,6 +5,9 @@ import {Source, SourceSettings} from "@orbit/data";
 
 export type OrbitKlass<INSTANCE, SETTINGS> = { new(arg?: SETTINGS): INSTANCE };
 
+/**
+ * @deprecated
+ */
 export default interface OrbitFactorySources {
   setBucket<BUCKET extends Bucket, SETTINGS extends BucketSettings>(
     klass: OrbitKlass<BUCKET, SETTINGS>,
